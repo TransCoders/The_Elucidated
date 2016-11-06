@@ -1,4 +1,4 @@
-package gr.edu.serres.mapsapi.Objects;
+package gr.edu.serres.TrancCoder_TheElucitated.Objects;
 
 /**
  * Created by James Nikolaidis on 11/6/2016.

@@ -1,4 +1,4 @@
-package gr.edu.serres.mapsapi;
+package gr.edu.serres.TrancCoder_TheElucitated;
 
 import org.junit.Test;
 
