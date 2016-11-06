@@ -1,4 +1,4 @@
-package gr.edu.serres.mapsapi;
+package gr.edu.serres.TrancCoder_TheElucitated;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
