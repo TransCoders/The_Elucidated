@@ -72,6 +72,14 @@
             android:textAlignment="center"
             android:labelFor="@+id/editText"/>
 
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,9 +87,9 @@
             android:ems="10"
             android:id="@+id/editText2"
             android:textAlignment="center"
+            android:contentDescription="@string/Email"
             android:layout_below="@+id/textView3"
-            android:layout_alignStart="@+id/editText"
-            android:contentDescription="@string/Email" />
+            android:layout_alignStart="@+id/editText" />
 
         <TextView
             android:text="@string/Email"
@@ -91,9 +99,9 @@
             android:id="@+id/textView3"
             android:textStyle="normal|bold"
             android:textAlignment="center"
+            android:labelFor="@+id/editText2"
             android:layout_below="@+id/editText"
-            android:layout_centerHorizontal="true"
-            android:labelFor="@+id/editText2"/>
+            android:layout_alignStart="@+id/textView2" />
 
         <TextView
             android:text="@string/Territory"
@@ -103,16 +111,10 @@
             android:textSize="24sp"
             android:textStyle="normal|bold"
             android:textAlignment="center"
+            android:labelFor="@+id/spinner"
             android:layout_below="@+id/editText2"
             android:layout_centerHorizontal="true"
-            android:labelFor="@+id/spinner"/>
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:layout_below="@+id/textView4"
-            android:layout_alignStart="@+id/textView4" />
+            android:layout_marginTop="10dp" />
 
 
     </RelativeLayout>
