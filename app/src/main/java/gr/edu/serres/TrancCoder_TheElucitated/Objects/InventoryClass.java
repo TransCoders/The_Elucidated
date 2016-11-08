@@ -20,7 +20,16 @@ public class InventoryClass {
     }
     private void fillArray(){
         ItemArray.add("Magnifying glass");
-        ItemArray.add("Mpouzouki");
+        ItemArray.add("Quest Map");
+        ItemArray.add("Lens");
+        ItemArray.add("Handcuffs");
+        ItemArray.add("Binoculars");
+        ItemArray.add("Glasses");
+        ItemArray.add("Mobile phone");
+        ItemArray.add("Hat");
+        ItemArray.add("Camera");
+
+
 
 
     }
