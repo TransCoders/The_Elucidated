@@ -6,6 +6,7 @@ import com.firebase.client.Firebase;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
@@ -45,7 +46,7 @@ public class Database_Functions {
         mUsers.push().setValue(user);
     }
 
-    public void SetInventory(Inventory inventory){
+    public void SetInventory(InventoryClass inventory){
         mInventory.push().setValue(inventory);
     }
 
