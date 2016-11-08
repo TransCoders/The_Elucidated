@@ -1,16 +1,20 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Objects;
 
+import android.text.Editable;
+
 /**
  * Created by James Nikolaidis on 11/6/2016.
  */
 
 public class UsersObject {
-    public String name,lastname,location;
+    public String name,location,Experience,email;
 
     public UsersObject(String ...values){
         this.name = values[0];
-        this.lastname = values[1];
-        this.location = values[2];
+        this.location = values[1];
+        this.Experience = values[2];
+        this.email = values[3];
     }
+
 
 }
