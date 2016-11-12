@@ -1,6 +1,5 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,14 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
@@ -29,7 +25,7 @@ public class DataScreenActivity extends AppCompatActivity {
 
 
     private Button continueButton;
-    private EditText mName,mEmail;
+    private EditText mName, mEmail;
     private InventoryClass inventoryClass;
     private String Location;
     private Database_Functions database;
@@ -40,9 +36,9 @@ public class DataScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.data_screen_activity);
-        database=Database_Functions.getInstance(getApplicationContext());
-        mName = (EditText)findViewById(R.id.Name_Edit_Text);
-        mEmail = (EditText)findViewById(R.id.Email_EditText);
+        database = Database_Functions.getInstance(getApplicationContext());
+        mName = (EditText) findViewById(R.id.Name_Edit_Text);
+        mEmail = (EditText) findViewById(R.id.Email_EditText);
 
         // Get a reference to the AutoCompleteTextView in the layout
         AdapterView spinner = (AdapterView) findViewById(R.id.spinner);
@@ -73,7 +69,7 @@ public class DataScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                database.SetUserInformation(new UsersObject(mName.getText().toString(),Location,"0",mEmail.getText().toString()));
+                database.SetUserInformation(new UsersObject(mName.getText().toString(), Location, "0", mEmail.getText().toString()));
                 database.SetInventory(new InventoryClass(mEmail.getText().toString()));
                 Intent myIntent = new Intent(DataScreenActivity.this, MapsActivity.class);
                 DataScreenActivity.this.startActivity(myIntent);

@@ -1,8 +1,7 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * Created by tasos on 8/11/2016.
@@ -25,7 +22,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView homeTextView;
-    private Button newGameButton,loadGameButton,firstStepsButton;
+    private Button newGameButton, loadGameButton, firstStepsButton;
 
 
     @Override
