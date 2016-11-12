@@ -4,8 +4,9 @@
     <string name="TransCoders_Organization">TransCoders Organization</string>
     <string name="Δημήτρης_Νικολαΐδης">Δημήτρης Νικολαΐδης</string>
     <string name="Τιλσίζογλου_Αναστάσιος">Τιλσίζογλου Αναστάσιος</string>
-    <string name="Δαμιανός">Δαμιανός</string>
-    <string name="Αναστάσιος">Αναστάσιος</string>
+    <string name="Δαμιανός_Ανκιντίν">Δαμιανός Ανκιντίν</string>
+    <string name="Αναστάσιος_Γυμνόπουλος">Αναστάσιος Γυμνόπουλος</string>
+    <string name="Γιάννης_Δημητριάδης">Γιάννης Δημητριάδης</string>
     <string name="Αλέξανδρος_Χατζής">Αλέξανδρος Χατζής</string>
     <string name="Μαγδαληνή_Κόιου">Μαγδαληνή Κόιου</string>
     <string name="New_Game">New Game</string>
@@ -72,9 +73,18 @@
     </string-array>
     <string-array name="Crime_Scene">
         <item>Τι στοιχεία έχουμε στα χέρια μας;</item>
-        <item>Το μόνο που βρήκαμε είναι μία σφαίρα, σημάδι ότι ο φόνος έγινε με πιστόλι και ένα
+        <item>Τα μόνα στοιχεία που βρέθηκαν είναι το κινητό τηλέφωνο του θύματος,
+              μία σφαίρα, σημάδι ότι ο φόνος έγινε με πιστόλι και ένα
               τραπουλόχαρτο με μία ανδρική φιγούρα που στην καρδιά είχε μία τρύπα σαν
               κάψιμο από τσιγάρο!</item>
+    </string-array>
+    <string-array name="Crime_Scene_chooser">
+        <item>Να πάρω την σφαίρα;</item>
+        <item>Να αφήσω την σφαίρα στον αστυνόμο;</item>
+        <item>Να πάρω το τραπουλόχαρτο;</item>
+        <item>Να αφήσω το τραπουλόχαρτο στον αστυνόμο;</item>
+        <item>Να πάρω το κινητό;</item>
+        <item>Να αφήσω το κινητό στον αστυνόμο;</item>
     </string-array>
     <string-array name="Victims_bar">
         <item>Τι ώρα έφυγες από το μαγαζί;</item>
@@ -96,6 +106,20 @@
         <item>Μπορώ να δω αυτόν τον φάκελο, παρακαλώ;</item>
         <item>Είναι μέσα στο γραφείο, έχει πάνω τα αρχικά Ν.Β.</item>
         <item>Σας ευχαριστώ κυρία μου για τον χρόνο σας.</item>
+    </string-array>
+    <string-array name="Victims_home_chooser">
+        <item>Να πάρω το φάκελο;</item>
+        <item>Να αφήσω τον φάκελο;</item>
+        <item>Να ψάξω το γραφείο;</item>
+    </string-array>
+    <string-array name="desk_items">
+        <item>Σημείωμα</item>
+        <item>Λογιστικά βιβλία</item>
+    </string-array>
+    <string-array name="desk_items_chooser">
+        <item>Να πάρω το σημείωμα;</item>
+        <item>Να διαβάσω το σημείωμα και να το αφήσω;</item>
+        <item>Να πάρω τα Λογιστικά βιβλία για περαιτέρω διερεύνηση;</item>
     </string-array>
     <string-array name="Accountant">
         <item>Είστε ο τελευταίος άνθρωπος που ήρθε σε επαφή με το θύμα. Σας είχε πει

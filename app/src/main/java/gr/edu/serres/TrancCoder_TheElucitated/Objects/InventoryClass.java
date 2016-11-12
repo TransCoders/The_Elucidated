@@ -8,17 +8,16 @@ import java.util.ArrayList;
 
 public class InventoryClass {
 
-    public ArrayList<String > ItemArray ;
+    public ArrayList<String> ItemArray;
     public String UserEmail;
 
-
-
-    public InventoryClass(String UserMail){
+    public InventoryClass(String UserMail) {
         ItemArray = new ArrayList<>();
         this.UserEmail = UserMail;
         fillArray();
     }
-    private void fillArray(){
+
+    private void fillArray() {
         ItemArray.add("Magnifying glass");
         ItemArray.add("Quest Map");
         ItemArray.add("Lens");
@@ -28,9 +27,5 @@ public class InventoryClass {
         ItemArray.add("Mobile phone");
         ItemArray.add("Hat");
         ItemArray.add("Camera");
-
-
-
-
     }
 }
