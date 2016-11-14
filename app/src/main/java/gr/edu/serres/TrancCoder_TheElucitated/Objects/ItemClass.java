@@ -26,11 +26,13 @@ public class ItemClass {
             perioxi = values[3];
         }
 
+
     }
 
     public void setValues(Context context) {
 
         itemClass = new ItemClass(context, "Magnifying glass", "40.323232", "42342323422323", "fsdfsfsdfsf");
+
 
     }
 }

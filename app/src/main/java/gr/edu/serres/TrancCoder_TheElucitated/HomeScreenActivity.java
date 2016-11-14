@@ -23,7 +23,6 @@ public class HomeScreenActivity extends AppCompatActivity {
     private TextView homeTextView;
     private Button newGameButton, loadGameButton, firstStepsButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,25 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+        loadGameButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent(HomeScreenActivity.this, DialogsActivity.class);
+                HomeScreenActivity.this.startActivity(myIntent);
+            }
+        });
+
+        firstStepsButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent(HomeScreenActivity.this, ListViewActivity.class);
+                HomeScreenActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     /**

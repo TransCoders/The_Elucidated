@@ -11,6 +11,7 @@ public class InventoryClass {
     public ArrayList<String> ItemArray;
     public String UserEmail;
 
+
     public InventoryClass(String UserMail) {
         ItemArray = new ArrayList<>();
         this.UserEmail = UserMail;
@@ -27,5 +28,7 @@ public class InventoryClass {
         ItemArray.add("Mobile phone");
         ItemArray.add("Hat");
         ItemArray.add("Camera");
+
+
     }
 }
