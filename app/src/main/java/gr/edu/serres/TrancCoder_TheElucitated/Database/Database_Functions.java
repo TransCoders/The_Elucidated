@@ -15,25 +15,25 @@ import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 public class Database_Functions {
 
-    private Firebase mRoot,mUsers,mInventory,mItemLocation;
+    private static Database_Functions InstanceObject;
+    private Firebase mRoot, mUsers, mInventory, mItemLocation;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
-    private static Database_Functions InstanceObject;
 
 
     private Database_Functions(Context context) {
 
         Firebase.setAndroidContext(context);
         mRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/");
-        mUsers= new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
+        mUsers = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
         mInventory = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory");
         mItemLocation = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location");
 
     }
 
 
-    public static Database_Functions getInstance(Context context){
-        if(InstanceObject==null){
+    public static Database_Functions getInstance(Context context) {
+        if (InstanceObject == null) {
             InstanceObject = new Database_Functions(context);
             return InstanceObject;
         }
@@ -41,18 +41,14 @@ public class Database_Functions {
     }
 
 
-    public void SetUserInformation(UsersObject user){
-        String name,email,lastname,location;
+    public void SetUserInformation(UsersObject user) {
+        String name, email, lastname, location;
         mUsers.push().setValue(user);
     }
 
-    public void SetInventory(InventoryClass inventory){
+    public void SetInventory(InventoryClass inventory) {
         mInventory.push().setValue(inventory);
     }
-
-
-
-
 
 
 }
