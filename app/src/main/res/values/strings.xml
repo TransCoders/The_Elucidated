@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">The Elucidated</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="TransCoders_Organization">TransCoders Organization</string>
+    <string name="Δημήτρης_Νικολαΐδης">Δημήτρης Νικολαΐδης</string>
+    <string name="Τιλσίζογλου_Αναστάσιος">Τιλσίζογλου Αναστάσιος</string>
+    <string name="Δαμιανός">Δαμιανός</string>
+    <string name="Αναστάσιος">Αναστάσιος</string>
+    <string name="Αλέξανδρος_Χατζής">Αλέξανδρος Χατζής</string>
+    <string name="Μαγδαληνή_Κόιου">Μαγδαληνή Κόιου</string>
+    <string name="New_Game">New Game</string>
+    <string name="Load_Game">Load Game</string>
+    <string name="First_Steps">First Steps</string>
+    <string name="About">About</string>
+    <string name="Continue">Continue</string>
+    <string name="description">AppIcon</string>
+    <string name="Name">Name</string>
+    <string name="Email">Email</string>
+    <string name="Territory">Territory</string>
+    <string-array name="Territories">
+        <item>Νομός Αιτωλοακαρνανίας</item>
+        <item>Νομός Αργολίδας</item>
+        <item>Νομός Αρκαδίας</item>
+        <item>Νομός Άρτας</item>
+        <item>Νομός Αττικής</item>
+        <item>Νομός Αχαΐας</item>
+        <item>Νομός Βοιωτίας</item>
+        <item>Νομός Γρεβενών</item>
+        <item>Νομός Δράμας</item>
+        <item>Νομός Δωδεκανήσου</item>
+        <item>Νομός Έβρου</item>
+        <item>Νομός Εύβοιας</item>
+        <item>Νομός Ευρυτανίας</item>
+        <item>Νομός Ζακύνθου</item>
+        <item>Νομός Ηλείας</item>
+        <item>Νομός Ημαθίας</item>
+        <item>Νομός Ηρακλείου</item>
+        <item>Νομός Θεσπρωτίας</item>
+        <item>Νομός Θεσσαλονίκης</item>
+        <item>Νομός Ιωαννίνων</item>
+        <item>Νομός Καβάλας</item>
+        <item>Νομός Καρδίτσας</item>
+        <item>Νομός Καστοριάς</item>
+        <item>Νομός Κέρκυρας</item>
+        <item>Νομός Κεφαλληνίας</item>
+        <item>Νομός Κιλκίς</item>
+        <item>Νομός Κοζάνης</item>
+        <item>Νομός Κορινθίας</item>
+        <item>Νομός Κυκλάδων</item>
+        <item>Νομός Λακωνίας</item>
+        <item>Νομός Λάρισας</item>
+        <item>Νομός Λασιθίου</item>
+        <item>Νομός Λέσβου</item>
+        <item>Νομός Λευκάδας</item>
+        <item>Νομός Μαγνησίας</item>
+        <item>Νομός Μεσσηνίας</item>
+        <item>Νομός Ξάνθης</item>
+        <item>Νομός Πέλλας</item>
+        <item>Νομός Πιερίας</item>
+        <item>Νομός Πρέβεζας</item>
+        <item>Νομός Ρεθύμνης</item>
+        <item>Νομός Ροδόπης</item>
+        <item>Νομός Σάμου</item>
+        <item>Νομός Σερρών</item>
+        <item>Νομός Τρικάλων</item>
+        <item>Νομός Φθιώτιδας</item>
+        <item>Νομός Φλώρινας</item>
+        <item>Νομός Φωκίδας</item>
+        <item>Νομός Χαλκιδικής</item>
+        <item>Νομός Χανίων</item>
+        <item>Νομός Χίου</item>
+    </string-array>
+</resources>
