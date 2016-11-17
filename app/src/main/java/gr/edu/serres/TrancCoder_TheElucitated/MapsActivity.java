@@ -3,9 +3,9 @@ package gr.edu.serres.TrancCoder_TheElucitated;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,7 +17,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-//
+
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         // //My Locationand localize button
         ////////////////////////////////
-
 
 
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
