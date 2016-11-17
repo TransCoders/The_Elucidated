@@ -8,17 +8,36 @@ import java.util.ArrayList;
 
 public class InventoryClass {
 
-    public ArrayList<String> ItemArray;
+      /*****************************************************\\
+     Class varaible decleration
+     //******************************************************/
+    public ArrayList<String> ItemArray ;
     public String UserEmail;
 
 
-    public InventoryClass(String UserMail) {
-        ItemArray = new ArrayList<>();
+    //CLASS CONSTRUCTOR
+    public InventoryClass(){/*An empty Constructor */}
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
+
+
+
+
+    // CLASS COSTRUCTOR WITH PARAMETERS
+    public  InventoryClass(String UserMail){
+        ItemArray= new ArrayList<String>();
         this.UserEmail = UserMail;
         fillArray();
     }
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
 
-    private void fillArray() {
+
+
+    // CREATE AND FILL AN ARRAY WITH BY GAME DEFAULT OBJECTS
+    private void fillArray(){
         ItemArray.add("Magnifying glass");
         ItemArray.add("Quest Map");
         ItemArray.add("Lens");
@@ -31,4 +50,20 @@ public class InventoryClass {
 
 
     }
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
+
+
+
+    // INSERT A NEW OBJECT INTO THE ARRAY
+    public void setItemToInventory(String value){}
+
+
+
+    //RETURNS THE ARRAYLIST VAR
+    public ArrayList<String> returnItemArray(){
+        return ItemArray;
+    }
+
 }
