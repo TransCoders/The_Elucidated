@@ -14,7 +14,7 @@ import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
  */
 
 public class Database_Functions {
-//Test//jkjkhhgkhkg
+//jhgjgjghjh
     private Firebase mRoot,mUsers,mInventory,mItemLocation;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
