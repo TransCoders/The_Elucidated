@@ -67,6 +67,60 @@ public class Database_Functions {
 
 
 
+
+
+
+
+
+
+
+
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
+
+
+
+    //START OF METHOD TO UPDATE USER INVENTORY
+    public void Set_User_Inventory_Item_and_Update(final String value, final String UserEmail, final String Exp){
+        //Query to find the Child with the given by user email
+        final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+        //Triger query Child Listener
+        findProperInventory.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                // Create new map for the new added object in the array
+                Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
+                //Gets Inventory Class object from JSON file
+                InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
+                //Put a new object to the Map with flag the next arrayindex of tbe array
+                Inventory_Update_Map.put(String.valueOf(counter),value);
+                //Create a clone reference from JSON OBject find by the proper Key
+                Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
+                //Put on the proper child the new Object item
+                clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
+                //Increase arrayindex counter
+                counter++;
+                Change_User_Experience(Exp,UserEmail);
+            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                //if item has complete change purchase the item experience
+
+            }
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(FirebaseError firebaseError) {}
+        });
+
+
+
+    }//END OF METHOD
+
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
+
+
     //START Of METHOD TO UPDATE USER EXPERIENCE
     public void Change_User_Experience(final String Experience , String UserEmail  ){
         //Query to find the Child with the given by user email
@@ -115,6 +169,41 @@ public class Database_Functions {
     }//END OF EXPERIENCE METHOD
 
 
+
+    //START OF METHOD TO UPDATE USER EMAIL
+    public void Change_User_Email(String PreviousEmail, final String NewEmail){
+        //Query to find the Child with the given by user email
+        Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(PreviousEmail);
+        //Triger query Child Listener
+        findUser_By_Email.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //Gets Child Key
+                String key = dataSnapshot.getKey();
+                // Create new map for the new added object in the array
+                Map<String, Object> Updates_User_Email_map = new HashMap<String, Object>();
+                //Put a new object to the Map with flag the child name which we want to update
+                Updates_User_Email_map.put("email", NewEmail);
+                //Create a clone reference from JSON OBject find by the proper Key
+                Firebase newref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/" + key);
+                //Updates Child
+                newref.updateChildren(Updates_User_Email_map);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+        });
+
+    }//END OF METHOD
+
+    //-----------------------------------------------------------------------------------------
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------------
 
 
 
