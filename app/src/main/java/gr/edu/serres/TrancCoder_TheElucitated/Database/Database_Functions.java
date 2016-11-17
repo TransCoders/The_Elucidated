@@ -14,11 +14,17 @@ import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
  */
 
 public class Database_Functions {
-//jhgjgjghjh
+    /*****************************************************\\
+     Class varaible decleration
+     //******************************************************/
+
+    private static  int counter=9;
     private Firebase mRoot,mUsers,mInventory,mItemLocation;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
     private static Database_Functions InstanceObject;
+    private  Context context;
+    public static int ExpCounter =0;
 
 
     private Database_Functions(Context context) {
