@@ -38,33 +38,33 @@
             tools:text="@string/app_name" />
 
         <Button
-            android:text="@string/New_Game"
+            android:id="@+id/button1"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
-            android:id="@+id/button1"
+            android:text="@string/New_Game"
             tools:text="New Game" />
 
         <Button
-            android:text="@string/Load_Game"
+            android:id="@+id/button2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/button2"
-            android:layout_marginTop="31dp"
-            android:layout_below="@+id/button1"
             android:layout_alignStart="@+id/button1"
+            android:layout_below="@+id/button1"
+            android:layout_marginTop="31dp"
+            android:text="@string/Load_Game"
             tools:text="@string/Load_Game" />
 
         <Button
-            android:text="@string/First_Steps"
-            android:layout_height="wrap_content"
             android:id="@+id/button3"
-            android:layout_marginTop="29dp"
             android:layout_width="200dp"
-            android:layout_below="@+id/button2"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/button2"
+            android:layout_below="@+id/button2"
+            android:layout_marginTop="29dp"
+            android:text="@string/First_Steps"
             tools:text="@string/First_Steps" />
 
 
