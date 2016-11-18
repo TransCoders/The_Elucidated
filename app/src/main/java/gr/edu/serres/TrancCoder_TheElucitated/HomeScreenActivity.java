@@ -21,7 +21,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView homeTextView;
-    private Button newGameButton, loadGameButton, firstStepsButton;
+    private Button newGameButton, loadGameButton, firstStepsButton, testApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,17 @@ public class HomeScreenActivity extends AppCompatActivity {
         loadGameButton = (Button) findViewById(R.id.button2);
 
         firstStepsButton = (Button) findViewById(R.id.button3);
+        testApp = (Button) findViewById(R.id.test_app);
+        testApp.setText("Test App");
+        testApp.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent(HomeScreenActivity.this, MapsActivity.class);
+                HomeScreenActivity.this.startActivity(myIntent);
+            }
+        });
         newGameButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
