@@ -1,6 +1,7 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MapStyleOptions;
+
+import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
 enum MapOptions{SATELITE,TERRAIN,HYBRID,NORMAL;
     public static int getOption(MapOptions mapOption){
@@ -35,6 +38,7 @@ enum MapOptions{SATELITE,TERRAIN,HYBRID,NORMAL;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    Intent backgroundMusic;
     private GoogleMap mMap;
     private Button mapOptionsButton;
     MapOptions mapOption;
@@ -42,6 +46,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //private HashMap<MapOptions,String> mapOptionsStringHashMap;
     //GoogleMap.MAP_TYPE_SATELITE
     //
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService(backgroundMusic);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        backgroundMusic=new Intent(this, BackgroundSoundService.class);
+        startService(backgroundMusic);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(mapReady)mMap.setMapType(MapOptions.getOption(mapOption));
             }
         });
+
     }
 
 
