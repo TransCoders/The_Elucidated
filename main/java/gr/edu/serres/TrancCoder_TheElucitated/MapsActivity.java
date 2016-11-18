@@ -15,7 +15,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
@@ -43,23 +50,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button mapOptionsButton;
     MapOptions mapOption;
     boolean mapReady = false;
+    Marker markerTest;
+    BitmapDescriptor markerIcon;
+    GroundOverlay staticIcon;
+    static final LatLng TEI = new LatLng(41.075477, 23.553576);
     //private HashMap<MapOptions,String> mapOptionsStringHashMap;
     //GoogleMap.MAP_TYPE_SATELITE
     //
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopService(backgroundMusic);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        backgroundMusic=new Intent(this, BackgroundSoundService.class);
-        startService(backgroundMusic);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(mapReady)mMap.setMapType(MapOptions.getOption(mapOption));
             }
         });
-
+        markerIcon = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
     }
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -148,7 +143,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ////////////////////////////////
 
 
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        //mMap.animateCamera(CameraUpdateFactory.zoomIn());
+
+        /*markerTest = mMap.addMarker(new MarkerOptions()
+                .position(TEI)
+                .title("Magnifier")
+                .icon(markerIcon));*/
+        double smallDistance = 0.0001;
+        staticIcon = mMap.addGroundOverlay(new GroundOverlayOptions()
+        .image(markerIcon)
+        .positionFromBounds(new LatLngBounds(TEI,new LatLng(TEI.latitude+smallDistance,TEI.longitude+smallDistance)))
+        );
+        mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , 17.0f) );
         mapReady = true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        backgroundMusic=new Intent(this, BackgroundSoundService.class);
+        startService(backgroundMusic);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onStop();
+        stopService(backgroundMusic);
     }
 }
