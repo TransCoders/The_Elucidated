@@ -70,10 +70,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:enabled="true"
-            android:name="gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService" />
-
         <supports-screens
             android:anyDensity="true"
             android:largeScreens="true"
