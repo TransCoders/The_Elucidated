@@ -61,7 +61,7 @@ public class Dummy {
             this.name = name;
         }
 
-        public static Item getItem(String name, double latitude, double longitude, int resource) {
+        public static Item createItem(String name, double latitude, double longitude, int resource) {
             return new Item(name, latitude, longitude, resource);
         }
     }
@@ -115,6 +115,12 @@ public class Dummy {
                 );
             }
 
+        }
+        public void setUpInventoryTest(){
+            items = new ArrayList();
+            items.add(new Item("magnifier",41.069131,23.55389,R.mipmap.ic_launcher));
+            items.add(new Item("handcuffs",41.07902,23.553690,R.mipmap.ic_launcher));
+            items.add(new Item("glasses",41.07510,23.552997,R.mipmap.ic_launcher));
         }
     }
     public class User{

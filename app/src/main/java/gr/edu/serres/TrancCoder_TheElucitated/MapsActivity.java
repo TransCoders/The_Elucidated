@@ -12,20 +12,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
@@ -54,17 +50,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button mapOptionsButton;
     MapOptions mapOption;
     boolean mapReady = false;
-    Marker markerTest;
-    BitmapDescriptor markerIcon;
-    GroundOverlay staticIcon;
     String itemSelected;
     LatLng itemSelectedLocation;
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
     float MapZoom = 16.5f;
-
+    private ToggleButton toggleMusic;
     Dummy inventoryUserItem;
-    //private HashMap<MapOptions,String> mapOptionsStringHashMap;
-    //GoogleMap.MAP_TYPE_SATELITE
     //
 
     @Override
@@ -76,15 +67,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
 
         inventoryUserItem = new Dummy();
-        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("magnifier",41.069131,23.55389,R.mipmap.ic_launcher));
-        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("handcuffs",41.07902,23.553690,R.mipmap.ic_launcher));
-        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("glasses",41.07510,23.552997,R.mipmap.ic_launcher));
+        inventoryUserItem.inventory.setUpInventoryTest();
 
         mapFragment.getMapAsync(this);
 
-        mapOptionsButton = (Button) findViewById(R.id.map_options);
+        toggleMusic = (ToggleButton)findViewById(R.id.toggle_music) ;
         mapOption = MapOptions.NORMAL;
+        mapOptionsButton = (Button) findViewById(R.id.map_options);
         mapOptionsButton.setText(mapOption.toString());
+
         mapOptionsButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -111,12 +102,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(mapReady)mMap.setMapType(MapOptions.getOption(mapOption));
             }
         });
-        markerIcon = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
-
 
         pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
         ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryUserItem.inventory.getItemNames());
-        //pickItemSpinner.setBackgroundColor(Color.WHITE);//0xFFFFFFFF);
         pickItemSpinner.setAdapter(pickItemAdapter);
         pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -135,7 +123,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-        // return List<Item> inventoryUserItem.inventory.getItems();
     }
     /**
      * Manipulates the map once available.
@@ -182,22 +169,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // //My Locationand localize button
         ////////////////////////////////
 
-
         //mMap.animateCamera(CameraUpdateFactory.zoomIn());
 
-        /*markerTest = mMap.addMarker(new MarkerOptions()
-                .position(TEI)
-                .title("Magnifier")
-                .icon(markerIcon));*/
-        double smallDistance = 0.0001;
-        staticIcon = mMap.addGroundOverlay(new GroundOverlayOptions()
-        .image(markerIcon)
-        .positionFromBounds(new LatLngBounds(TEI,new LatLng(TEI.latitude+smallDistance,TEI.longitude+smallDistance)))
-        );
         mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , MapZoom) );
-        mapReady = true;
 
         inventoryUserItem.inventory.drawItems(mMap);
+
+        mapReady = true;
     }
 
     @Override
@@ -205,6 +183,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onStart();
         backgroundMusic=new Intent(this, BackgroundSoundService.class);
         startService(backgroundMusic);
+        toggleMusic.setTextOff("Music Off");
+        toggleMusic.setTextOn("Music On");
+        toggleMusic.setChecked(true);
+        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startService(backgroundMusic);
+                } else {
+                    stopService(backgroundMusic);
+                }
+            }
+        });
     }
 
     @Override
