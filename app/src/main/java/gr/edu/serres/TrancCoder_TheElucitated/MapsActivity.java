@@ -9,7 +9,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,6 +49,7 @@ enum MapOptions{SATELITE,TERRAIN,HYBRID,NORMAL;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     Intent backgroundMusic;
+    Spinner pickItemSpinner;
     private GoogleMap mMap;
     private Button mapOptionsButton;
     MapOptions mapOption;
@@ -53,7 +57,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker markerTest;
     BitmapDescriptor markerIcon;
     GroundOverlay staticIcon;
+    String itemSelected;
+    LatLng itemSelectedLocation;
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
+    float MapZoom = 16.5f;
+
+    Dummy inventoryUserItem;
     //private HashMap<MapOptions,String> mapOptionsStringHashMap;
     //GoogleMap.MAP_TYPE_SATELITE
     //
@@ -65,7 +74,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
+        inventoryUserItem = new Dummy();
+        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("magnifier",41.069131,23.55389,R.mipmap.ic_launcher));
+        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("handcuffs",41.07902,23.553690,R.mipmap.ic_launcher));
+        inventoryUserItem.inventory.addItem(Dummy.Item.getItem("glasses",41.07510,23.552997,R.mipmap.ic_launcher));
+
         mapFragment.getMapAsync(this);
+
         mapOptionsButton = (Button) findViewById(R.id.map_options);
         mapOption = MapOptions.NORMAL;
         mapOptionsButton.setText(mapOption.toString());
@@ -96,6 +112,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         markerIcon = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
+
+
+        pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
+        ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryUserItem.inventory.getItemNames());
+        //pickItemSpinner.setBackgroundColor(Color.WHITE);//0xFFFFFFFF);
+        pickItemSpinner.setAdapter(pickItemAdapter);
+        pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO
+                itemSelected = String.valueOf(adapterView.getItemAtPosition(i));
+                if(mapReady && !(inventoryUserItem.inventory.getItems().isEmpty())) {
+                    itemSelectedLocation = inventoryUserItem.inventory.getItemLocationByName(itemSelected);
+                    mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(itemSelectedLocation.latitude,itemSelectedLocation.longitude) ,MapZoom));
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        // return List<Item> inventoryUserItem.inventory.getItems();
     }
     /**
      * Manipulates the map once available.
@@ -154,8 +194,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         .image(markerIcon)
         .positionFromBounds(new LatLngBounds(TEI,new LatLng(TEI.latitude+smallDistance,TEI.longitude+smallDistance)))
         );
-        mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , 17.0f) );
+        mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , MapZoom) );
         mapReady = true;
+
+        inventoryUserItem.inventory.drawItems(mMap);
     }
 
     @Override
