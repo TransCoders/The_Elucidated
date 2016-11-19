@@ -6,14 +6,6 @@
     android:id="@+id/map_layout"
     >
 
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/map_options"/>
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -38,5 +30,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/toggle_music"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="@style/spinnerStyleView"/>
+
+    <Button
+        android:text="@string/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/map_options"
+        style="@style/spinnerStyleView"
+        />
+
 </RelativeLayout>

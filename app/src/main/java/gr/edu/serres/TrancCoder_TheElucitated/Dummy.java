@@ -27,14 +27,47 @@ class ItemNotFoundException extends  Exception{
 
 public class Dummy {
     public static class Item {
-        String name;
+        String name,description;
         LatLng location;
         BitmapDescriptor icon;
-
-        Item(String name, double latitude, double longitude, int resource){
+        GroundOverlay groundOverlay;
+        static final double itemImageDistance=0.0001;
+        Boolean groundOverlayExists;
+        Item(String name, String description, double latitude, double longitude, int iconResource){
             this.name = name;
+            this.description = description;
             location = new LatLng(latitude,longitude);
-            icon = BitmapDescriptorFactory.fromResource(resource);
+            icon = BitmapDescriptorFactory.fromResource(iconResource);
+            groundOverlayExists = false;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void makeItemClickable(GoogleMap map){
+            if(groundOverlayExists) {
+                groundOverlay.setClickable(true);
+            }
+        }
+        public void removeItemFromMap(){
+            if(groundOverlayExists) {
+                groundOverlay.remove();
+                groundOverlayExists = false;
+            }
+        }
+
+        public GroundOverlay getGroundOverlay() {
+            return groundOverlay;
+        }
+
+        public void setGroundOverlay(GroundOverlay groundOverlay) {
+            this.groundOverlay = groundOverlay;
+            groundOverlayExists = true;
+        }
+
+        public static double getItemImageDistance() {
+            return itemImageDistance;
         }
 
         public BitmapDescriptor getIcon() {
@@ -61,8 +94,8 @@ public class Dummy {
             this.name = name;
         }
 
-        public static Item createItem(String name, double latitude, double longitude, int resource) {
-            return new Item(name, latitude, longitude, resource);
+        public static Item createItem(String name, String description, double latitude, double longitude, int resource) {
+            return new Item(name, description, latitude, longitude, resource);
         }
     }
     public class Inventory {
@@ -106,21 +139,33 @@ public class Dummy {
             }
                 return names;
         }
-        public void drawItems(GoogleMap map){
-            double smallDistance = 0.0001;
+        public void drawItems(List<Item> items ,GoogleMap map){
+            double smallDistance = Item.getItemImageDistance();
             for(Item item:items){
-                GroundOverlay staticIcon = map.addGroundOverlay(new GroundOverlayOptions()
+                item.setGroundOverlay(map.addGroundOverlay(new GroundOverlayOptions()
                         .image(item.getIcon())
                         .positionFromBounds(new LatLngBounds(item.getLocation(),new LatLng(item.getLocation().latitude+smallDistance,item.getLocation().longitude+smallDistance)))
-                );
+                ));
+                item.makeItemClickable(map);
             }
-
         }
-        public void setUpInventoryTest(){
+        public void setUpMapTest(GoogleMap map){
             items = new ArrayList();
-            items.add(new Item("magnifier",41.069131,23.55389,R.mipmap.ic_launcher));
-            items.add(new Item("handcuffs",41.07902,23.553690,R.mipmap.ic_launcher));
-            items.add(new Item("glasses",41.07510,23.552997,R.mipmap.ic_launcher));
+            Item magnifier = new Item("magnifier","Use this to Zoom",41.069131,23.55389,R.mipmap.ic_launcher);
+            Item handcuffs = new Item("handcuffs","Black Handcuffs. Use them to catch criminas!",41.07902,23.553690,R.mipmap.ic_launcher);
+            Item glasses = new Item("glasses","You can't see very far without them",41.07510,23.552997,R.mipmap.ic_launcher);
+            items.add(magnifier);
+            items.add(handcuffs);
+            items.add(glasses);
+            drawItems(items,map);
+        }
+        public Item getItemFromLocation(List<Item> items,GroundOverlay groundOverlay) throws ItemNotFoundException {
+            for(Item item : items){
+                if(item.getGroundOverlay().getId().equals(groundOverlay.getId())){
+                    return item;
+                }
+            }
+            throw new ItemNotFoundException();
         }
     }
     public class User{
