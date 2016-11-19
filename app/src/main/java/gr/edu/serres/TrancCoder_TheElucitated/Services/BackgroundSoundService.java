@@ -13,6 +13,7 @@ import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 public class BackgroundSoundService extends Service {
     private static final String TAG = null;
+    //int resID=getResources().getIdentifier("bludfire.mp3","raw",getPackageName());
     MediaPlayer player;
     public IBinder onBind(Intent arg0) {
 
@@ -42,17 +43,13 @@ public class BackgroundSoundService extends Service {
     public void onStop() {
 
     }
-    public void onStart(){
-        player.start();
-    }
     public void onPause() {
-        player.pause();
+
     }
     @Override
     public void onDestroy() {
         player.stop();
         player.release();
-        player = null;
     }
 
     @Override
