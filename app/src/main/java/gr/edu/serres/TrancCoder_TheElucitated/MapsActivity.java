@@ -51,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button mapOptionsButton;
     MapOptions mapOption;
     boolean mapReady = false;
+    boolean musicOn;
     String itemSelected;
     LatLng itemSelectedLocation;
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
@@ -73,6 +74,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapOptionsButton = (Button) findViewById(R.id.map_options);
         mapOption = MapOptions.NORMAL;
         mapOptionsButton.setText(mapOption.toString());
+
+        musicOn = false;
+        backgroundMusic=new Intent(this, BackgroundSoundService.class);
+        toggleMusic.setText(R.string.Music);
+        toggleMusic.setTextOff("Music Off");
+        toggleMusic.setTextOn("Music On");
+        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startService(backgroundMusic);
+                    musicOn=true;
+                } else {
+                    stopService(backgroundMusic);
+                    musicOn=false;
+                }
+            }
+        });
         mapFragment.getMapAsync(this);
     }
     /**
@@ -160,8 +178,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
             @Override
             public void onGroundOverlayClick(GroundOverlay groundOverlay) {
-
-
                 try {
                     Dummy.Item item = inventoryUserItem.inventory.getItemFromLocation(inventoryUserItem.inventory.getItems(),
                             groundOverlay);
@@ -188,41 +204,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if(!(inventoryUserItem.inventory.getItems().isEmpty())) {
                     itemSelectedLocation = inventoryUserItem.inventory.getItemLocationByName(itemSelected);
                     mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(itemSelectedLocation.latitude,itemSelectedLocation.longitude) ,MapZoom));
-
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
         mapReady = true;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        backgroundMusic=new Intent(this, BackgroundSoundService.class);
-        startService(backgroundMusic);
-        toggleMusic.setTextOff("Music Off");
-        toggleMusic.setTextOn("Music On");
-        toggleMusic.setChecked(true);
-        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    startService(backgroundMusic);
-                } else {
-                    stopService(backgroundMusic);
-                }
-            }
-        });
+        if(musicOn) startService(backgroundMusic);
     }
 
     @Override
     protected void onPause() {
         super.onStop();
-        stopService(backgroundMusic);
+        if(musicOn) stopService(backgroundMusic);
     }
 }

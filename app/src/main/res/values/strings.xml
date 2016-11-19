@@ -18,6 +18,7 @@
     <string name="Name">Name</string>
     <string name="Email">Email</string>
     <string name="Territory">Territory</string>
+    <string name="Music">Music</string>
     <string-array name="Territories">
         <item>Νομός Αιτωλοακαρνανίας</item>
         <item>Νομός Αργολίδας</item>
