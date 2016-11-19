@@ -9,20 +9,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Spinner;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
@@ -46,17 +46,16 @@ enum MapOptions{SATELITE,TERRAIN,HYBRID,NORMAL;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     Intent backgroundMusic;
-    Spinner pickItemSpinner;
     private GoogleMap mMap;
     private Button mapOptionsButton;
     MapOptions mapOption;
     boolean mapReady = false;
-    String itemSelected;
-    LatLng itemSelectedLocation;
+    Marker markerTest;
+    BitmapDescriptor markerIcon;
+    GroundOverlay staticIcon;
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
-    float MapZoom = 16.5f;
-    private ToggleButton toggleMusic;
-    Dummy inventoryUserItem;
+    //private HashMap<MapOptions,String> mapOptionsStringHashMap;
+    //GoogleMap.MAP_TYPE_SATELITE
     //
 
     @Override
@@ -66,58 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
-        inventoryUserItem = new Dummy();
-        pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
-        toggleMusic = (ToggleButton)findViewById(R.id.toggle_music) ;
+        mapFragment.getMapAsync(this);
         mapOptionsButton = (Button) findViewById(R.id.map_options);
         mapOption = MapOptions.NORMAL;
         mapOptionsButton.setText(mapOption.toString());
-        mapFragment.getMapAsync(this);
-    }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        ////////////////////////////////
-        // Change Map style to Night mode
-        try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
-            boolean success = mMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                            this, R.raw.style_json));
-
-            if (!success) {
-                Log.e("MapsActivityRaw", "Style parsing failed.");
-            }
-        } catch (Resources.NotFoundException e) {
-            Log.e("MapsActivityRaw", "Can't find style.", e);
-        }
-
-        /////////////////////////////////
-        // My Location and localize button
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
-
-        //move the Camera to TEI area
-        mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , MapZoom) );
-
-        //Change Map Type Button
         mapOptionsButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -141,63 +92,69 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         break;
                 }
                 mapOptionsButton.setText(mapOption.toString());
-                mMap.setMapType(MapOptions.getOption(mapOption));
+                if(mapReady)mMap.setMapType(MapOptions.getOption(mapOption));
             }
         });
+        markerIcon = BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher);
+    }
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
-        //Set up some items on the map
-        inventoryUserItem.inventory.setUpMapTest(mMap);
+        ////////////////////////////////
+        // Change Map style to Night mode
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = mMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_json));
 
-        //Get Camera Zoom when Camera changes
-        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                MapZoom =  mMap.getCameraPosition().zoom;
+            if (!success) {
+                Log.e("MapsActivityRaw", "Style parsing failed.");
             }
-        });
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapsActivityRaw", "Can't find style.", e);
+        }
+        // //Change Map style to Night mode
+        //////////////////////////////////
 
-        //On Item Click Function
-        mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
-            @Override
-            public void onGroundOverlayClick(GroundOverlay groundOverlay) {
+
+        /////////////////////////////////
+        // My Location and localize button
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        // //My Locationand localize button
+        ////////////////////////////////
 
 
-                try {
-                    Dummy.Item item = inventoryUserItem.inventory.getItemFromLocation(inventoryUserItem.inventory.getItems(),
-                            groundOverlay);
-                    mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(item.getLocation() ,MapZoom));
-                    String[] dialogue = {item.getDescription()};
-                    Intent myIntent = new Intent( MapsActivity.this, DialogsActivity.class);
-                    myIntent.putExtra("dialogue",dialogue);
-                    MapsActivity.this.startActivity(myIntent);
-                } catch (ItemNotFoundException e) {
-                    e.printStackTrace();
-                }
+        //mMap.animateCamera(CameraUpdateFactory.zoomIn());
 
-            }
-        });
-
-        //Find Items Spinner  and Function
-        ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryUserItem.inventory.getItemNames());
-        pickItemSpinner.setAdapter(pickItemAdapter);
-        pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
-                itemSelected = String.valueOf(adapterView.getItemAtPosition(i));
-                if(!(inventoryUserItem.inventory.getItems().isEmpty())) {
-                    itemSelectedLocation = inventoryUserItem.inventory.getItemLocationByName(itemSelected);
-                    mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(itemSelectedLocation.latitude,itemSelectedLocation.longitude) ,MapZoom));
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
+        /*markerTest = mMap.addMarker(new MarkerOptions()
+                .position(TEI)
+                .title("Magnifier")
+                .icon(markerIcon));*/
+        double smallDistance = 0.0001;
+        staticIcon = mMap.addGroundOverlay(new GroundOverlayOptions()
+        .image(markerIcon)
+        .positionFromBounds(new LatLngBounds(TEI,new LatLng(TEI.latitude+smallDistance,TEI.longitude+smallDistance)))
+        );
+        mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , 17.0f) );
         mapReady = true;
     }
 
@@ -206,18 +163,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onStart();
         backgroundMusic=new Intent(this, BackgroundSoundService.class);
         startService(backgroundMusic);
-        toggleMusic.setTextOff("Music Off");
-        toggleMusic.setTextOn("Music On");
-        toggleMusic.setChecked(true);
-        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    startService(backgroundMusic);
-                } else {
-                    stopService(backgroundMusic);
-                }
-            }
-        });
     }
 
     @Override

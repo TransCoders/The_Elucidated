@@ -8,7 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="spinnerStyleView"  parent="@android:style/Widget.Button">
-    </style>
-
 </resources>
