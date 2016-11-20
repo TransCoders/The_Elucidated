@@ -64,7 +64,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         createBackgroundMusic();
         //create intent for picking item
         mapFragment.getMapAsync(this);
-
     }
     /**
      * Manipulates the map once available.
@@ -142,16 +141,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         musicOn = false;
         backgroundMusic=new Intent(this, BackgroundSoundService.class);
-        toggleMusic.setText(R.string.Music);
-        toggleMusic.setTextOff("Music Off");
-        toggleMusic.setTextOn("Music On");
+        toggleMusic.setText("");
+        toggleMusic.setTextOn("");
+        toggleMusic.setTextOff("");
         toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     startService(backgroundMusic);
+                    toggleMusic.setBackgroundResource(R.mipmap.ic_pause_circle_outline);
                     musicOn=true;
                 } else {
                     stopService(backgroundMusic);
+                    toggleMusic.setBackgroundResource(R.mipmap.ic_play_circle_outline);
                     musicOn=false;
                 }
             }
@@ -183,14 +184,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (ItemNotFoundException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
 
     void createSpinnerForFindItemInMap(){
         //pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
-        ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
+        ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
         pickItemSpinner.setAdapter(pickItemAdapter);
         pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
