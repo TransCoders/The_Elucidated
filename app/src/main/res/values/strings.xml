@@ -28,6 +28,7 @@
     <string name="terrain">Terrain</string>
     <string name="options">options</string>
     <string name="map">Map</string>
+    <string name="pick_item">Pick Item</string>
     <string-array name="Territories">
         <item>Νομός Αιτωλοακαρνανίας</item>
         <item>Νομός Αργολίδας</item>

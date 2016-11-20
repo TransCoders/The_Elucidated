@@ -15,4 +15,5 @@ public class DummyUser {
     public DummyInventory getInventory() {
         return inventory;
     }
+
 }

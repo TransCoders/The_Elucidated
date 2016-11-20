@@ -46,4 +46,11 @@ class DummyInventory {
         }
         throw new ItemNotFoundException();
     }
+    public void removeItem(String name){
+        for(DummyItem item:items){
+            if(item.getName().equals(name)){
+                items.remove(item);
+            }
+        }
+    }
 }

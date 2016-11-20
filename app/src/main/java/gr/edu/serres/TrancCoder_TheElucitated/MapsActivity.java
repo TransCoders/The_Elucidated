@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +35,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String itemSelected;
     boolean mapReady,musicOn;
     Intent backgroundMusic;
-    Intent pickItem;
     private GoogleMap mMap;
     Button  mapTypeBtn;
     ToggleButton toggleMusic;
@@ -42,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
     float MapZoom = 16.5f;
     Spinner pickItemSpinner;
-    PopupMenu popup;
+    PopupMenu mapTypeMenu;
     MenuInflater inflater;
     DummyInventory inventoryMap;
     DummyUser user;
@@ -63,7 +63,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Create background music -by default music is off
         createBackgroundMusic();
         //create intent for picking item
-        pickItem = new Intent( MapsActivity.this, DialogsActivity.class);
         mapFragment.getMapAsync(this);
 
     }
@@ -120,7 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Add items on Map
         createItemsOnMap();
         //Find Items Spinner  and Function
-        createSpinnerForFindItemInMap();
+        //createSpinnerForFindItemInMap();
         //Select Map Type
         createPopupMenuForMapType();
         mapReady = true;
@@ -176,10 +175,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onGroundOverlayClick(GroundOverlay groundOverlay) {
                 try {
                     DummyItem itemFound = inventoryMap.getItemByIconId(groundOverlay.getId());
-                    //mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(itemFound.getLocation() ,MapZoom));
-                    String[] dialogue = {itemFound.getDescription()};
-                    pickItem.putExtra("dialogue",dialogue);
-                    MapsActivity.this.startActivity(pickItem);
+                    //mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI ,MapZoom));
+                    Toast.makeText(getApplicationContext(),"Item picked " + itemFound.getName(),Toast.LENGTH_SHORT).show();
+                    user.getInventory().addItem(itemFound);
+                    inventoryMap.removeItem(itemFound.getName());
+                    itemFound.removeImage();
                 } catch (ItemNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -189,7 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     void createSpinnerForFindItemInMap(){
-        pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
+        //pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
         ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
         pickItemSpinner.setAdapter(pickItemAdapter);
         pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -214,16 +214,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     void createPopupMenuForMapType(){
         mapTypeBtn = (Button)findViewById(R.id.options_btn);
-        popup = new PopupMenu(MapsActivity.this,mapTypeBtn);
-        inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_map_type,popup.getMenu());
-        popup.getMenu().findItem(R.id.normal).setChecked(true);
+        mapTypeMenu = new PopupMenu(MapsActivity.this,mapTypeBtn);
+        inflater = mapTypeMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_map_type, mapTypeMenu.getMenu());
+        mapTypeMenu.getMenu().findItem(R.id.normal).setChecked(true);
         mapTypeBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                mapTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
@@ -263,7 +263,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                 });
-                popup.show();
+                mapTypeMenu.show();
             }
         });
     }
