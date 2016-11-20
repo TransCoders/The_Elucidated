@@ -15,15 +15,6 @@
     android:layout_height="match_parent"
     tools:context="gr.edu.serres.TrancCoder_TheElucitated.MapsActivity" />
 
-    <Spinner
-        android:id="@+id/pick_item_spinnerr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/spinnerStyleView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        />
-
     <ToggleButton
         android:text="@string/Music"
         android:layout_width="wrap_content"
@@ -33,24 +24,22 @@
         android:layout_alignParentEnd="true"
         style="@style/spinnerStyleView"/>
 
-    <Button
-        android:text="@string/accept"
+    <Spinner
+        android:id="@+id/pick_item_spinnerr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/map_options"
         style="@style/spinnerStyleView"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/options_btn" />
 
     <Button
         android:text="@string/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pick_item_spinnerr"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="73dp"
-        android:id="@+id/options_btn" />
+        android:id="@+id/options_btn"
+        style="@style/spinnerStyleView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

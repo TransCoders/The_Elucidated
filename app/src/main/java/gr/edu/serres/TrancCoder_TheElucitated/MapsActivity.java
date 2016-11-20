@@ -29,37 +29,21 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
-enum MapOptions{SATELITE,TERRAIN,HYBRID,NORMAL;
-    public static int getOption(MapOptions mapOption){
-        switch (mapOption){
-            case SATELITE:
-                return GoogleMap.MAP_TYPE_SATELLITE;
-            case TERRAIN:
-                return GoogleMap.MAP_TYPE_TERRAIN;
-            case HYBRID:
-                return GoogleMap.MAP_TYPE_HYBRID;
-            case NORMAL:
-                return GoogleMap.MAP_TYPE_NORMAL;
-            default:
-                return GoogleMap.MAP_TYPE_NORMAL;
-        }
-    }
-}
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    Intent backgroundMusic;
-    Spinner pickItemSpinner;
-    private GoogleMap mMap;
-    private Button mapOptionsButton, mapTypeBtn;
-    MapOptions mapOption;
-    boolean mapReady = false;
-    boolean musicOn;
     String itemSelected;
+    boolean mapReady,musicOn;
+    Intent backgroundMusic;
+    Intent pickItem;
+    private GoogleMap mMap;
+    Button  mapTypeBtn;
+    ToggleButton toggleMusic;
     LatLng itemSelectedLocation;
     static final LatLng TEI = new LatLng(41.075477, 23.553576);
     float MapZoom = 16.5f;
-    private ToggleButton toggleMusic;
+    Spinner pickItemSpinner;
+    PopupMenu popup;
+    MenuInflater inflater;
     DummyInventory inventoryMap;
     DummyUser user;
     //
@@ -71,33 +55,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
+        mapReady = false;
+        //create inventory for map -basically items in map
         inventoryMap = new DummyInventory();
+        //create dummyuser for testing
         user = new DummyUser("myemail@gmail.com");
-        pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
-        toggleMusic = (ToggleButton)findViewById(R.id.toggle_music) ;
-        mapOptionsButton = (Button) findViewById(R.id.map_options);
-        mapOption = MapOptions.NORMAL;
-        mapOptionsButton.setText(mapOption.toString());
-        mapTypeBtn = (Button)findViewById(R.id.options_btn);
-
-        musicOn = false;
-        backgroundMusic=new Intent(this, BackgroundSoundService.class);
-        toggleMusic.setText(R.string.Music);
-        toggleMusic.setTextOff("Music Off");
-        toggleMusic.setTextOn("Music On");
-        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    startService(backgroundMusic);
-                    musicOn=true;
-                } else {
-                    stopService(backgroundMusic);
-                    musicOn=false;
-                }
-            }
-        });
+        //Create background music -by default music is off
+        createBackgroundMusic();
+        //create intent for picking item
+        pickItem = new Intent( MapsActivity.this, DialogsActivity.class);
         mapFragment.getMapAsync(this);
+
     }
     /**
      * Manipulates the map once available.
@@ -141,34 +109,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move the Camera to TEI area
         mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI , MapZoom) );
 
-        //Change Map Type Button
-        mapOptionsButton.setOnClickListener(new View.OnClickListener() {
-
+        //Get Camera Zoom when Camera changes
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                switch(mapOption){
-                    case NORMAL:
-                        mapOption = MapOptions.TERRAIN;
-                        break;
-                    case TERRAIN:
-                        mapOption = MapOptions.SATELITE;
-                        break;
-                    case SATELITE:
-                        mapOption = MapOptions.HYBRID;
-                        break;
-                    case HYBRID:
-                        mapOption = MapOptions.NORMAL;
-                        break;
-                    default:
-                        mapOption = MapOptions.NORMAL;
-                        break;
-                }
-                mapOptionsButton.setText(mapOption.toString());
-                mMap.setMapType(MapOptions.getOption(mapOption));
+            public void onCameraMove() {
+                MapZoom =  mMap.getCameraPosition().zoom;
             }
         });
 
+        //Add items on Map
+        createItemsOnMap();
+        //Find Items Spinner  and Function
+        createSpinnerForFindItemInMap();
+        //Select Map Type
+        createPopupMenuForMapType();
+        mapReady = true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(musicOn) startService(backgroundMusic);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onStop();
+        if(musicOn) stopService(backgroundMusic);
+    }
+
+    void createBackgroundMusic(){
+        toggleMusic = (ToggleButton)findViewById(R.id.toggle_music) ;
+
+        musicOn = false;
+        backgroundMusic=new Intent(this, BackgroundSoundService.class);
+        toggleMusic.setText(R.string.Music);
+        toggleMusic.setTextOff("Music Off");
+        toggleMusic.setTextOn("Music On");
+        toggleMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startService(backgroundMusic);
+                    musicOn=true;
+                } else {
+                    stopService(backgroundMusic);
+                    musicOn=false;
+                }
+            }
+        });
+    }
+
+    void createItemsOnMap(){
         //Set up some items on the map
         DummyItem magnifier = new DummyItem("magnifier","A very clean magnifier. Find clues better",new LatLng(41.069131,23.55389),R.mipmap.ic_launcher);
         DummyItem glasses = new DummyItem("glasses","You can't look very far away without them",new LatLng(41.07902,23.553690),R.mipmap.ic_launcher);
@@ -179,15 +170,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         inventoryMap.addItem(magnifier);
         inventoryMap.addItem(glasses);
         inventoryMap.addItem(handcuffs);
-
-        //Get Camera Zoom when Camera changes
-        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                MapZoom =  mMap.getCameraPosition().zoom;
-            }
-        });
-
         //On Item Click Function
         mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
             @Override
@@ -196,17 +178,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     DummyItem itemFound = inventoryMap.getItemByIconId(groundOverlay.getId());
                     //mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(itemFound.getLocation() ,MapZoom));
                     String[] dialogue = {itemFound.getDescription()};
-                    Intent myIntent = new Intent( MapsActivity.this, DialogsActivity.class);
-                    myIntent.putExtra("dialogue",dialogue);
-                    MapsActivity.this.startActivity(myIntent);
+                    pickItem.putExtra("dialogue",dialogue);
+                    MapsActivity.this.startActivity(pickItem);
                 } catch (ItemNotFoundException e) {
                     e.printStackTrace();
                 }
 
             }
         });
+    }
 
-        //Find Items Spinner  and Function
+    void createSpinnerForFindItemInMap(){
+        pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
         ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
         pickItemSpinner.setAdapter(pickItemAdapter);
         pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -227,57 +210,61 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        mapReady = true;
+    }
 
+    void createPopupMenuForMapType(){
+        mapTypeBtn = (Button)findViewById(R.id.options_btn);
+        popup = new PopupMenu(MapsActivity.this,mapTypeBtn);
+        inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_map_type,popup.getMenu());
+        popup.getMenu().findItem(R.id.normal).setChecked(true);
         mapTypeBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                showPopup(v);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.satellite:
+                                if(item.isChecked()){
+                                    item.setChecked(false);
+                                }else{
+                                    item.setChecked(true);
+                                    if(mapReady)mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                                }
+                                return true;
+                            case R.id.hybrid:
+                                if(item.isChecked()){
+                                    item.setChecked(false);
+                                }else{
+                                    item.setChecked(true);
+                                    if(mapReady)mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                                }
+                                return true;
+                            case R.id.terrain:
+                                if(item.isChecked()){
+                                    item.setChecked(false);
+                                }else{
+                                    item.setChecked(true);
+                                    if(mapReady)mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                                }
+                                return true;
+                            case R.id.normal:
+                                if(item.isChecked()){
+                                    item.setChecked(false);
+                                }else{
+                                    item.setChecked(true);
+                                    if(mapReady)mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                                }
+                            default:
+                                return MapsActivity.super.onOptionsItemSelected(item);
+                        }
+                    }
+                });
+                popup.show();
             }
         });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(musicOn) startService(backgroundMusic);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onStop();
-        if(musicOn) stopService(backgroundMusic);
-    }
-
-    public void showPopup(View v){
-        PopupMenu popup = new PopupMenu(this,v);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_map_type,popup.getMenu());
-        popup.getMenu().findItem(R.id.normal).setChecked(true);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.satellite:
-                        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                        return true;
-                    case R.id.hybrid:
-                        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                        return true;
-                    case R.id.terrain:
-                        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                        return true;
-                    case R.id.normal:
-                        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                        return true;
-                    default:
-                        return MapsActivity.super.onOptionsItemSelected(item);
-                }
-            }
-        });
-        popup.show();
-    }
-
 }
