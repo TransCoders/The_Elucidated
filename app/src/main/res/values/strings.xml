@@ -18,6 +18,16 @@
     <string name="Name">Name</string>
     <string name="Email">Email</string>
     <string name="Territory">Territory</string>
+    <string name="Music">Music</string>
+    <string name="find_item">Find Item</string>
+    <string name="change_map_type">Change Map Type</string>
+    <string name="select_map_type">Select Map Type</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="satellite">Satellite</string>
+    <string name="normal">Normal</string>
+    <string name="terrain">Terrain</string>
+    <string name="options">options</string>
+    <string name="map">Map</string>
     <string-array name="Territories">
         <item>Νομός Αιτωλοακαρνανίας</item>
         <item>Νομός Αργολίδας</item>

@@ -97,14 +97,14 @@ public class Database_Functions {
                 Inventory_Update_Map.put(String.valueOf(counter),value);
                 //Create a clone reference from JSON OBject find by the proper Key
                 Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
-                //Put on the proper child the new Object item
+                //Put on the proper child the new Object Item
                 clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
                 //Increase arrayindex counter
                 counter++;
                 Change_User_Experience(Exp,UserEmail);
             }
             @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                //if item has complete change purchase the item experience
+                //if Item has complete change purchase the Item experience
 
             }
             @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}

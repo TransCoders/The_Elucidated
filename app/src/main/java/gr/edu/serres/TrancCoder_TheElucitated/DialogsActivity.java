@@ -26,12 +26,13 @@ public class DialogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dialogs_activity);
-
-        delay = this.getResources().getStringArray(R.array.Victims_home);
-
+        if(getIntent().hasExtra("dialogue")){
+            delay = getIntent().getExtras().getStringArray("dialogue");
+        }else {
+            delay = this.getResources().getStringArray(R.array.Victims_home);
+        }
         oneOne = new ArrayList<String>();
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
-
 
         listView = (ListView) this.findViewById(R.id.ListView);
 
@@ -50,7 +51,6 @@ public class DialogsActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
