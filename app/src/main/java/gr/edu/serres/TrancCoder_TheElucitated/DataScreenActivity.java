@@ -1,5 +1,6 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
@@ -30,6 +33,7 @@ public class DataScreenActivity extends AppCompatActivity {
     private String Location;
     private Database_Functions database;
     private AdapterView<ArrayAdapter<String>> spinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class DataScreenActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Location = String.valueOf(adapterView.getItemAtPosition(i));
+                Toast.makeText(getApplicationContext(),Location,Toast.LENGTH_LONG).show();
+                database.setItemLocationOnFirebase(getApplicationContext(),Location);
             }
 
             @Override

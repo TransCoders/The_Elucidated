@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
+
 /**
  * Created by tasos on 8/11/2016.
  */
@@ -22,12 +24,13 @@ public class HomeScreenActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView homeTextView;
     private Button newGameButton, loadGameButton, firstStepsButton, testApp;
+    private Database_Functions database_functions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);
-
+        database_functions = Database_Functions.getInstance(getApplicationContext());
 
         imageView = (ImageView) findViewById(R.id.imageView);
 

@@ -1,6 +1,7 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Database;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
@@ -204,6 +206,51 @@ public class Database_Functions {
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
+
+
+    public void setItemLocationOnFirebase(final Context context, String Location){
+
+
+        Firebase newref;
+        Map<String,ItemClass> itemMap = new HashMap<>();
+        int counter =1;
+
+
+       if(Location.matches("σέρρες")||Location.matches("Νομός Σέρρων")){
+           newref  = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Σερρών");
+        itemMap.put("Item"+counter,new ItemClass("chocolate","41.087022","23.547429"));
+        counter++;
+        itemMap.put("Item"+counter,new ItemClass("home","41.090270","23.54963"));
+        counter++;
+        itemMap.put("Item"+counter,new ItemClass("Accountant","41.085631","23.544688"));
+        counter++;
+        itemMap.put("Item"+counter,new ItemClass("Queen_jack_club","41.092082","23.558603"));
+            //set new values on the database
+           newref.setValue(itemMap);
+           counter=1;
+        }else if(Location.matches("Νομός Θεσσαλονίκης")||Location.matches("θεσσαλονίκη")){
+           newref  = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Θεσσαλονίκης");
+           itemMap.put("Item"+counter,new ItemClass("university","40.677737","22.925500"));
+           counter++;
+           itemMap.put("Item"+counter,new ItemClass("home","40.630389","22.943000"));
+           counter++;
+           itemMap.put("Item"+counter,new ItemClass("hospital","40.640063","22.944419"));
+           //set new values on the database
+           newref.setValue(itemMap);
+           counter=1;
+
+       }else{
+           //about athens items
+
+       }
+
+
+
+
+
+    }
+
+
 
 
 
