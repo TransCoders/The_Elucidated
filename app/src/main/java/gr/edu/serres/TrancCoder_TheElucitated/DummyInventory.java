@@ -1,7 +1,9 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by GamerX on 19/11/2016.
@@ -10,7 +12,7 @@ import java.util.List;
 class DummyInventory {
     private List<DummyItem> items;
     DummyInventory(){
-        items = new ArrayList<>();
+        items = Collections.synchronizedList(new ArrayList<DummyItem>());
     }
 
     public List<DummyItem> getItems() {
@@ -45,5 +47,20 @@ class DummyInventory {
                 return item;
         }
         throw new ItemNotFoundException();
+    }
+    void removeItem(String name){
+        ListIterator<DummyItem> iterator = items.listIterator();
+        while (iterator.hasNext()){
+            if(iterator.next().getName().equals(name)){
+                iterator.remove();
+                return;
+            }
+        }
+        /*for(DummyItem item:items){
+            if(item.getName().equals(name)){
+                items.remove(item);
+                return;
+            }
+        }*/
     }
 }

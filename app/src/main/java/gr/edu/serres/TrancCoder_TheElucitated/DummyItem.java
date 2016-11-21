@@ -48,9 +48,10 @@ class DummyItem {
         icon.setClickable(true);
         showImage = true;
     }
-    private void removeImage(){
+    void removeImage(){
         if(showImage){
             icon.remove();
+            showImage = false;
         }
     }
     public GroundOverlay getIcon() {
