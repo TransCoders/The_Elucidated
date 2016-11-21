@@ -59,6 +59,7 @@ public class DataScreenActivity extends AppCompatActivity {
                 Location = String.valueOf(adapterView.getItemAtPosition(i));
                 Toast.makeText(getApplicationContext(),Location,Toast.LENGTH_LONG).show();
                 database.setItemLocationOnFirebase(getApplicationContext(),Location);
+                ////
             }
 
             @Override
