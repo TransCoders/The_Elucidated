@@ -63,43 +63,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-
-class ProximityReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context arg0, Intent intent) {
-
-        String k = LocationManager.KEY_PROXIMITY_ENTERING;
-        boolean state = intent.getBooleanExtra(k, false);
-
-        if (state) {
-            Toast.makeText(arg0, "Welcome to my Area", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(arg0, "Thank you for visiting my area", Toast.LENGTH_SHORT).show();
-        }
-
-        if (intent.getData() != null) {
-            Log.v(TAG, intent.getData().toString());
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                if (extras.get("message").equals("SECOND POINT") && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.tei.setAlpha(1.0f);
-                } else if (extras.get("message").equals("FIRST POINT") && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.center.setAlpha(1.0f);
-                } else if (extras.get("message").equals("SECOND POINT") && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.tei.setAlpha(0.2f);
-                } else if (extras.get("message").equals("FIRST POINT") && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.center.setAlpha(0.2f);
-                }
-                Log.v("", "Message: " + extras.get("message"));
-                Log.v("", "Entering? " + extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING));
-            }
-        }
-    }
-}
-
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback,
@@ -138,11 +101,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private final String PROX_ALERT = "app.test.PROXIMITY_ALERT";
     private ProximityReceiver proximityReceiver = null;
     private LocationManager locationManager = null;
+    private ProximityPoint proximityPoint;
     PendingIntent pendingIntent1 = null;
     PendingIntent pendingIntent2 = null;
     double lat;
     double lon;
     float radius = 100;
+    DummyItem dummyItem;
 
 
 
@@ -180,10 +145,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //create intent for picking item
         mapFragment.getMapAsync(this);
 
+/**
+ *
+ *
+ *
+ */
+
+        dummyItem = new DummyItem("glasses","BLABLALBA",new LatLng(41.087272,23.546726),R.mipmap.ic_launcher);
+        proximityPoint = new ProximityPoint(getApplicationContext(),dummyItem);
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        if(checkPermission()){
+           locationManager.addProximityAlert(proximityPoint.getLat(),proximityPoint.getLon(),radius,-1,proximityPoint.getPendingIntent());
+        }
 
         /////////////////////////////////////
         //Proximity
-        lat = 41.087272;
+       /* lat = 41.087272;
         lon = 23.546726;
 
         String geo = "geo:" + lat + "," + lon;
@@ -195,11 +172,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(checkPermission()) {
             locationManager.addProximityAlert(lat, lon, radius, -1, pendingIntent1);
         }
+        */
 
         lat = 41.076792;
         lon = 23.553650;
-        geo = "geo:" + lat + "," + lon;
-        intent = new Intent(PROX_ALERT, Uri.parse(geo));
+        String geo = "geo:" + lat + "," + lon;
+        Intent intent = new Intent(PROX_ALERT, Uri.parse(geo));
         intent.putExtra("message", "SECOND POINT");
 
         pendingIntent2 = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -246,8 +224,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGoogleApiClient.disconnect();
         unregisterReceiver(proximityReceiver);
         if(checkPermission()) {
-            locationManager.removeProximityAlert(pendingIntent1);
+            //locationManager.removeProximityAlert(pendingIntent1);
             locationManager.removeProximityAlert(pendingIntent2);
+
+            proximityPoint.removePendingIntent(getApplicationContext(),locationManager);
+
+
         }
     }
 
