@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class CustomAdapter extends ArrayAdapter<String> {
-
+///
     public CustomAdapter(Context context, ArrayList<String> dialogName) {
         super(context, R.layout.adapter_activity, dialogName);
     }
