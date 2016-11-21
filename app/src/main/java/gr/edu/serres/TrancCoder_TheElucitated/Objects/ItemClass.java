@@ -12,18 +12,18 @@ public class ItemClass {
 
 
     private static ItemClass itemClass;
-    private String onoma, Lat, Long, perioxi;
+    public String onoma, Lat, Long;
     private ArrayList<ItemClass> ItemArray;
 
 
-    private ItemClass(Context context, String... values) {
+    public  ItemClass(String... values) {
         ItemArray = new ArrayList<>();
 
         if (values.length != 0) {
             onoma = values[0];
             Lat = values[1];
             Long = values[2];
-            perioxi = values[3];
+
         }
 
 
@@ -31,8 +31,14 @@ public class ItemClass {
 
     public void setValues(Context context) {
 
-        itemClass = new ItemClass(context, "Magnifying glass", "40.323232", "42342323422323", "fsdfsfsdfsf");
+        itemClass = new ItemClass("Magnifying glass", "40.323232", "42342323422323", "fsdfsfsdfsf");
 
 
     }
+
+
+
+
+
+
 }

@@ -154,36 +154,36 @@
     </string-array>
 
     <string-array name="serres_item">
-        <item> chocolate </item>
-        <item> 41.087022 </item>
-        <item> 23.547429 </item>
+        <item>chocolate</item>
+        <item>41.087022</item>
+        <item>23.547429</item>
 
-        <item>    home   </item>
-        <item> 41.090270 </item>
-        <item> 23.549632 </item>
+        <item>home</item>
+        <item>41.090270</item>
+        <item>23.54963</item>
 
-        <item>   Accountant   </item>
-        <item>    41.085631   </item>
-        <item>    23.544688   </item>
+        <item>Accountant</item>
+        <item>41.085631</item>
+        <item>23.544688</item>
 
-        <item>  Queen_jack_club </item>
-        <item>     41.092082    </item>
-        <item>     23.558603    </item>
+        <item>Queen_jack_club</item>
+        <item>41.092082</item>
+        <item>23.558603</item>
     </string-array>
 
     <string-array name="thessaloniki_item">
 
-        <item> university </item>
-        <item>  40.677737 </item>
-        <item>  22.925500 </item>
+        <item>university</item>
+        <item>40.677737</item>
+        <item>22.925500</item>
 
-        <item>   home    </item>
-        <item> 40.630389 </item>
-        <item> 22.943000 </item>
+        <item>home</item>
+        <item>40.630389</item>
+        <item>22.943000</item>
 
-        <item>   hospital </item>
-        <item>  40.640063 </item>
-        <item>  22.944419 </item>
+        <item>hospital</item>
+        <item>40.640063</item>
+        <item>22.944419</item>
 
     </string-array>
 
@@ -251,7 +251,7 @@
                 και παρακολουθώ όλο το πανεπιστήμιο.</item>
         <item>Θα μπορούσαμε να έχουμε το υλικόπου κατέγραψαν οι κάμερες εκείνο το βράδυ?</item>
 
-        <item>'Ένα λεπτό να το βρω.Θα σας το βάλω να το δείτε.</item>
+        <item>Ένα λεπτό να το βρω.Θα σας το βάλω να το δείτε.</item>
             <item>Πάτησε το στοπ τώρα.Κάνε τώρα λίγο ζουμάρισμα.Αυτή είναι.Σας παρακαλώ μπόρω να έχω
             το αντίγραφο του DVD?</item>
         <item>Ορίστε..Ελπίζω να βρεθεί η λύση του εγκλήματος.Καλό σας βράδυ.</item>
