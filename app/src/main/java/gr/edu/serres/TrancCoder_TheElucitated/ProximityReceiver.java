@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import static com.google.android.gms.internal.zzs.TAG;
 
 /**
@@ -15,6 +17,12 @@ import static com.google.android.gms.internal.zzs.TAG;
  */
 
 class ProximityReceiver extends BroadcastReceiver {
+    GoogleMap mMap;
+    MapItems items;
+    ProximityReceiver(MapItems items,GoogleMap map){
+        this.items = items;
+        mMap = map;
+    }
 
     @Override
     public void onReceive(Context arg0, Intent intent) {
@@ -33,14 +41,12 @@ class ProximityReceiver extends BroadcastReceiver {
             Log.v(TAG, intent.getData().toString());
             Bundle extras = intent.getExtras();
             if (extras != null) {
-                if (extras.get("message").equals("SECOND POINT") && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.tei.setAlpha(1.0f);
-                } else if (extras.get("message").equals("glasses") && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.center.setAlpha(1.0f);
-                } else if (extras.get("message").equals("SECOND POINT") && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.tei.setAlpha(0.2f);
-                } else if (extras.get("message").equals("glasses") && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                    MapsActivity.center.setAlpha(0.2f);
+                for(DummyItem item : items.getItems()){
+                    if (extras.get("message").equals(item.getName()) && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
+                        item.showImageAndMakeClickable(mMap);
+                    } else if (extras.get("message").equals(item.getName()) && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
+                        item.removeImage();
+                    }
                 }
                 Log.v("", "Message: " + extras.get("message"));
                 Log.v("", "Entering? " + extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING));

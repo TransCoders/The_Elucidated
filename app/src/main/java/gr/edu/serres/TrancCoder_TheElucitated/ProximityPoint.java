@@ -13,12 +13,13 @@ import android.support.v4.app.ActivityCompat;
  */
 
 public class ProximityPoint {
+    private String name;
     private String geo;
     private double lat, lon;
-    float radius=100;
+    float radius;
     private final String PROX_ALERT = "app.test.PROXIMITY_ALERT";
-    Intent intent;
-    PendingIntent pendingIntent;
+    private Intent intent;
+    private PendingIntent pendingIntent;
 
     public double getLat() {
         return lat;
@@ -33,6 +34,8 @@ public class ProximityPoint {
     }
 
     ProximityPoint(Context context, DummyItem item) {
+        radius = 200f;
+        name = item.getName();
         lat = item.getLocation().latitude;
         lon = item.getLocation().longitude;
         geo = "geo:" + lat + "," + lon;
@@ -42,7 +45,11 @@ public class ProximityPoint {
 
     }
 
-    public void addProximityAlert(Context context, LocationManager locationManager) {
+    public String getName() {
+        return name;
+    }
+
+    void addProximityAlert(Context context, LocationManager locationManager) {
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 /*&& ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
@@ -52,7 +59,7 @@ public class ProximityPoint {
         locationManager.addProximityAlert(lat, lon, radius, -1, pendingIntent);
     }
 
-    public void removePendingIntent(Context context,LocationManager locationManager) {
+    void removePendingIntent(Context context,LocationManager locationManager) {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 /*&& ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
             // TODO: Consider calling

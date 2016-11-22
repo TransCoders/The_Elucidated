@@ -5,12 +5,20 @@ package gr.edu.serres.TrancCoder_TheElucitated;
  */
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -24,6 +32,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,36 +45,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.IntentFilter;
-
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
-import static com.google.android.gms.internal.zzs.TAG;
-
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -82,35 +73,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Spinner pickItemSpinner;
     PopupMenu mapTypeMenu;
     MenuInflater inflater;
-    DummyInventory inventoryMap;
+    MapItems inventoryMap;
     DummyUser user;
-
-
     /*
      * Location variables
      */
     Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-
-
-
     /*
      * Proximity variables
      */
     private final String PROX_ALERT = "app.test.PROXIMITY_ALERT";
     private ProximityReceiver proximityReceiver = null;
     private LocationManager locationManager = null;
-    private ProximityPoint proximityPoint;
-    PendingIntent pendingIntent1 = null;
-    PendingIntent pendingIntent2 = null;
-    double lat;
-    double lon;
+    private ProximityController proximityController;
     float radius = 100;
-    DummyItem dummyItem;
-
-
-
     //Test variables
     static Marker tei, center;
     // \ Test variables
@@ -120,7 +98,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
-
     //
 
     @Override
@@ -137,60 +114,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapReady = false;
         //create inventory for map -basically items in map
-        inventoryMap = new DummyInventory();
+        inventoryMap = new MapItems();
         //create dummyuser for testing
         user = new DummyUser("myemail@gmail.com");
         //Create background music -by default music is off
         createBackgroundMusic();
         //create intent for picking item
         mapFragment.getMapAsync(this);
-
-/**
- *
- *
- *
- */
-
-        dummyItem = new DummyItem("glasses","BLABLALBA",new LatLng(41.087272,23.546726),R.mipmap.ic_launcher);
-        proximityPoint = new ProximityPoint(getApplicationContext(),dummyItem);
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        if(checkPermission()){
-           locationManager.addProximityAlert(proximityPoint.getLat(),proximityPoint.getLon(),radius,-1,proximityPoint.getPendingIntent());
-        }
-
-        /////////////////////////////////////
-        //Proximity
-       /* lat = 41.087272;
-        lon = 23.546726;
-
-        String geo = "geo:" + lat + "," + lon;
-        Intent intent = new Intent(PROX_ALERT, Uri.parse(geo));
-        intent.putExtra("message", "FIRST POINT");
-        pendingIntent1 = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-        if(checkPermission()) {
-            locationManager.addProximityAlert(lat, lon, radius, -1, pendingIntent1);
-        }
-        */
-
-        lat = 41.076792;
-        lon = 23.553650;
-        String geo = "geo:" + lat + "," + lon;
-        Intent intent = new Intent(PROX_ALERT, Uri.parse(geo));
-        intent.putExtra("message", "SECOND POINT");
-
-        pendingIntent2 = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        if(checkPermission()) {
-            locationManager.addProximityAlert(lat, lon, radius, -1, pendingIntent2);
-        }
-
-        proximityReceiver = new ProximityReceiver();
-        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
-        intentFilter.addDataScheme("geo");
-
-        registerReceiver(proximityReceiver, intentFilter);
-
         // \Proximity
         /////////////////////////////////////
 
@@ -224,12 +154,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGoogleApiClient.disconnect();
         unregisterReceiver(proximityReceiver);
         if(checkPermission()) {
-            //locationManager.removeProximityAlert(pendingIntent1);
-            locationManager.removeProximityAlert(pendingIntent2);
-
-            proximityPoint.removePendingIntent(getApplicationContext(),locationManager);
-
-
+            for(ProximityPoint proximityPoint:proximityController.getProximityPointList()){
+                locationManager.removeProximityAlert(proximityPoint.getPendingIntent());
+            }
         }
     }
 
@@ -255,7 +182,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             String stateName = addresses.get(0).getLocality();
             Toast.makeText(this, " County = " + stateName, Toast.LENGTH_SHORT).show();
-
         }
     }
 
@@ -300,22 +226,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         //Add items on Map
-        createItemsOnMap();
+        onItemClickListener();
         //Find Items Spinner  and Function
         //createSpinnerForFindItemInMap();
         //Select Map Type
         createPopupMenuForMapType();
-
-        // Test markers for proximity
-        LatLng TEI = new LatLng(41.076792, 23.553650);
-        tei = mMap.addMarker(new MarkerOptions()
-                .position(TEI)
-                .alpha(0.0f));
-
-        LatLng CENTER = new LatLng(41.087272,23.546726);
-        center = mMap.addMarker(new MarkerOptions()
-                .position(CENTER)
-                .alpha(0.0f));
+        //Create Hidden Items in Map
+        createStoryItems(inventoryMap);
+        //
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        proximityController = new ProximityController(getApplicationContext(),locationManager);
+        for(DummyItem item:inventoryMap.getItems()){
+            proximityController.createProximityPoint(item);
+            proximityController.addProximityAlert(item);
+        }
+        proximityReceiver = new ProximityReceiver(inventoryMap,mMap);
+        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
+        intentFilter.addDataScheme("geo");
+        registerReceiver(proximityReceiver, intentFilter);
+        //
         mapReady = true;
     }
 
@@ -435,28 +364,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    void createItemsOnMap(){
+    void createStoryItems(MapItems items){
         //Set up some items on the map
         DummyItem magnifier = new DummyItem("magnifier","A very clean magnifier. Find clues better",new LatLng(41.069131,23.55389),R.mipmap.ic_launcher);
         DummyItem glasses = new DummyItem("glasses","You can't look very far away without them",new LatLng(41.07902,23.553690),R.mipmap.ic_launcher);
         DummyItem handcuffs = new DummyItem("handcuffs","You need these in order to catch the criminal",new LatLng(41.07510,23.552997),R.mipmap.ic_launcher);
-        magnifier.showImageAndMakeClickable(mMap);
-        glasses.showImageAndMakeClickable(mMap);
-        handcuffs.showImageAndMakeClickable(mMap);
-        inventoryMap.addItem(magnifier);
-        inventoryMap.addItem(glasses);
-        inventoryMap.addItem(handcuffs);
+        DummyItem chocolate = new DummyItem("Chocolate","Chocolate",new LatLng(41.087022,23.547429),R.mipmap.ic_launcher);
+        DummyItem home = new DummyItem("Home","Home",new LatLng(41.080722,23.547429),R.mipmap.ic_launcher);
+        DummyItem accountant = new DummyItem("Accountant","Accountant",new LatLng(41.085631,23.544688),R.mipmap.ic_launcher);
+        DummyItem queen_jack_club = new DummyItem("Queen Jack Club","Queen Jack Club",new LatLng(41.092082,23.558603),R.mipmap.ic_launcher);
+        DummyItem university = new DummyItem("University","University",new LatLng(40.677737,22.925500),R.mipmap.ic_launcher);
+        DummyItem home_thessaloniki = new DummyItem("Home","Home",new LatLng(40.630389,22.943000),R.mipmap.ic_launcher);
+        DummyItem hospital = new DummyItem("Hospital","Hospital",new LatLng(40.640063,22.94419),R.mipmap.ic_launcher);
+        items.addItems(magnifier,glasses,handcuffs,chocolate,home,accountant,queen_jack_club,university,home_thessaloniki,hospital);
+    }
+    void onItemClickListener(){
         //On Item Click Function
         mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
             @Override
             public void onGroundOverlayClick(GroundOverlay groundOverlay) {
                 try {
                     DummyItem itemFound = inventoryMap.getItemByIconId(groundOverlay.getId());
-                    //mMap.animateCamera( CameraUpdateFactory.newLatLngZoom(TEI ,MapZoom));
-                    Toast.makeText(getApplicationContext(),"Item picked " + itemFound.getName(),Toast.LENGTH_SHORT).show();
-                    user.getInventory().addItem(itemFound);
-                    inventoryMap.removeItem(itemFound.getName());
-                    itemFound.removeImage();
+                    Toast.makeText(getApplicationContext(),itemFound.getDescription(),Toast.LENGTH_SHORT).show();
                 } catch (ItemNotFoundException e) {
                     e.printStackTrace();
                 }

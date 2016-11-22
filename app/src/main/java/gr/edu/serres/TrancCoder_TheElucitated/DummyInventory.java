@@ -26,12 +26,23 @@ class DummyInventory {
     void addItem(DummyItem item){
         items.add(item);
     }
+
     DummyItem getItemByIconId(String id) throws ItemNotFoundException {
-        for(DummyItem item:items){
+        ListIterator<DummyItem> iterator = items.listIterator();
+        DummyItem item;
+        while(iterator.hasNext()){
+            item = iterator.next();
+            if(item.isShowImage()){
+                if(item.getIcon().getId().equals(id)){
+                    return item;
+                }
+            }
+        }
+        /*for(DummyItem item:items){
             if(item.getIcon().getId().equals(id)){
                 return item;
             }
-        }
+        }*/
         throw new ItemNotFoundException();
     }
     List<String> getNamesOfAllItemsInInventory(){
@@ -62,5 +73,10 @@ class DummyInventory {
                 return;
             }
         }*/
+    }
+    public void addItems(DummyItem ...items){
+        for(DummyItem item:items){
+            this.items.add(item);
+        }
     }
 }

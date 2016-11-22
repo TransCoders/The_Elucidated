@@ -39,6 +39,10 @@ class DummyItem {
         showImage = false;
     }
 
+    public boolean isShowImage() {
+        return showImage;
+    }
+
     void showImageAndMakeClickable(GoogleMap map){
         icon = map.addGroundOverlay(new GroundOverlayOptions()
                 .image(image)
