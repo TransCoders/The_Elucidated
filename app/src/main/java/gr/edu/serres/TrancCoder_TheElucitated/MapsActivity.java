@@ -371,8 +371,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DummyItem handcuffs = new DummyItem("handcuffs","You need these in order to catch the criminal",new LatLng(41.07510,23.552997),R.mipmap.ic_launcher);
         DummyItem chocolate = new DummyItem("Chocolate","Chocolate",new LatLng(41.087022,23.547429),R.mipmap.ic_launcher);
         DummyItem home = new DummyItem("Home","Home",new LatLng(41.080722,23.547429),R.mipmap.ic_launcher);
+        home.setDialogue(getResources().getStringArray(R.array.Victims_home));
         DummyItem accountant = new DummyItem("Accountant","Accountant",new LatLng(41.085631,23.544688),R.mipmap.ic_launcher);
+        accountant.setDialogue(getResources().getStringArray(R.array.Accountant));
         DummyItem queen_jack_club = new DummyItem("Queen Jack Club","Queen Jack Club",new LatLng(41.092082,23.558603),R.mipmap.ic_launcher);
+        queen_jack_club.setDialogue(getResources().getStringArray(R.array.Queen_jack_club));
         DummyItem university = new DummyItem("University","University",new LatLng(40.677737,22.925500),R.mipmap.ic_launcher);
         DummyItem home_thessaloniki = new DummyItem("Home","Home",new LatLng(40.630389,22.943000),R.mipmap.ic_launcher);
         DummyItem hospital = new DummyItem("Hospital","Hospital",new LatLng(40.640063,22.94419),R.mipmap.ic_launcher);
@@ -385,7 +388,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onGroundOverlayClick(GroundOverlay groundOverlay) {
                 try {
                     DummyItem itemFound = inventoryMap.getItemByIconId(groundOverlay.getId());
-                    Toast.makeText(getApplicationContext(),itemFound.getDescription(),Toast.LENGTH_SHORT).show();
+                    if(itemFound.hasDialogue()){
+                        Intent intent = new Intent(MapsActivity.this,DialogsActivity.class);
+                        intent.putExtra("dialogue",itemFound.getDialogue());
+                        MapsActivity.this.startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(),itemFound.getDescription(),Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (ItemNotFoundException e) {
                     e.printStackTrace();
                 }
