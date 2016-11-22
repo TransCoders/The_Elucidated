@@ -19,6 +19,7 @@ import static com.google.android.gms.internal.zzs.TAG;
 class ProximityReceiver extends BroadcastReceiver {
     GoogleMap mMap;
     MapItems items;
+
     ProximityReceiver(MapItems items,GoogleMap map){
         this.items = items;
         mMap = map;

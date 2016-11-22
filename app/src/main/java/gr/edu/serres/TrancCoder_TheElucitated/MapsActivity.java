@@ -124,6 +124,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // \Proximity
         /////////////////////////////////////
 
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
 
     }
 
@@ -167,6 +169,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setInterval(10000);
 
 
+
+
         if(checkPermission()) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -183,6 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String stateName = addresses.get(0).getLocality();
             Toast.makeText(this, " County = " + stateName, Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
@@ -191,12 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        if(checkPermission()) {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        }
-        if(mLastLocation != null){
-            //Toast.makeText(this, "Latitude = "+mLastLocation.getLatitude()+" Longitude = "+mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Override
@@ -233,18 +233,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         createPopupMenuForMapType();
         //Create Hidden Items in Map
         createStoryItems(inventoryMap);
+
         //
-        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
+        proximityReceiver = new ProximityReceiver(inventoryMap,mMap);
+        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
+        intentFilter.addDataScheme("geo");
+        registerReceiver(proximityReceiver, intentFilter);
+
         proximityController = new ProximityController(getApplicationContext(),locationManager);
         for(DummyItem item:inventoryMap.getItems()){
             proximityController.createProximityPoint(item);
             proximityController.addProximityAlert(item);
         }
-        proximityReceiver = new ProximityReceiver(inventoryMap,mMap);
-        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
-        intentFilter.addDataScheme("geo");
-        registerReceiver(proximityReceiver, intentFilter);
+
         //
+
+
         mapReady = true;
     }
 
@@ -283,6 +288,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMyLocationButtonClick(){
         Toast.makeText(this, " Finding your location  . . . ", Toast.LENGTH_SHORT).show();
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
         return false;
     }
 

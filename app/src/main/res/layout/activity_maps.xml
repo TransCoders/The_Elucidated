@@ -15,15 +15,6 @@
     android:layout_height="match_parent"
     tools:context="gr.edu.serres.TrancCoder_TheElucitated.MapsActivity" />
 
-    <ToggleButton
-        android:background="@mipmap/ic_play_circle_outline"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:id="@+id/toggle_music"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        />
-
     <!--<Spinner
         android:id="@+id/pick_item_spinnerr"
         android:layout_width="wrap_content"
@@ -47,6 +38,15 @@
         android:id="@+id/the_elucidated"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/options_btn" />
+
+    <ToggleButton
+        android:background="@mipmap/ic_play_circle_outline"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/toggle_music"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="35dp" />
 
 
 </RelativeLayout>
