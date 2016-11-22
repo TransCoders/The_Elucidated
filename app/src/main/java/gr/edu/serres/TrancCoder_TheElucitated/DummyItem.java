@@ -29,7 +29,8 @@ class DummyItem {
     private BitmapDescriptor image;
     private GroundOverlay icon;
     private static final double iconSize = 0.0001;
-    private boolean showImage;
+    private boolean showImage,hasDialogue;
+    String[] dialogue;
 
     DummyItem(String name, String description, LatLng location, int iconResource){
         this.name = name;
@@ -38,8 +39,20 @@ class DummyItem {
         image = BitmapDescriptorFactory.fromResource(iconResource);
         showImage = false;
     }
+    public void setDialogue(String[] dialogue){
+        this.dialogue = dialogue;
+        hasDialogue = true;
+    }
 
-    public boolean isShowImage() {
+    public String[] getDialogue() {
+        return dialogue;
+    }
+
+    public boolean hasDialogue() {
+        return hasDialogue;
+    }
+
+    boolean isShowImage() {
         return showImage;
     }
 
