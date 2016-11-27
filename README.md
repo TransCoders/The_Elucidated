@@ -37,7 +37,7 @@ If you want  travel across the country-country's for solving  various of crimes 
 <h3>Developers of Application</h3>
 <ul>
 <li>James Nikolaidis (dimitriosnikolaidis@hotmail.com)</li>
-<li>Damianos Anchidin (gollae1994@gmail.com)</li>
+<li>Damianos Anchidin (damisv@gmail.com)</li>
 <li>Anastasios Tilsizoglou (tilsizoglou@protonmail.com)</li>
 <li>Anastasios Gumnopoulos(g.buylol@gmail.com)</li>
 <li>Alexandros Xatzis (alexandrosxatzis@gmail.com)</li>
