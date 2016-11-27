@@ -46,6 +46,6 @@ If you want  travel across the country-country's for solving  various of crimes 
 
 
 
-<p>Copyright &copy; <a href="https://github.com/TransCoders">Transcoders&reg;</a> ,<a href="http://informatics.teicm.gr/">Technological_Institute_Of_Central_Macedonia&reg;</a>,
+<p>Copyright &copy; <a href="https://github.com/TransCoders">Transcoders&reg;</a> ,<a href="http://informatics.teicm.gr/">University Of Applied Sciences of Central Macedonia&reg;</a>,
 <a href="https://firebase.google.com/">Google&reg;</a> </p>
 
