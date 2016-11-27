@@ -8,7 +8,7 @@
 <p>Live the Experience of solving  crimes, like the most famous detective as Sherlock Holmes , on  real map near the state or town 
 in each country (soon enough) . <br/>
 Started to investigating to the crime scene, try to find items that will help you for the  crime  solving , find the Murderer and go to the next crime.<br/>
-If you want to travel across the country  for solving  various of crimes and increasing of  your fame as a Detective!
+If you want  travel across the country-country's for solving  various of crimes and increasing of  your fame as a Detective!
 </p>
 <br/>
 <br/>
