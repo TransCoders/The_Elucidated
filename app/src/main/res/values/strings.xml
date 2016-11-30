@@ -222,6 +222,16 @@
         </item>
     </string-array>
 
+    <string-array name="Student_home_chooser">
+        <item>
+           Να πάρω τις σημειώσεις;
+        </item>
+    </string-array>
+
+
+
+
+
     <string-array name="Girlfriend_home">
             <item>Συγγνώμη για την ενόχληση, ήρθα να σας κάνω κάποιες ερωτήσεις σχετικά με τον φόνο
                   του Ν.Ι.</item>
@@ -236,6 +246,22 @@
         <item>Στο καλό Αστυνόμε</item>
     </string-array>
 
+
+
+
+    <string-array name="Girlfriend_home_chooser">
+        <item>Να πάρω τις γόβες?</item>
+        <item>Να ψάξω το σπίτι?</item>
+
+    </string-array>
+
+
+
+
+
+
+
+
     <string-array name="Hospital">
         <item>Καλησπέρα Σ.(ονομα γιατρου)τι συμπεράσματα έβγαλες από την νεκροψία?</item>
             <item>Αστυνόμε,οι τοξικολογικές έδειξαν μεγάλη ποσότητα ναρκωτικής ουσίας.Έχει ένα μεγάλο
@@ -248,6 +274,17 @@
 
 
     </string-array>
+
+
+
+    <string-array name="Hospital_chooser">
+        <item>Να δω τα σημάδια? </item>
+        <item> Nα πάρω τον φάκελο με τις τοξικολογικές?</item>
+        <item>Nα αφήσω τον φάκελο με τις τοξικολογικές?</item>
+    </string-array>
+
+
+
 
     <string-array name="University">
         <item>Γεια σας.Θα θέλαμε να σας κάνουμε κάποιες ερωτήσεις.Έγινε ένας φόνος ενός φοιτητή.</item>
@@ -263,6 +300,18 @@
         <item>Ορίστε..Ελπίζω να βρεθεί η λύση του εγκλήματος.Καλό σας βράδυ.</item>
 
     </string-array>
+
+
+
+    <string-array name="University_chooser">
+        <item>Να δω το DVD;</item>
+        <item> Να πάρω το DVD;</item>
+        <item>Να αφήσω το DVD;</item>
+
+
+    </string-array>
+
+
 
 
 
@@ -288,12 +337,157 @@
     </string-array>
 
 
+
+    <string-array name="Girlfriend_home_1_chooser">
+        <item>Nα ψάξω στο σπίτι;</item>
+        <item>Να βγάλω τον μεγενθυντικό φακό;</item>
+        <item>Να ψάξω για αποτυπώματα;</item>
+        <item>Να πάρω τις γόβες;</item>
+        <item>Να πάρω το μαχαίρι;</item>
+        <item>Να βγάλω το σακουλάκι;</item>
+        <item>Να αφήσω τις γόβες;</item>
+        <item>Να αφήσω το μαχαίρι;</item>
+
+    </string-array>
+
+
+
+
+
+
     <string-array name="Hospital1">
         <item>Σ.  πάρε αυτά τα αντικείμενα και ταυτοποίησε τα με το αίμα που έχει το θύμα.</item>
         <item>Το αίμα όντως είναι ίδιο.</item>
         <item>Ο δολοφόνος βρέθηκε.</item>
 
     </string-array>
+
+    <string-array name="Hospital1_chooser">
+        <item>Nα πάρω τα αντικείμενα;</item>
+        <item>Να αφήσω τα αντικείμενα;</item>
+
+    </string-array>
+
+
+
+
+
+
+    <string-array name="Crime_scene">
+        <item>Καλημέρα,αστυνομία εκει?</item>
+        <item>Μάλιστα.Σας ακούω τι πάθατε;</item>
+        <item>Με λένε Κ.Ε. και έχω μπροστά μου ένα αυτοκίνητο και μέσα είναι μια κοπέλα νεκρή,
+        είναι μπρούμυτα πάνω στο τιμόνι.Υπάρχει και ένα μαντήλι σκαλωμένο στο παράθυρο.
+            Ελάτε γρήγορα είμαι σε αυτόν τον δρόμο.</item>
+
+    </string-array>
+
+
+
+    <string-array name="Crime_scene_chooser">
+        <item>Να κοιτάξω μέσα στο αμάξι;</item>
+        <item>Να πάρω το μαντήλι;</item>
+
+    </string-array>
+
+
+
+
+
+    <string-array name="Hospital_Athina">
+        <item>Αστυνόμε,αιτία θανάτου είναι η ασφυξία.Πιθανόν ο δράστης λογικά της έπνι3ε με κάποιο
+            αντικείμενο διότι δεν υπάρχουν κάποια δαχτυλικά αποτυπώματα.Ακόμα βρέθηκαν ίχνη στα νύχια
+        του θύματος ήταν φαίνεται από την αντίσταση της και μόλωπες από χτύπημα.
+        </item>
+        <item>Ευχαριστώ, γιατρέ.</item>
+    </string-array>
+
+
+    <string-array name="Hospital_Athina_chooser">
+        <item>Nα δω τα σημάδια;</item>
+
+    </string-array>
+
+    <string-array name="police">
+        <item>Έχουμε κάποιο στοιχείο Κατερίνα από τον τόπο που βρέθηκε το πτώμα;</item>
+        <item>Μάλιστα ,αστυνόμε.Μέσα στο αυτοκίνητο βρέθηκε η τσάντα της μέσα είχε ενα tablet
+        και ένα σημειωματάριο.</item>
+        <item>Βρέθηκε κάτι χρήσιμο.</item>
+        <item>Μέσα στο σημειωματάριο έγραφε οτι είχε ραντεβού με έναν δικηγόρο
+            Όσο για το tablet είχε συνομιλίες με μια φίλη της.</item>
+
+    </string-array>
+
+    <string-array name="police_chooser">
+        <item> Nα πάρω την τσάντα;</item>
+        <item>Να ψάξω την τσάντα;</item>
+        <item> Nα αφήσω την τσάντα;</item>
+        <item>Να πάρω το tablet;</item>
+        <item>Να ψάξω το tablet;</item>
+        <item>Να δω τις συνομιλίες;</item>
+        <item>Να αφήσω το tablet;</item>
+        <item>Να πάρω το πορτοφόλι;</item>
+        <item>Να ψάξω το πορτοφόλι;</item>
+        <item>Να αφήσω το πορτοφόλι;</item>
+        <item>Nα πάρω το κινητό;</item>
+        <item>Να ψάξω το κινητό;</item>
+        <item>Να δω μηνύματα;</item>
+        <item>Να δω κλήσεις;</item>
+        <item>Nα αφήσω το κινητό;</item>
+
+    </string-array>
+
+    <string-array name="dikigoriko_grafeio">
+        <item>Καλησπέρα σας.Ηρθαμε να σας κανουμε κάποιες ερωτήσεις για την υπόθεση της ΚΜ.</item>
+        <item>Η κοπέλα αυτή ήρθε εχθές στο γραφέιο μου και υπέγραψε ένα συμβόλαιο για ένα σπίτι και
+        της έδωσα και ένα κλειδί του σπιτιού.</item>
+
+
+    </string-array>
+
+
+    <string-array name="dikigoriko_grafeio_chooser">
+        <item>Να πάρω το κλειδί;</item>
+        <item>Να αφήσω το κλειδί;</item>
+        <item>Να πάρω το συμβόλαιο;</item>
+        <item>Να διαβάσω το συμβόλαιο;</item>
+        <item>Να αφήσω το συμβόλαιο;</item>
+
+    </string-array>
+
+    <string-array name="Friend_Home">
+        <item>Γεια σας.Πειτε μας για την φίλη σας.</item>
+        <item>Η ΚΜ τον τελευταίο καιρό ήταν πολύ χάλια.Είχε προβλήματα με τόν άντρα της.Ήθελε να χωρίσει
+        .Μου άφησε εχθές και ένα βιβλιάριο τραπέζης γιατί της το έπαιρνε κρυφά και το άδειαζε.</item>
+        <item>Σας ευχαριστούμε πολύ</item>
+
+    </string-array>
+
+
+    <string-array name="Friend_Home_chooser">
+        <item>Nα πάρω το βιβλιάριο;</item>
+        <item>Να αφήσω το βιβλιάριο;</item>
+
+    </string-array>
+
+    <string-array name="Victims2_home">
+        <item>Είστε ο άντρας της Κμ?</item>
+        <item>Πείτε μας πότε είδατε τελευταία φορά το θύμα?</item>
+        <item>Χθες το απόγευμα.</item>
+        <item>Ξέρουμε οτι την κακοποιούσατε είναι αλήθεια?</item>
+        <item>Όχι</item>
+        <item>Όμως το σώμα της όπως το εξέτασε ο ιατροδικαστής είχε κάποιες μελανιές. </item>
+        <item>Εγώ δεν έκανα τίποτα.</item>
+        <item>Και αυτές οι γραντζουνιές στα χέρια σας τι είναι?</item>
+        <item>Κάπου χτύπησα.</item>
+        <item>Κι όμως αυτές τις πληγές σας τις έκανε το θύμα την ώρα που την πνλιγατε γτ δεν το
+        παραδέχεστε?</item>
+        <item>Αλήθεια είναι εγώ την σκότωσα.</item>
+        <item>Συλλαμβάνεστε για τον φόνο της συζύγους σας.</item>
+
+    </string-array>
+
+
 
 
 
