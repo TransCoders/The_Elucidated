@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
@@ -28,8 +31,23 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+
         setContentView(R.layout.home_screen_activity);
+
+
+      /*  FirebaseAuth auth = FirebaseAuth.getInstance();
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setProviders(
+                        AuthUI.FACEBOOK_PROVIDER)
+                .build(),1);
+*/
+
         database_functions = Database_Functions.getInstance(getApplicationContext());
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -108,6 +126,16 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+
+    }
+
+    public void facebooklogin(View view) {
+        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        // If using in a fragment
+
+
+
 
     }
 }
