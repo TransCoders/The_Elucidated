@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="@string/Continue"
-            tools:text="@string/Continue" />
+            android:text="Log In"
+          />
 
         <EditText
             android:id="@+id/Name_Edit_Text"
@@ -66,20 +66,14 @@
             android:layout_below="@+id/textView"
             android:layout_marginTop="28dp"
             android:labelFor="@+id/Name_Edit_Text"
-            android:text="@string/Name"
+            android:text="Password"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="24sp"
             android:textStyle="normal|bold"
-            tools:text="@string/Name" />
+           />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp" />
+
 
         <EditText
             android:id="@+id/Email_EditText"
@@ -105,18 +99,7 @@
             android:textSize="24sp"
             android:textStyle="normal|bold" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Email_EditText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
-            android:labelFor="@+id/spinner"
-            android:text="@string/Territory"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="normal|bold" />
+
 
 
     </RelativeLayout>

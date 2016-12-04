@@ -33,7 +33,7 @@ public class Database_Functions {
      //******************************************************/
 
     private static  int counter=9;
-    private Firebase mRoot,mUsers,mInventory,mItemLocation;
+    private Firebase mRoot,mUsers,mInventory,mItemLocation,mSave;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
     private static Database_Functions InstanceObject;
@@ -51,6 +51,7 @@ public class Database_Functions {
         mUsers= new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
         mInventory = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory");
         mItemLocation = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location");
+        mSave = new Firebase("https://the-elusidated-android-app.firebaseio.com/Save");
         emailPattern = Pattern.compile("^[(*^[0-9])\\w]+@(hotmail)|(gmail)+.(com)|(gr)");
     }
 
@@ -77,7 +78,7 @@ public class Database_Functions {
 
 
         }catch(NullPointerException exception){
-            Log.d("BABY","Here");
+
             Intent intent = new Intent(appActivity, HomeScreenActivity.class);
             appActivity.startActivity(intent);
         }
@@ -301,6 +302,11 @@ public class Database_Functions {
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 InventoryClass secondinventoryClass = dataSnapshot.getValue(InventoryClass.class);
                                 inventoryClass[0] = secondinventoryClass;
+
+                                for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){
+                                    String test = secondinventoryClass.ItemArray.get(i);
+                                    Log.e("PLEPLE",test);
+                                }
                             }
 
                             @Override
@@ -322,8 +328,67 @@ public class Database_Functions {
 
 
 
+    public String GetUserLoadQuest(String UserEmail){
+        final String[] quest2 = new String[1];
+                Query getLoadUserQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+                    getLoadUserQuest.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            String quest = dataSnapshot.child("Quest").getValue(String.class);
+                            quest2[0]=quest;
+                        }
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {}
+                    });
+
+        return quest2[0];
+    }
+
+    public void CreateSaveUserState(String UserEmail, final String CurrentQuest, String Exp){
+
+        Map<String,String> mMap = new HashMap<>();
+        mMap.put("Quest",CurrentQuest);
+        mMap.put("UserEmail",UserEmail);
+
+        mSave.push().setValue(mMap);
 
 
+
+
+
+
+    }
+
+    public void SaveUserState(String UserEmail, final String CurrentQuest, String Exp){
+
+        Query saveQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+        saveQuest.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String key = dataSnapshot.getKey();
+                Firebase newRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/Save/"+key).child("Quest");
+                newRoot.setValue(CurrentQuest);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+        });
+
+        Change_User_Experience(Exp,UserEmail);
+
+
+    }
 
 
 
