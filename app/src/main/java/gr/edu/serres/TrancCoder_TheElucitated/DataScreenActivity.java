@@ -1,5 +1,6 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -60,10 +61,10 @@ public class DataScreenActivity extends AppCompatActivity {
                 LogIn();
                 database.SetUserInformation(new UsersObject(mpassword.getText().toString(), Location, "0", mEmail.getText().toString()));
                 database.SetInventory(new InventoryClass(mEmail.getText().toString()));
-                //database.CreateSaveUserState(mEmail.getText().toString(),"FirstQuest","0");
-               // database.SaveUserState(mEmail.getText().toString(),"SecondQuest","100");
-                // Intent myIntent = new Intent(DataScreenActivity.this, MapsActivity.class);
-               // DataScreenActivity.this.startActivity(myIntent);
+                database.CreateSaveUserState(mEmail.getText().toString(),"FirstQuest","0");
+                database.SaveUserState(mEmail.getText().toString(),"SecondQuest","100");
+                Intent myIntent = new Intent(DataScreenActivity.this, MapsActivity.class);
+                DataScreenActivity.this.startActivity(myIntent);
             }
         });
 
