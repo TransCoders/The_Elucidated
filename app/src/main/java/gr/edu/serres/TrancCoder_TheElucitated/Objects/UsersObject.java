@@ -8,7 +8,10 @@ public class UsersObject {
 
     public String name,location,Experience,email;
 
-    public UsersObject(){}
+    public UsersObject(){
+ name=null;
+
+    }
 
     public UsersObject(String ...values){
         this.name = values[0];

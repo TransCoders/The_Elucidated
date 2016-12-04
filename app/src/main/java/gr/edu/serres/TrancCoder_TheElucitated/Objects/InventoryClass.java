@@ -62,8 +62,21 @@ public class InventoryClass {
 
 
     //RETURNS THE ARRAYLIST VAR
-    public ArrayList<String> returnItemArray(){
-        return ItemArray;
+    public ArrayList<String> returnItemArray() throws  NullPointerException{
+        try{
+            if(!ItemArray.isEmpty()){
+                return ItemArray;
+            }else
+            {throw new NullPointerException();}
+        }catch (NullPointerException ex){
+            System.exit(0);
+
+        }
+
+
+        return null;
     }
+
+
 
 }

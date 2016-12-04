@@ -1,6 +1,8 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Database;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
@@ -14,7 +16,9 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import gr.edu.serres.TrancCoder_TheElucitated.HomeScreenActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
@@ -34,23 +38,26 @@ public class Database_Functions {
     private FirebaseStorage mStorage;
     private static Database_Functions InstanceObject;
     private  Context context;
+    private static Activity appActivity;
     public static int ExpCounter =0;
+    private static Pattern emailPattern;
 
 
-    private Database_Functions(Context context) {
-
+    private Database_Functions(Context context,Activity activity) {
+        context=context;
+        appActivity=activity;
         Firebase.setAndroidContext(context);
         mRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/");
         mUsers= new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
         mInventory = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory");
         mItemLocation = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location");
-
+        emailPattern = Pattern.compile("^[(*^[0-9])\\w]+@(hotmail)|(gmail)+.(com)|(gr)");
     }
 
 
-    public static Database_Functions getInstance(Context context){
+    public static Database_Functions getInstance(Context context, Activity activity){
         if(InstanceObject==null){
-            InstanceObject = new Database_Functions(context);
+            InstanceObject = new Database_Functions(context,activity);
             return InstanceObject;
         }
         return InstanceObject;
@@ -58,12 +65,40 @@ public class Database_Functions {
 
 
     public void SetUserInformation(UsersObject user){
-        String name,email,lastname,location;
-        mUsers.push().setValue(user);
+
+
+        try{
+                if(user.Experience!=null || user.email!=null || user.location!=null || user.Experience!=null){
+                    mUsers.push().setValue(user);
+                }else{
+                    throw new NullPointerException();
+                }
+
+
+
+        }catch(NullPointerException exception){
+            Log.d("BABY","Here");
+            Intent intent = new Intent(appActivity, HomeScreenActivity.class);
+            appActivity.startActivity(intent);
+        }
+
+
+
     }
 
-    public void SetInventory(InventoryClass inventory){
-        mInventory.push().setValue(inventory);
+    public void SetInventory(InventoryClass inventory)throws  NullPointerException{
+
+        try{
+                if(inventory.ItemArray!=null || !inventory.UserEmail.matches("")) {
+                    mInventory.push().setValue(inventory);
+                }else{throw new NullPointerException();}
+        }catch(NullPointerException exception){
+                    //if set System.exit(0) system stops and some test cases will not run in final product we
+            //must write System.exit(0);
+            }
+
+
+
     }
 
 
@@ -84,35 +119,40 @@ public class Database_Functions {
 
 
     //START OF METHOD TO UPDATE USER INVENTORY
-    public void Set_User_Inventory_Item_and_Update(final String value, final String UserEmail, final String Exp){
-        //Query to find the Child with the given by user email
-        final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
-        //Triger query Child Listener
-        findProperInventory.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // Create new map for the new added object in the array
-                Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
-                //Gets Inventory Class object from JSON file
-                InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
-                //Put a new object to the Map with flag the next arrayindex of tbe array
-                Inventory_Update_Map.put(String.valueOf(counter),value);
-                //Create a clone reference from JSON OBject find by the proper Key
-                Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
-                //Put on the proper child the new Object Item
-                clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
-                //Increase arrayindex counter
-                counter++;
-                Change_User_Experience(Exp,UserEmail);
-            }
-            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                //if Item has complete change purchase the Item experience
+    public void Set_User_Inventory_Item_and_Update(final String value, final String UserEmail, final String Exp) throws  NullPointerException{
 
-            }
-            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override public void onCancelled(FirebaseError firebaseError) {}
-        });
+      try{
+            if(!value.matches("")|| !UserEmail.matches("")|| !Exp.matches("")|| value!=null || UserEmail!=null || Exp !=null){
+             //Query to find the Child with the given by user email
+             final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+              //Triger query Child Listener
+                findProperInventory.addChildEventListener(new ChildEventListener() {
+                  @Override
+                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                     // Create new map for the new added object in the array
+                     Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
+                     //Gets Inventory Class object from JSON file
+                     InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
+                     //Put a new object to the Map with flag the next arrayindex of tbe array
+                     Inventory_Update_Map.put(String.valueOf(counter),value);
+                      //Create a clone reference from JSON OBject find by the proper Key
+                      Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
+                     //Put on the proper child the new Object Item
+                     clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
+                     //Increase arrayindex counter
+                        counter++;
+                     Change_User_Experience(Exp,UserEmail);
+                 }
+                 @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        //if Item has complete change purchase the Item experience
+
+                 }
+                  @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                 @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                 @Override public void onCancelled(FirebaseError firebaseError) {}
+                });
+            }else{throw  new NullPointerException();}
+      }catch(NullPointerException exception){/*System.exit(0)) */}
 
 
 
@@ -249,6 +289,39 @@ public class Database_Functions {
 
 
     }
+
+
+    public InventoryClass getUserInventory(String Useremail){
+        final InventoryClass[] inventoryClass = new InventoryClass[1];
+
+        if(!Useremail.isEmpty()){
+                    Query getUserQuery = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(Useremail);
+                        getUserQuery.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                InventoryClass secondinventoryClass = dataSnapshot.getValue(InventoryClass.class);
+                                inventoryClass[0] = secondinventoryClass;
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot){}
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {}
+                        });
+
+                }else{throw new NullPointerException();}
+
+
+
+        return inventoryClass[0];
+    }
+
+
+
 
 
 

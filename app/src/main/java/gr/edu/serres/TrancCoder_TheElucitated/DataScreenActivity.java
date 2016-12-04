@@ -1,6 +1,5 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import com.google.android.gms.appindexing.Thing;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
@@ -40,7 +38,7 @@ public class DataScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.data_screen_activity);
-        database = Database_Functions.getInstance(getApplicationContext());
+        database = Database_Functions.getInstance(getApplicationContext(),this);
         mName = (EditText) findViewById(R.id.Name_Edit_Text);
         mEmail = (EditText) findViewById(R.id.Email_EditText);
 

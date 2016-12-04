@@ -2,6 +2,7 @@ package gr.edu.serres.TrancCoder_TheElucitated;
 
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,37 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter<String> {
 ///
-    public CustomAdapter(Context context, ArrayList<String> dialogName) {
-        super(context, R.layout.adapter_activity, dialogName);
+    public CustomAdapter(Context context, ArrayList<String> dialogName)throws  NullPointerException,IndexOutOfBoundsException {
+
+
+             super(context, R.layout.adapter_activity);
+     }
+
+
+    @Nullable
+    @Override
+    public String getItem(int position) {
+        return super.getItem(position);
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater theInflater = LayoutInflater.from(getContext());
-        View theView = theInflater.inflate(R.layout.adapter_activity, parent, false);
-        String tvShow = getItem(position);
-        TextView theTextView = (TextView) theView.findViewById(R.id.textView5);
-        theTextView.setText(tvShow);
-        return theView;
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) throws  NullPointerException {
+    try {
+        if (super.getItem(position) == null) {
+            LayoutInflater theInflater = LayoutInflater.from(getContext());
+            View theView = theInflater.inflate(R.layout.adapter_activity, parent, false);
+            String tvShow = getItem(position);
+            TextView theTextView = (TextView) theView.findViewById(R.id.textView5);
+            theTextView.setText(tvShow);
+            return theView;
+        } else {
+            throw new NullPointerException();
+        }
+    }catch(NullPointerException exception){System.exit(0);}
+
+        return  null;
     }
 
 }
