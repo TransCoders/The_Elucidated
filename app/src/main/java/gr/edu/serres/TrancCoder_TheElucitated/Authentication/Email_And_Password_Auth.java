@@ -28,17 +28,18 @@ public class Email_And_Password_Auth {
 
 
     public void Create_New_Account_With_Email_Password(String Email, String Password, final Context context, Activity activity){
-
+            Toast.makeText(context,"Here",Toast.LENGTH_SHORT).show();
         mAuthRef.createUserWithEmailAndPassword(Email,Password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("HEY", "createUserWithEmail:onComplete:" + task.isSuccessful());
-
+                        Toast.makeText(context,"Here3",Toast.LENGTH_SHORT).show();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            Toast.makeText(context,"Here3",Toast.LENGTH_SHORT).show();
                             Toast.makeText(context,"failed",
                                     Toast.LENGTH_SHORT).show();
                         }
