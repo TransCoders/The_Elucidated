@@ -39,7 +39,6 @@ If you want  travel across the country-country's for solving  various of crimes 
 <li>James Nikolaidis (dimitriosnikolaidis@hotmail.com)</li>
 <li>Damianos Anchidin (damisv@gmail.com)</li>
 <li>Anastasios Tilsizoglou (tilsizoglou@protonmail.com)</li>
-<li>Anastasios Gumnopoulos(g.buylol@gmail.com)</li>
 <li>Alexandros Xatzis (alexandrosxatzis@gmail.com)</li>
 <li>Magdalini Koiou (masako7@yahoo.com)</li>
 </ul>
