@@ -1,7 +1,5 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Objects;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 /**
@@ -16,27 +14,33 @@ public class ItemClass {
     private ArrayList<ItemClass> ItemArray;
 
 
-    public  ItemClass(String... values) {
+    public  ItemClass(String... values)throws NullPointerException {
         ItemArray = new ArrayList<>();
 
-        if (values.length != 0) {
-            onoma = values[0];
-            Lat = values[1];
-            Long = values[2];
+    try {
+        if (values.length <= 3) {
+            try {
+                    if (values.length != 0 && !values[0].matches("")&& !values[1].matches("")&& !values[2].matches("")) {
+                        onoma = values[0];
+                        Lat = values[1];
+                        Long = values[2];
 
-        }
+                    } else {
+                        throw new NullPointerException();
+                    }
+                } catch (NullPointerException exception) {
+                        System.exit(1);
+                }
 
 
+
+        }/*If values that user gave was more than required */else {throw  new IndexOutOfBoundsException();}
+    }catch(IndexOutOfBoundsException exception){
+            System.exit(0);
     }
 
-    public void setValues(Context context) {
 
-        itemClass = new ItemClass("Magnifying glass", "40.323232", "42342323422323", "fsdfsfsdfsf");
-
-
-    }
-
-
+    }//***************** END OF METHOD
 
 
 
