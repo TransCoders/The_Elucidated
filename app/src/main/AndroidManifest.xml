@@ -42,8 +42,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".DataScreenActivity">
+        <activity android:name=".DataScreenActivity">
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -72,9 +71,16 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SignInLoadActivity">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
-            android:enabled="true"
-            android:name="gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService" />
+            android:name="gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService"
+            android:enabled="true" />
 
         <supports-screens
             android:anyDensity="true"

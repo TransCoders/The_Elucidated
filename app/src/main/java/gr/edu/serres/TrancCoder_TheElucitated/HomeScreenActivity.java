@@ -92,7 +92,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent myIntent = new Intent(HomeScreenActivity.this, DialogsActivity.class);
+                Intent myIntent = new Intent(HomeScreenActivity.this, SignInLoadActivity.class);
                 HomeScreenActivity.this.startActivity(myIntent);
             }
         });
