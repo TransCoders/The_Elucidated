@@ -18,9 +18,11 @@ import java.util.ArrayList;
 public class DialogsActivity extends AppCompatActivity {
 
     private static int counter = 0;
-    private ListView listView;
+    private ListView erwtisiListView;
+    private ListView apantisiListView;
     private String[] delay;
-    private ArrayList<String> oneOne;
+    private ArrayList<String> erwtisi;
+    private ArrayList<String> apantisi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,40 +32,34 @@ public class DialogsActivity extends AppCompatActivity {
         if(getIntent().hasExtra("dialogue")){
             delay = getIntent().getExtras().getStringArray("dialogue");
         }else {
-            delay = this.getResources().getStringArray(R.array.Victims_home);
+            delay = this.getResources().getStringArray(R.array.Crime_Scene);
         }
-        oneOne = new ArrayList<>();
+        erwtisi = new ArrayList<>();
+        apantisi = new ArrayList<>();
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
 
         while (counter < delay.length) {
-            oneOne.add(delay[counter]);
+            erwtisi.add(delay[counter]);
             counter = counter + 2;
         }
         counter = 0;
 
-        listView = (ListView) this.findViewById(R.id.ListView);
+        erwtisiListView = (ListView) this.findViewById(R.id.ListView);
 
-        ListAdapter adapter = new CustomAdapter(getApplicationContext(), oneOne);
-        listView.setAdapter(adapter);
+        ListAdapter adapter = new CustomAdapter(getApplicationContext(), erwtisi);
+        erwtisiListView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 int pos = adapterView.getPositionForView(view);
                 Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
-                counter++;
                 if (counter < delay.length) {
-                    oneOne.add(delay[counter]);
-                    ListAdapter adapter = new CustomAdapter(getApplicationContext(), oneOne);
-                    listView.setAdapter(adapter);
+                    erwtisi.add(delay[counter]);
+                    ListAdapter adapter = new CustomAdapter(getApplicationContext(), erwtisi);
+                    erwtisiListView.setAdapter(adapter);
                 }
-                /*switch (pos)
-                {
-                    case 0: break;
-                }*/
             }
         });
-
     }
-
 }

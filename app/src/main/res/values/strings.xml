@@ -3,6 +3,7 @@
     <string name="facebook_app_id">1794713960795241</string>
     <string name="password">Password</string>
     <string name="Sign_In">Sign In</string>
+    <string name="Register">Register</string>
     <string name="app_name">The Elucidated</string>
     <string name="title_activity_maps">Map</string>
     <string name="TransCoders_Organization">TransCoders Organization</string>

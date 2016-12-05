@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.facebook.login.widget.LoginButton;
+
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_And_Password;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
@@ -58,10 +60,16 @@ public class SignInLoadActivity extends AppCompatActivity {
 
     }
 
-
     public void SignIn(){
         sign_in_with_email_and_password = new Sign_In_With_Email_And_Password();
         sign_in_with_email_and_password.SignInwithEmailAndPassword(mEmail.getText().toString(),mPassword.getText().toString(),this,getApplicationContext());
+
+    }
+
+    public void facebooklogin(View view) {
+        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        // If using in a fragment
 
     }
 }

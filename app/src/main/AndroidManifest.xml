@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListViewActivity">
+        <activity android:name=".ChooserListViewActivity">
             <intent-filter>
 
                 <category android:name="android.intent.category.LAUNCHER" />

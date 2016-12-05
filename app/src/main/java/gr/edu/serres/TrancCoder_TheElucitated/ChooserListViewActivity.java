@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by tasos on 12/11/2016.
  */
 
-public class ListViewActivity extends AppCompatActivity {
+public class ChooserListViewActivity extends AppCompatActivity {
 
     private static int counter = 0;
     private String[] delay;
@@ -22,7 +22,7 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.listview_activity);
+        setContentView(R.layout.chooser_listview_activity);
 
         delay = this.getResources().getStringArray(R.array.Crime_Scene_chooser);
 
