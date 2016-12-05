@@ -62,7 +62,7 @@ public class SignInLoadActivity extends AppCompatActivity {
 
     public void SignIn(){
         sign_in_with_email_and_password = new Sign_In_With_Email_And_Password();
-        sign_in_with_email_and_password.SignInwithEmailAndPassword(mEmail.getText().toString(),mPassword.getText().toString(),this,getApplicationContext());
+        sign_in_with_email_and_password.SignInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
 
     }
 

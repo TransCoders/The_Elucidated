@@ -32,11 +32,12 @@ public class DialogsActivity extends AppCompatActivity {
         if(getIntent().hasExtra("dialogue")){
             delay = getIntent().getExtras().getStringArray("dialogue");
         }else {
-            delay = this.getResources().getStringArray(R.array.Crime_Scene);
+            delay = this.getResources().getStringArray(R.array.Victims_bar);
         }
-        erwtisi = new ArrayList<>();
-        apantisi = new ArrayList<>();
+
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
+
+        erwtisi = new ArrayList<>();
 
         while (counter < delay.length) {
             erwtisi.add(delay[counter]);
@@ -46,8 +47,8 @@ public class DialogsActivity extends AppCompatActivity {
 
         erwtisiListView = (ListView) this.findViewById(R.id.ListView);
 
-        ListAdapter adapter = new CustomAdapter(getApplicationContext(), erwtisi);
-        erwtisiListView.setAdapter(adapter);
+        ListAdapter erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
+        erwtisiListView.setAdapter(erwtisiAdapter);
 
         erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,8 +57,35 @@ public class DialogsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
                 if (counter < delay.length) {
                     erwtisi.add(delay[counter]);
-                    ListAdapter adapter = new CustomAdapter(getApplicationContext(), erwtisi);
-                    erwtisiListView.setAdapter(adapter);
+                    ListAdapter erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
+                    erwtisiListView.setAdapter(erwtisiAdapter);
+                }
+            }
+        });
+
+        apantisi = new ArrayList<>();
+
+        counter = 1;
+        while (counter < delay.length) {
+            apantisi.add(delay[counter]);
+            counter = counter + 2;
+        }
+        counter = 0;
+
+        apantisiListView = (ListView) this.findViewById(R.id.ListView);
+
+        ListAdapter apantisiAdapter = new CustomAdapter(getApplicationContext(), apantisi);
+        apantisiListView.setAdapter(apantisiAdapter);
+
+        apantisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = adapterView.getPositionForView(view);
+                Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
+                if (counter < delay.length) {
+                    apantisi.add(delay[counter]);
+                    ListAdapter apantisiAdapter = new CustomAdapter(getApplicationContext(), apantisi);
+                    apantisiListView.setAdapter(apantisiAdapter);
                 }
             }
         });
