@@ -29,13 +29,13 @@ public class Sign_In_With_Email_And_PasswordTest {
         ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
                 Activity.class);
         details= new Sign_In_With_Email_And_Password();
-        details.SignInwithEmailAndPassword(Email , Password,mActivityRule.getActivity(),InstrumentationRegistry.getContext());
+        details.SignInWithEmailAndPassword(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
 
 
         Email="cat";
 
         details= new Sign_In_With_Email_And_Password();
-        details.SignInwithEmailAndPassword(Email , Password,mActivityRule.getActivity(),InstrumentationRegistry.getContext());
+        details.SignInWithEmailAndPassword(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
 
     }
 

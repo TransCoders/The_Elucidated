@@ -19,75 +19,58 @@ public class DialogsActivity extends AppCompatActivity {
 
     private static int counter = 0;
     private ListView erwtisiListView;
-    private ListView apantisiListView;
     private String[] delay;
     private ArrayList<String> erwtisi;
-    private ArrayList<String> apantisi;
+    private ArrayList<String> clonedErwtisi;
+    private ListAdapter erwtisiAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dialogs_activity);
-        if(getIntent().hasExtra("dialogue")){
+        if (getIntent().hasExtra("dialogue")) {
             delay = getIntent().getExtras().getStringArray("dialogue");
-        }else {
-            delay = this.getResources().getStringArray(R.array.Victims_bar);
+        } else {
+            delay = this.getResources().getStringArray(R.array.Victims_home);
         }
 
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
 
         erwtisi = new ArrayList<>();
 
+
+        counter = 0;
         while (counter < delay.length) {
             erwtisi.add(delay[counter]);
             counter = counter + 2;
         }
         counter = 0;
+        //Toast.makeText(getApplicationContext(),String.valueOf(erwtisi.size()),Toast.LENGTH_SHORT).show();
+
+        clonedErwtisi = new ArrayList<>();
+
+        clonedErwtisi = (ArrayList<String>) erwtisi.clone();
 
         erwtisiListView = (ListView) this.findViewById(R.id.ListView);
 
-        ListAdapter erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
+        erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
         erwtisiListView.setAdapter(erwtisiAdapter);
 
-        erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = adapterView.getPositionForView(view);
-                Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
-                if (counter < delay.length) {
-                    erwtisi.add(delay[counter]);
-                    ListAdapter erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
+        int pos = 0;
+        while (pos < delay.length) {
+            erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    int pos = adapterView.getPositionForView(view);
+                    Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
+                    erwtisi.clear();
+                    erwtisi.add(delay[pos + 1]);
+                    erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
                     erwtisiListView.setAdapter(erwtisiAdapter);
                 }
-            }
-        });
-
-        apantisi = new ArrayList<>();
-
-        counter = 1;
-        while (counter < delay.length) {
-            apantisi.add(delay[counter]);
-            counter = counter + 2;
+            });
+            pos++;
         }
-        counter = 0;
-
-        apantisiListView = (ListView) this.findViewById(R.id.ListView);
-
-        ListAdapter apantisiAdapter = new CustomAdapter(getApplicationContext(), apantisi);
-        apantisiListView.setAdapter(apantisiAdapter);
-
-        apantisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = adapterView.getPositionForView(view);
-                Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
-                if (counter < delay.length) {
-                    apantisi.add(delay[counter]);
-                    ListAdapter apantisiAdapter = new CustomAdapter(getApplicationContext(), apantisi);
-                    apantisiListView.setAdapter(apantisiAdapter);
-                }
-            }
-        });
     }
 }
