@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
@@ -43,8 +43,49 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="Log In"
+            android:text="@string/Register"
           />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="150dp"
+            android:labelFor="@+id/Name_Edit_Text"
+            android:text="@string/password"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/imageView"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="46dp"
+            android:labelFor="@+id/editText2"
+            android:text="@string/Email"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
+
+        <EditText
+            android:id="@+id/Email_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/Name_Edit_Text"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/Email"
+            android:ems="10"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/Name_Edit_Text"
@@ -54,52 +95,9 @@
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/Name"
             android:ems="10"
-            android:hint="@string/Name"
-            android:inputType="textPersonName"
+            android:hint="@string/password"
+            android:inputType="textPassword"
             android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_below="@+id/textView"
-            android:layout_marginTop="28dp"
-            android:labelFor="@+id/Name_Edit_Text"
-            android:text="Password"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textSize="24sp"
-            android:textStyle="normal|bold"
-           />
-
-
-
-        <EditText
-            android:id="@+id/Email_EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/Name_Edit_Text"
-            android:layout_below="@+id/textView3"
-            android:contentDescription="@string/Email"
-            android:ems="10"
-            android:hint="@string/Email"
-            android:inputType="textEmailAddress"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_below="@+id/Name_Edit_Text"
-            android:labelFor="@+id/editText2"
-            android:text="@string/Email"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="normal|bold" />
-
-
 
 
     </RelativeLayout>

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
@@ -44,8 +43,7 @@ public class HomeScreenActivity extends AppCompatActivity {
       /*  FirebaseAuth auth = FirebaseAuth.getInstance();
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                .setProviders(
-                        AuthUI.FACEBOOK_PROVIDER)
+                .setProviders(AuthUI.FACEBOOK_PROVIDER)
                 .build(),1);
 */
 
@@ -97,7 +95,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent myIntent = new Intent(HomeScreenActivity.this, ListViewActivity.class);
+                Intent myIntent = new Intent(HomeScreenActivity.this, DialogsActivity.class);
                 HomeScreenActivity.this.startActivity(myIntent);
             }
         });
@@ -128,16 +126,6 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
-    }
-
-    public void facebooklogin(View view) {
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        // If using in a fragment
-
-
-
 
     }
 }

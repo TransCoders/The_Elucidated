@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
 
 /**
@@ -19,6 +20,7 @@ public class InventoryScreenActivity extends AppCompatActivity {
     private ArrayList<String> oneOne;
     private ListView listView;
     private InventoryClass inventory;
+    private Database_Functions getInv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public class InventoryScreenActivity extends AppCompatActivity {
 
         oneOne = new ArrayList<>();
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
+
+        //getInv.getUserInventory(userEmail);
+        // Mήτσο εδώ θέλουμε ένα getUserEmail
+
 
         while (counter < inventory.returnItemArray().size()) {
             oneOne.add(inventory.returnItemArray().get(counter));
