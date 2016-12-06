@@ -1,6 +1,5 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import com.google.android.gms.appindexing.Thing;
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Email_And_Password_Auth;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
  * Created by tasos on 8/11/2016.
@@ -59,12 +57,7 @@ public class DataScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 LogIn();
-                database.SetUserInformation(new UsersObject(mpassword.getText().toString(), Location, "0", mEmail.getText().toString()));
-                database.SetInventory(new InventoryClass(mEmail.getText().toString()));
-                database.CreateSaveUserState(mEmail.getText().toString(),"FirstQuest","0");
-                database.SaveUserState(mEmail.getText().toString(),"SecondQuest","100");
-                Intent myIntent = new Intent(DataScreenActivity.this, MapsActivity.class);
-                DataScreenActivity.this.startActivity(myIntent);
+
             }
         });
 

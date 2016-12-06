@@ -1,6 +1,8 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Objects;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Alex on 8/11/2016.
@@ -11,7 +13,7 @@ public class InventoryClass {
       /*****************************************************\\
      Class varaible decleration
      //******************************************************/
-    public ArrayList<String> ItemArray ;
+    public List<String> ItemArray ;
     public String UserEmail;
 
 
@@ -26,7 +28,7 @@ public class InventoryClass {
 
     // CLASS COSTRUCTOR WITH PARAMETERS
     public  InventoryClass(String UserMail){
-        ItemArray= new ArrayList<String>();
+        ItemArray=  Collections.synchronizedList(new ArrayList<String>());
         this.UserEmail = UserMail;
         fillArray();
     }
@@ -62,16 +64,14 @@ public class InventoryClass {
 
 
     //RETURNS THE ARRAYLIST VAR
-    public ArrayList<String> returnItemArray() throws  NullPointerException{
+    public List<String> returnItemArray() throws  NullPointerException{
         try{
             if(!ItemArray.isEmpty()){
                 return ItemArray;
             }else
             {throw new NullPointerException();}
         }catch (NullPointerException ex){
-            System.exit(0);
-
-        }
+            System.exit(0);}
 
 
         return null;

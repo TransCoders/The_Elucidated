@@ -33,28 +33,37 @@ public class Sign_In_With_Email_And_Password {
 
         final boolean[] complete = {true};
 
-        mAuth.signInWithEmailAndPassword(Email, Password)
-            .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
+
+        try {
+
+            if(Email!=null && Password!=null && !Email.matches("") && !Password.matches(""))
+              mAuth.signInWithEmailAndPassword(Email, Password)
+
+                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-            // If sign in fails, display a message to the user. If sign in succeeds
-            // the auth state listener will be notified and logic to handle the
-            // signed in user can be handled in the listener.
-            if (task.isSuccessful()) {
-                Log.w(TAG, "signInWithEmail:Success", task.getException());
-                Toast.makeText(context,"Sign in Success",Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(activity, MapsActivity.class);
-                activity.startActivity(myIntent);
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (task.isSuccessful()) {
+                                Log.w(TAG, "signInWithEmail:Success", task.getException());
+                                Toast.makeText(context, "Sign in Success", Toast.LENGTH_SHORT).show();
+                                Intent myIntent = new Intent(activity, MapsActivity.class);
+                                activity.startActivity(myIntent);
 
+                            }
+
+                            // ...
+                        }
+                    });
+            else
+            {
+                throw new NullPointerException();
             }
-
-            // ...
+        }catch (NullPointerException ex){
         }
-    });
-
-
     }
 
 

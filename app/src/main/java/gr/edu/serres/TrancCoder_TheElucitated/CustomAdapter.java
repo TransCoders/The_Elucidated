@@ -21,7 +21,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
     public CustomAdapter(Context context, ArrayList<String> dialogName)throws  NullPointerException,IndexOutOfBoundsException {
 
 
-             super(context, R.layout.adapter_activity);
+             super(context,R.layout.adapter_activity,dialogName);
      }
 
 
@@ -35,20 +35,13 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) throws  NullPointerException {
-    try {
-        if (super.getItem(position) == null) {
+
             LayoutInflater theInflater = LayoutInflater.from(getContext());
             View theView = theInflater.inflate(R.layout.adapter_activity, parent, false);
             String tvShow = getItem(position);
             TextView theTextView = (TextView) theView.findViewById(R.id.textView5);
             theTextView.setText(tvShow);
             return theView;
-        } else {
-            throw new NullPointerException();
-        }
-    }catch(NullPointerException exception){System.exit(0);}
-
-        return  null;
-    }
+          }
 
 }

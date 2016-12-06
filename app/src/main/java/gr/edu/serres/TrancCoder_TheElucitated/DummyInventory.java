@@ -59,6 +59,8 @@ class DummyInventory {
         }
         throw new ItemNotFoundException();
     }
+
+
     void removeItem(String name){
         ListIterator<DummyItem> iterator = items.listIterator();
         while (iterator.hasNext()){

@@ -103,22 +103,9 @@ public class Database_Functions {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
-
-
-
     //START OF METHOD TO UPDATE USER INVENTORY
     public void Set_User_Inventory_Item_and_Update(final String value, final String UserEmail, final String Exp) throws  NullPointerException{
 
@@ -162,7 +149,6 @@ public class Database_Functions {
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
-
 
     //START Of METHOD TO UPDATE USER EXPERIENCE
     public void Change_User_Experience(final String Experience , String UserEmail  ){
@@ -210,9 +196,6 @@ public class Database_Functions {
         });
 
     }//END OF EXPERIENCE METHOD
-
-
-
     //START OF METHOD TO UPDATE USER EMAIL
     public void Change_User_Email(String PreviousEmail, final String NewEmail){
         //Query to find the Child with the given by user email
@@ -247,7 +230,6 @@ public class Database_Functions {
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
-
 
     public void setItemLocationOnFirebase(final Context context, String Location){
 
@@ -291,7 +273,6 @@ public class Database_Functions {
 
     }
 
-
     public InventoryClass getUserInventory(String Useremail){
         final InventoryClass[] inventoryClass = new InventoryClass[1];
 
@@ -325,8 +306,6 @@ public class Database_Functions {
 
         return inventoryClass[0];
     }
-
-
 
     public String GetUserLoadQuest(String UserEmail){
         final String[] quest2 = new String[1];
@@ -389,6 +368,12 @@ public class Database_Functions {
 
 
     }
+
+
+
+
+
+
 
 
 
