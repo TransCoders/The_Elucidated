@@ -25,7 +25,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
 
 
-    
+
     @Override
     public String getItem(int position) {
         return super.getItem(position);
