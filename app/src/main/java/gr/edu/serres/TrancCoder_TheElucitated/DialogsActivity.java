@@ -1,12 +1,12 @@
 package gr.edu.serres.TrancCoder_TheElucitated;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class DialogsActivity extends AppCompatActivity {
         if (getIntent().hasExtra("dialogue")) {
             delay = getIntent().getExtras().getStringArray("dialogue");
         } else {
-            delay = this.getResources().getStringArray(R.array.Victims_home);
+            delay = this.getResources().getStringArray(R.array.Crime_Scene);
         }
 
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();
@@ -57,20 +57,18 @@ public class DialogsActivity extends AppCompatActivity {
         erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
         erwtisiListView.setAdapter(erwtisiAdapter);
 
-        int pos = 0;
-        while (pos < delay.length) {
-            erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    int pos = adapterView.getPositionForView(view);
-                    Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
-                    erwtisi.clear();
-                    erwtisi.add(delay[pos + 1]);
-                    erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
-                    erwtisiListView.setAdapter(erwtisiAdapter);
-                }
-            });
-            pos++;
-        }
+        erwtisiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = adapterView.getPositionForView(view);
+                //Toast.makeText(getApplicationContext(), pos + "", Toast.LENGTH_SHORT).show();
+                erwtisi.clear();
+                erwtisi.add(delay[pos + 1]);
+                erwtisiAdapter = new CustomAdapter(getApplicationContext(), erwtisi);
+                erwtisiListView.setAdapter(erwtisiAdapter);
+                Intent myIntent = new Intent(DialogsActivity.this, MapsActivity.class);
+                DialogsActivity.this.startActivity(myIntent);
+            }
+        });
     }
 }
