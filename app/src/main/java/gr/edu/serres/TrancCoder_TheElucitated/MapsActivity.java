@@ -166,7 +166,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onDestroy() {
         super.onDestroy();
         mGoogleApiClient.disconnect();
-        unregisterReceiver(proximityReceiver);
+        try {
+            unregisterReceiver(proximityReceiver);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         if(checkPermission()) {
             for(ProximityPoint proximityPoint:proximityController.getProximityPointList()){
                 locationManager.removeProximityAlert(proximityPoint.getPendingIntent());
@@ -196,7 +200,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (NullPointerException e){
-                Toast.makeText(this, "There is a problem with the markers ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Hey!It appears there is a problem...Probably you're not in an covered area of our app.", Toast.LENGTH_SHORT).show();
             }
         }
 
