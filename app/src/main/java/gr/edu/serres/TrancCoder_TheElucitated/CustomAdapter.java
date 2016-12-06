@@ -2,7 +2,6 @@ package gr.edu.serres.TrancCoder_TheElucitated;
 
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
      }
 
 
-    @Nullable
+
+    
     @Override
     public String getItem(int position) {
         return super.getItem(position);
