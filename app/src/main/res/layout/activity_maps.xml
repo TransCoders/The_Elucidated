@@ -48,5 +48,13 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="35dp" />
 
+    <Button
+        android:text="Change to 3d-like map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tilt_btn"
+        android:layout_below="@+id/options_btn"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

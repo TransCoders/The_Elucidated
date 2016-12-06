@@ -25,6 +25,7 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
@@ -46,19 +47,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:9.8.0'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
 
-
 //test
 
 
-
-
-
-
-
-
-
-
-
-
 }
-apply plugin : 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'

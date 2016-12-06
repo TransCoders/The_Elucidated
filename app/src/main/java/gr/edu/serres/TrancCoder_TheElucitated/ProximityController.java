@@ -21,19 +21,19 @@ class ProximityController {
         this.context = context;
         this.locationManager = locationManager;
     }
-    void createProximityPoint(DummyItem item){
+    void createProximityPoint(IMarker item){
         proximityPointList.add(new ProximityPoint(context,item));
     }
-    void addProximityAlert(DummyItem item){
+    void addProximityAlert(IMarker iMarker){
         for(ProximityPoint proximityPoint : proximityPointList){
-            if(proximityPoint.getName().equals(item.getName())){
+            if(proximityPoint.getName().equals(iMarker.getName())){
                 proximityPoint.addProximityAlert(context,locationManager);
             }
         }
     }
-    void removePendingIntent(DummyItem item){
+    void removePendingIntent(IMarker iMarker){
         for(ProximityPoint proximityPoint:proximityPointList){
-            if(proximityPoint.getName().equals(item.getName())){
+            if(proximityPoint.getName().equals(iMarker.getName())){
                 proximityPoint.removePendingIntent(context,locationManager);
             }
         }

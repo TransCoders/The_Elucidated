@@ -176,16 +176,34 @@
         <item>23.558603</item>
     </string-array>
 
+    <!-- Serres Items TEST -->
 
+    <array name="serres_items">
+        <item name="handcuffs">handcuffs</item>
+        <item name="gun">gun</item>
+        <item name="finder">finder</item>
+        <item name="cards">cards</item>
+    </array>
+    <array name="serres_items_experience">
+        <item name="handcuffs_exp">100</item>
+        <item name="gun_exp">250</item>
+        <item name="finder_exp">150</item>
+        <item name="cards_exp">50</item>
+    </array>
+    <array name="serres_items_latitude">
+        <item name="handcuffs_lat">41.087622</item>
+        <item name="gun_lat">41.095622</item>
+        <item name="finder_lat">41.085632</item>
+        <item name="cards_lat">41.087523</item>
+    </array>
+    <array name="serres_items_longitude">
+        <item name="handcuffs_lon">23.548429</item>
+        <item name="gun_lon">23.549632</item>
+        <item name="finder_lon">23.56463</item>
+        <item name="cards_lon">23.548526</item>
+    </array>
 
-
-
-
-
-
-
-
-
+    <!-- Serres items TEST -->
 
     <string-array name="thessaloniki_item">
 

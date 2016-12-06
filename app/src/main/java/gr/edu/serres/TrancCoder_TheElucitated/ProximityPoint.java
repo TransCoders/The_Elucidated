@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 
 /**
@@ -33,14 +34,15 @@ public class ProximityPoint {
         return pendingIntent;
     }
 
-    ProximityPoint(Context context, DummyItem item) {
+    ProximityPoint(Context context, IMarker iMarker) {
         radius = 200f;
-        name = item.getName();
-        lat = item.getLocation().latitude;
-        lon = item.getLocation().longitude;
+
+        name = iMarker.getName();
+        lat = iMarker.getLocation().latitude;
+        lon = iMarker.getLocation().longitude;
         geo = "geo:" + lat + "," + lon;
         intent = new Intent(PROX_ALERT, Uri.parse(geo));
-        intent.putExtra("message", item.getName());
+        intent.putExtra("message", name);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
     }

@@ -6,10 +6,12 @@ package gr.edu.serres.TrancCoder_TheElucitated;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -19,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -42,12 +45,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,22 +67,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ActivityCompat.OnRequestPermissionsResultCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,
+        GoogleMap.OnInfoWindowClickListener
+{
 
-    String itemSelected;
     boolean mapReady,musicOn;
     Intent backgroundMusic;
     private GoogleMap mMap;
     Button  mapTypeBtn;
     ToggleButton toggleMusic;
-    LatLng itemSelectedLocation;
-    static final LatLng TEI = new LatLng(41.075477, 23.553576);
     float MapZoom = 16.5f;
-    Spinner pickItemSpinner;
     PopupMenu mapTypeMenu;
     MenuInflater inflater;
-    MapItems inventoryMap;
-    DummyUser user;
+    HashMap<String,IMarker> markerHashMap;
+    List<IMarker> itemList;
+    String stateName;
     /*
      * Location variables
      */
@@ -88,16 +95,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ProximityReceiver proximityReceiver = null;
     private LocationManager locationManager = null;
     private ProximityController proximityController;
-    float radius = 100;
-    //Test variables
-    static Marker tei, center;
-    // \ Test variables
 
     /* Permissions variables
      * used in Permission functions
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
+    private int exp;
     //
 
     @Override
@@ -113,10 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         mapReady = false;
-        //create inventory for map -basically items in map
-        inventoryMap = new MapItems();
-        //create dummyuser for testing
-        user = new DummyUser("myemail@gmail.com");
+
         //Create background music -by default music is off
         createBackgroundMusic();
         //create intent for picking item
@@ -124,7 +125,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // \Proximity
         /////////////////////////////////////
 
+        markerHashMap = new HashMap<>();
+        itemList = new ArrayList<>();
+
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
+        Button tiltBtn = (Button) findViewById(R.id.tilt_btn);
+        tiltBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCameraOptions();
+            }
+        });
 
 
     }
@@ -168,9 +180,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(10000);
 
-
-
-
         if(checkPermission()) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -178,16 +187,79 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
         if (mLastLocation != null) {
-            List<Address> addresses = null;
+            List<Address> addresses;
             try {
                 addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
+                stateName = addresses.get(0).getLocality();
+                Toast.makeText(this, " County = " + stateName, Toast.LENGTH_SHORT).show();
+                createMarkersForCurrentCounty();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e){
+                Toast.makeText(this, "There is a problem with the markers ", Toast.LENGTH_SHORT).show();
             }
-            String stateName = addresses.get(0).getLocality();
-            Toast.makeText(this, " County = " + stateName, Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void createMarkersForCurrentCounty() {
+        switch (stateName){
+            case "Serres":
+                createSerresQuestMarkers();
+                createSerresItemMarkers();
+                break;
+        }
+
+    }
+
+
+    private void createSerresQuestMarkers(){
+        MyMarker victimsBar = new MyMarker("Chocolate","quest",mMap,new LatLng(41.087022,23.547429),R.mipmap.quest,"Victims_bar");
+        victimsBar.add();
+        victimsBar.show();
+
+        MyMarker home = new MyMarker("Victim's Home","quest",mMap,new LatLng(41.090270,23.54963),R.mipmap.quest,"Victims_home");
+        home.add();
+        markerHashMap.put(home.getTag(),home);
+
+        MyMarker accountant = new MyMarker("Accountant","quest",mMap,new LatLng(41.085631,23.544688),R.mipmap.quest,"Accountant");
+        accountant.add();
+        markerHashMap.put(accountant.getTag(),accountant);
+
+        MyMarker queenJackClub = new MyMarker("Queen Jack Club","quest",mMap,new LatLng(41.092082,23.558603),R.mipmap.quest,"Queen_jack_club");
+        queenJackClub.add();
+        markerHashMap.put(queenJackClub.getTag(),queenJackClub);
+    }
+
+    private void createSerresItemMarkers(){
+        Resources res = getResources();
+        TypedArray itemName = res.obtainTypedArray(R.array.serres_items);
+        TypedArray itemExp =res.obtainTypedArray(R.array.serres_items_experience);
+        TypedArray itemLatitude = res.obtainTypedArray(R.array.serres_items_latitude);
+        TypedArray itemLongitude = res.obtainTypedArray(R.array.serres_items_longitude);
+
+        for(int i=0;i<itemName.length();i++){
+            MyMarker marker = new MyMarker(itemName.getString(i),"item",mMap,new LatLng(Double.parseDouble(itemLatitude.getString(i)),Double.parseDouble(itemLongitude.getString(i))),itemName.getString(i)+".png",itemExp.getString(i));
+            marker.add();
+            itemList.add(marker);
+        }
+
+        proximityReceiver = new ProximityReceiver(mMap);
+        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
+        intentFilter.addDataScheme("geo");
+        registerReceiver(proximityReceiver, intentFilter);
+        proximityController = new ProximityController(getApplicationContext(),locationManager);
+
+        try {
+            for (IMarker item : itemList) {
+                proximityReceiver.addMarker(item);
+                proximityController.createProximityPoint(item);
+                proximityController.addProximityAlert(item);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),"List is empty",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -196,7 +268,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
+        mLastLocation = location;
     }
 
     @Override
@@ -214,7 +286,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         enableMyLocation();//My Location and localize button
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        //mMap.animateCamera(CameraUpdateFactory.zoomIn());
 
 
         //Get Camera Zoom when Camera changes
@@ -225,34 +299,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //Add items on Map
-        onItemClickListener();
-        //Find Items Spinner  and Function
-        //createSpinnerForFindItemInMap();
         //Select Map Type
         createPopupMenuForMapType();
-        //Create Hidden Items in Map
-        createStoryItems(inventoryMap);
 
-        //
-
-        proximityReceiver = new ProximityReceiver(inventoryMap,mMap);
-        IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
-        intentFilter.addDataScheme("geo");
-        registerReceiver(proximityReceiver, intentFilter);
-
-        proximityController = new ProximityController(getApplicationContext(),locationManager);
-        for(DummyItem item:inventoryMap.getItems()){
-            proximityController.createProximityPoint(item);
-            proximityController.addProximityAlert(item);
-        }
-
-        //
-
-
+        mMap.setOnInfoWindowClickListener(this);
         mapReady = true;
     }
 
+
+
+    @Override
+    public void onInfoWindowClick(final Marker marker) {
+        String type = marker.getSnippet();
+        if(type.equals("quest")){
+            Toast.makeText(getApplicationContext(), (String) marker.getTag(),Toast.LENGTH_SHORT).show();
+            String questTag = (String) marker.getTag();
+            switch (questTag){
+                case "Victims_bar":
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
+                    markerHashMap.get("Victims_home").show();
+                    break;
+                case "Victims_home":
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
+                    markerHashMap.get("Accountant").show();
+                    break;
+                case "Accountant":
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
+                    markerHashMap.get("Queen_jack_club").show();
+                    break;
+                case "Queen_jack_club":
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
+                    break;
+            }
+        }else if(type.equals("item")){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You want to pick up an "+marker.getTitle()+" ?")
+                    .setTitle(marker.getTitle());
+            builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(getApplicationContext(),"OK button clicked.You got " + marker.getTag()+" Experience",Toast.LENGTH_SHORT).show();
+                    for(IMarker item:itemList){
+                        if(marker.getTitle().equals(item.getName())){
+                            proximityController.removePendingIntent(item);
+                            item.delete();
+                        }
+                    }
+                }
+            });
+            builder.setNegativeButton("Leave item",new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(getApplicationContext(),"You leaved "+marker.getTitle(),Toast.LENGTH_SHORT).show();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
+    public void setCameraOptions(){
+        LatLng location = new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude());
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(location)
+                .zoom(17)
+                //.bearing(90)
+                .tilt(75)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
 
     public void changeMapStyle(){
         try {
@@ -370,28 +485,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    void createStoryItems(MapItems items){
+    /*void createStoryItems(MapItems items){
         //Set up some items on the map
        // DummyItem magnifier = new DummyItem("magnifier","A very clean magnifier. Find clues better",new LatLng(41.069131,23.55389),R.mipmap.ic_launcher);
       //  DummyItem glasses = new DummyItem("glasses","You can't look very far away without them",new LatLng(41.07902,23.553690),R.mipmap.ic_launcher);
       //  DummyItem handcuffs = new DummyItem("handcuffs","You need these in order to catch the criminal",new LatLng(41.07510,23.552997),R.mipmap.ic_launcher);
       //  DummyItem chocolate = new DummyItem("Chocolate","Chocolate",new LatLng(41.087022,23.547429),R.mipmap.ic_launcher);
-        DummyItem home = new DummyItem("Home","Home",new LatLng(41.080722,23.547429),R.mipmap.ic_launcher);
-        home.setDialogue(getResources().getStringArray(R.array.Victims_home));
-       DummyItem accountant = new DummyItem("Accountant","Accountant",new LatLng(41.085631,23.544688),R.mipmap.ic_launcher);
-        accountant.setDialogue(getResources().getStringArray(R.array.Accountant));
-       DummyItem queen_jack_club = new DummyItem("Queen Jack Club","Queen Jack Club",new LatLng(41.092082,23.558603),R.mipmap.ic_launcher);
-        queen_jack_club.setDialogue(getResources().getStringArray(R.array.Queen_jack_club));
-       // DummyItem university = new DummyItem("University","University",new LatLng(40.677737,22.925500),R.mipmap.ic_launcher);
+
+        //DummyItem home = new DummyItem("Home","Home",new LatLng(41.080722,23.547429),R.mipmap.ic_launcher);
+        MyMarker home = new MyMarker("Crime Scene","quest",mMap,new LatLng(41.080722,23.547429),R.mipmap.ic_launcher,"Crime_Scene");
+
+        //home.setDialogue(getResources().getStringArray(R.array.Victims_home));
+       //DummyItem accountant = new DummyItem("Accountant","Accountant",new LatLng(41.085631,23.544688),R.mipmap.ic_launcher);
+        //accountant.setDialogue(getResources().getStringArray(R.array.Accountant));
+       //DummyItem queen_jack_club = new DummyItem("Queen Jack Club","Queen Jack Club",new LatLng(41.092082,23.558603),R.mipmap.ic_launcher);
+       // queen_jack_club.setDialogue(getResources().getStringArray(R.array.Queen_jack_club));
+
+
+        // DummyItem university = new DummyItem("University","University",new LatLng(40.677737,22.925500),R.mipmap.ic_launcher);
       //  DummyItem home_thessaloniki = new DummyItem("Home","Home",new LatLng(40.630389,22.943000),R.mipmap.ic_launcher);
        // DummyItem hospital = new DummyItem("Hospital","Hospital",new LatLng(40.640063,22.94419),R.mipmap.ic_launcher);
         //items.addItems(magnifier,glasses,handcuffs,chocolate,home,accountant,queen_jack_club,university,home_thessaloniki,hospital);
 
-    }
 
+    }*/
 
-
-    void onItemClickListener(){
+    /*void onItemClickListener(){
         //On Item Click Function
         mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
             @Override
@@ -411,9 +530,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
-    }
+    }*/
 
-    void createSpinnerForFindItemInMap(){
+    /*void createSpinnerForFindItemInMap(){
         //pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
         ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
         pickItemSpinner.setAdapter(pickItemAdapter);
@@ -435,7 +554,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-    }
+    }*/
 
     void createPopupMenuForMapType(){
         mapTypeBtn = (Button)findViewById(R.id.options_btn);
@@ -492,4 +611,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
+
+
+
 }
