@@ -23,13 +23,6 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/options_btn" />
     -->
-    <Button
-        android:text="@string/map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/options_btn"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,12 +42,22 @@
         android:layout_marginBottom="35dp" />
 
     <Button
+        android:text="@string/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/options_btn"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/the_elucidated"
+        android:layout_alignParentStart="true" />
+
+    <Button
         android:text="Change to 3d-like map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tilt_btn"
         android:layout_below="@+id/options_btn"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/options_btn" />
 
 
 </RelativeLayout>
