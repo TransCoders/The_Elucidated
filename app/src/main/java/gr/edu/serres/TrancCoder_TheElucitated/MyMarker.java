@@ -44,7 +44,8 @@ public class MyMarker implements IMarker{
         marker = map.addMarker(new MarkerOptions()
                 .icon(icon)
                 .position(location)
-                .alpha(0.0f)
+                //.alpha(0.0f)
+                .visible(false)
                 .snippet(description)
                 .title(name));
         marker.setTag(tag);
@@ -57,11 +58,15 @@ public class MyMarker implements IMarker{
 
     @Override
     public void show() {
-        marker.setAlpha(1.0f);
+        marker.setVisible(true);
+        //marker.setAlpha(1.0f);
     }
 
     @Override
-    public void hide() {marker.setAlpha(0.0f);}
+    public void hide() {
+        marker.setVisible(false);
+        //marker.setAlpha(0.0f);
+    }
 
     @Override
     public LatLng getLocation() {
