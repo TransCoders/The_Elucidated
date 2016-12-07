@@ -19,9 +19,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import gr.edu.serres.TrancCoder_TheElucitated.HomeScreenActivity;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
 /**
  * Created by James Nikolaidis on 11/8/2016.
@@ -65,7 +65,7 @@ public class Database_Functions {
     }
 
 
-    public void SetUserInformation(UsersObject user){
+    public void SetUserInformation(User user){
 
 
         try{
@@ -87,10 +87,10 @@ public class Database_Functions {
 
     }
 
-    public void SetInventory(InventoryClass inventory)throws  NullPointerException{
+    public void SetInventory(Inventory inventory)throws  NullPointerException{
 
         try{
-                if(inventory.ItemArray!=null || !inventory.UserEmail.matches("")) {
+                if(inventory.ItemArray!=null || !inventory.userEmail.matches("")) {
                     mInventory.push().setValue(inventory);
                 }else{throw new NullPointerException();}
         }catch(NullPointerException exception){
@@ -120,7 +120,7 @@ public class Database_Functions {
                      // Create new map for the new added object in the array
                      Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
                      //Gets Inventory Class object from JSON file
-                     InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
+                     Inventory inventoryClass_Item =  dataSnapshot.getValue(Inventory.class);
                      //Put a new object to the Map with flag the next arrayindex of tbe array
                      Inventory_Update_Map.put(String.valueOf(counter),value);
                       //Create a clone reference from JSON OBject find by the proper Key
@@ -174,7 +174,7 @@ public class Database_Functions {
                 // Create new map for the new added object in the array
                 Map<String,Object> ExpMap = new HashMap<String,Object>();
                 //Gets UserObject Class object from JSON file
-                UsersObject usersObject = dataSnapshot.getValue(UsersObject.class);
+                User usersObject = dataSnapshot.getValue(User.class);
                 ExpCounter = ExpCounter + Integer.valueOf(Experience);
                 //Put a new object to the Map with flag  name Experience and Value  equal to Exp+=experience
                 ExpMap.put("Experience",ExpCounter);
@@ -273,15 +273,15 @@ public class Database_Functions {
 
     }
 
-    public InventoryClass getUserInventory(String Useremail){
-        final InventoryClass[] inventoryClass = new InventoryClass[1];
+    public Inventory getUserInventory(String Useremail){
+        final Inventory[] inventoryClass = new Inventory[1];
 
         if(!Useremail.isEmpty()){
                     Query getUserQuery = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(Useremail);
                         getUserQuery.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                InventoryClass secondinventoryClass = dataSnapshot.getValue(InventoryClass.class);
+                                Inventory secondinventoryClass = dataSnapshot.getValue(Inventory.class);
                                 inventoryClass[0] = secondinventoryClass;
 
                                 for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){

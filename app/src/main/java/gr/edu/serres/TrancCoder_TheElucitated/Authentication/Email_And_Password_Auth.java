@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.MapsActivity;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
 /**
  * Created by James Nikolaidis on 11/27/2016.
@@ -57,8 +57,8 @@ public class Email_And_Password_Auth {
                                 // signed in user can be handled in the listener.
                                 if (task.isSuccessful()) {
 
-                                    database.SetUserInformation(new UsersObject(Password,"serres", "0", Email));
-                                    database.SetInventory(new InventoryClass(Email));
+                                    database.SetUserInformation(new User(Password,"serres", "0", Email));
+                                    database.SetInventory(new Inventory(Email));
                                     database.CreateSaveUserState(Email,"FirstQuest","0");
                                     database.SaveUserState(Email,"SecondQuest","100");
                                     Intent myIntent = new Intent(activity, MapsActivity.class);

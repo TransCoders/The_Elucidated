@@ -24,4 +24,6 @@ public interface IMarker {
 
     public String getTag();
 
+    public String getDescription();
+
 }

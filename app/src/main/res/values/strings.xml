@@ -34,6 +34,7 @@
     <string name="options">options</string>
     <string name="map">Map</string>
     <string name="pick_item">Pick Item</string>
+    <string name="inventory">Inventory</string>
     <string-array name="Territories">
         <item>Νομός Αιτωλοακαρνανίας</item>
         <item>Νομός Αργολίδας</item>
@@ -122,6 +123,7 @@
         <item>Μπορώ να δω αυτόν τον φάκελο, παρακαλώ;</item>
         <item>Είναι μέσα στο γραφείο, έχει πάνω τα αρχικά Ν.Β.</item>
         <item>Σας ευχαριστώ κυρία μου για τον χρόνο σας.</item>
+        <item>Εγώ σας ευχαριστώ</item>
     </string-array>
     <string-array name="Victims_home_chooser">
         <item>Να πάρω το φάκελο;</item>

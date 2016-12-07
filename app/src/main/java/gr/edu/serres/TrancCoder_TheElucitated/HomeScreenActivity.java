@@ -15,7 +15,6 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
 
 /**
  * Created by tasos on 8/11/2016.
@@ -48,7 +47,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 */
 
         database_functions = Database_Functions.getInstance(getApplicationContext(),HomeScreenActivity.this);
-        final UsersObject object = new UsersObject();
         imageView = (ImageView) findViewById(R.id.imageView);
 
         homeTextView = (TextView) findViewById(R.id.textView);

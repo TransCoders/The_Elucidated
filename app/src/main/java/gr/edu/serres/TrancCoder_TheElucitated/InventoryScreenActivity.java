@@ -8,7 +8,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 
 /**
  * Created by tasos on 30/11/2016.
@@ -19,7 +19,7 @@ public class InventoryScreenActivity extends AppCompatActivity {
     private static int counter = 0;
     private ArrayList<String> oneOne;
     private ListView listView;
-    private InventoryClass inventory;
+    private Inventory inventory;
     private Database_Functions getInv;
 
     @Override

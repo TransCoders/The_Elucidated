@@ -16,10 +16,10 @@ public class MyMarker implements IMarker{
     private GoogleMap map;
     private LatLng location;
     private BitmapDescriptor icon;
-    String name;
-    String description;
-    Marker marker;
-    Object tag;
+    private String name;
+    private String description;
+    private Marker marker;
+    private Object tag;
 
     MyMarker(String name , String description, GoogleMap map, LatLng location, int iconResource, Object tag){
         this.name = name;
@@ -81,6 +81,11 @@ public class MyMarker implements IMarker{
     @Override
     public String getTag(){
         return (String) marker.getTag();
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
 }

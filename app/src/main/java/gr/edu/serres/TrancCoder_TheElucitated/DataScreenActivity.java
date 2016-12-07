@@ -14,7 +14,7 @@ import com.google.android.gms.appindexing.Thing;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Email_And_Password_Auth;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 
 /**
  * Created by tasos on 8/11/2016.
@@ -25,7 +25,7 @@ public class DataScreenActivity extends AppCompatActivity {
 
     private Button continueButton;
     private EditText mpassword, mEmail;
-    private InventoryClass inventoryClass;
+    private Inventory inventoryClass;
     private String Location;
     private Database_Functions database;
     private AdapterView<ArrayAdapter<String>> spinner;

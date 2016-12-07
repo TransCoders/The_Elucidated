@@ -10,7 +10,7 @@ import com.facebook.login.widget.LoginButton;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_And_Password;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 
 /**
  * Created by tasos on 4/12/2016.
@@ -21,7 +21,7 @@ public class SignInLoadActivity extends AppCompatActivity {
 
     private Button continueButton, googleButton;
     private EditText mPassword, mEmail;
-    private InventoryClass inventoryClass;
+    private Inventory inventoryClass;
     private String Location;
     private Database_Functions database;
     private Sign_In_With_Email_And_Password sign_in_with_email_and_password;

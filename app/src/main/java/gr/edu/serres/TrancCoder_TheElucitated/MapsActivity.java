@@ -27,11 +27,8 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -45,10 +42,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -59,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 import gr.edu.serres.TrancCoder_TheElucitated.Services.BackgroundSoundService;
 
 
@@ -74,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     boolean mapReady,musicOn;
     Intent backgroundMusic;
     private GoogleMap mMap;
-    Button  mapTypeBtn;
+    Button  mapTypeBtn,inventoryBtn;
     ToggleButton toggleMusic;
     float MapZoom = 16.5f;
     PopupMenu mapTypeMenu;
@@ -82,6 +79,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     HashMap<String,IMarker> markerHashMap;
     List<IMarker> itemList;
     String stateName;
+    Inventory userInventory;
+    User user;
+    String userEmail;
     /*
      * Location variables
      */
@@ -101,7 +101,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
-    private int exp;
     //
 
     @Override
@@ -115,7 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (isGooglePlayServicesAvailable(this)) {
             buildGoogleApiClient();
         }
-
+        user = new User(userEmail);
+        userInventory = new Inventory(user);
+        inventoryBtn = (Button)findViewById(R.id.inventory_btn);
         mapReady = false;
 
         //Create background music -by default music is off
@@ -135,6 +136,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 setCameraOptions();
+            }
+        });
+        inventoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(userInventory.hasItems()){
+                    Intent myIntent = new Intent(MapsActivity.this, DialogsActivity.class);
+                    myIntent.putExtra("dialogue",userInventory.getItemsInfo());
+                    MapsActivity.this.startActivity(myIntent);
+                }
             }
         });
 
@@ -247,6 +258,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             marker.add();
             itemList.add(marker);
         }
+        itemName.recycle();
+        itemExp.recycle();
+        itemLatitude.recycle();
+        itemLongitude.recycle();
 
         proximityReceiver = new ProximityReceiver(mMap);
         IntentFilter intentFilter = new IntentFilter(PROX_ALERT);
@@ -276,7 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         buildGoogleApiClient();
     }
 
@@ -315,6 +330,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(final Marker marker) {
         String type = marker.getSnippet();
+        int quest_id=0;
         if(type.equals("quest")){
             Toast.makeText(getApplicationContext(), (String) marker.getTag(),Toast.LENGTH_SHORT).show();
             String questTag = (String) marker.getTag();
@@ -322,19 +338,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 case "Victims_bar":
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
                     markerHashMap.get("Victims_home").show();
+                    quest_id = R.array.Victims_bar;
                     break;
                 case "Victims_home":
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
                     markerHashMap.get("Accountant").show();
+                    quest_id = R.array.Victims_home;
                     break;
                 case "Accountant":
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
                     markerHashMap.get("Queen_jack_club").show();
+                    quest_id = R.array.Accountant;
                     break;
                 case "Queen_jack_club":
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
+                    quest_id = R.array.Queen_jack_club;
                     break;
             }
+            Intent myIntent = new Intent(MapsActivity.this, DialogsActivity.class);
+            myIntent.putExtra("dialogue",getResources().getStringArray(quest_id));
+            MapsActivity.this.startActivity(myIntent);
         }else if(type.equals("item")){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("You want to pick up an "+marker.getTitle()+" ?")
@@ -346,6 +369,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for(IMarker item:itemList){
                         if(marker.getTitle().equals(item.getName())){
                             proximityController.removePendingIntent(item);
+                            userInventory.addItem(item);
                             item.delete();
                         }
                     }
@@ -416,11 +440,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @return true if permission granted
      */
     protected boolean checkPermission(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                /*&& ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
-            return false;
-        }
-        return true;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -452,17 +472,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Checks if Google Play services are installed and available
-     * @param activity
+     * @param activity  activity
      * @return true if are installed and available
      */
     public boolean isGooglePlayServicesAvailable(Activity activity){
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(activity);
-        if(resultCode == ConnectionResult.SUCCESS){
-            return true;
-        }else{
-            return false;
-        }
+        return resultCode == ConnectionResult.SUCCESS;
     }
 
 
@@ -489,53 +505,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    /*void createStoryItems(MapItems items){
-        //Set up some items on the map
-       // DummyItem magnifier = new DummyItem("magnifier","A very clean magnifier. Find clues better",new LatLng(41.069131,23.55389),R.mipmap.ic_launcher);
-      //  DummyItem glasses = new DummyItem("glasses","You can't look very far away without them",new LatLng(41.07902,23.553690),R.mipmap.ic_launcher);
-      //  DummyItem handcuffs = new DummyItem("handcuffs","You need these in order to catch the criminal",new LatLng(41.07510,23.552997),R.mipmap.ic_launcher);
-      //  DummyItem chocolate = new DummyItem("Chocolate","Chocolate",new LatLng(41.087022,23.547429),R.mipmap.ic_launcher);
-
-        //DummyItem home = new DummyItem("Home","Home",new LatLng(41.080722,23.547429),R.mipmap.ic_launcher);
-        MyMarker home = new MyMarker("Crime Scene","quest",mMap,new LatLng(41.080722,23.547429),R.mipmap.ic_launcher,"Crime_Scene");
-
-        //home.setDialogue(getResources().getStringArray(R.array.Victims_home));
-       //DummyItem accountant = new DummyItem("Accountant","Accountant",new LatLng(41.085631,23.544688),R.mipmap.ic_launcher);
-        //accountant.setDialogue(getResources().getStringArray(R.array.Accountant));
-       //DummyItem queen_jack_club = new DummyItem("Queen Jack Club","Queen Jack Club",new LatLng(41.092082,23.558603),R.mipmap.ic_launcher);
-       // queen_jack_club.setDialogue(getResources().getStringArray(R.array.Queen_jack_club));
-
-
-        // DummyItem university = new DummyItem("University","University",new LatLng(40.677737,22.925500),R.mipmap.ic_launcher);
-      //  DummyItem home_thessaloniki = new DummyItem("Home","Home",new LatLng(40.630389,22.943000),R.mipmap.ic_launcher);
-       // DummyItem hospital = new DummyItem("Hospital","Hospital",new LatLng(40.640063,22.94419),R.mipmap.ic_launcher);
-        //items.addItems(magnifier,glasses,handcuffs,chocolate,home,accountant,queen_jack_club,university,home_thessaloniki,hospital);
-
-
-    }*/
-
-    /*void onItemClickListener(){
-        //On Item Click Function
-        mMap.setOnGroundOverlayClickListener(new GoogleMap.OnGroundOverlayClickListener() {
-            @Override
-            public void onGroundOverlayClick(GroundOverlay groundOverlay) {
-                try {
-                    DummyItem itemFound = inventoryMap.getItemByIconId(groundOverlay.getId());
-                    if(itemFound.hasDialogue()){
-                        Intent intent = new Intent(MapsActivity.this,DialogsActivity.class);
-                        intent.putExtra("dialogue",itemFound.getDialogue());
-                        MapsActivity.this.startActivity(intent);
-                    }else{
-                        Toast.makeText(getApplicationContext(),itemFound.getDescription(),Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (ItemNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }*/
-
     /*void createSpinnerForFindItemInMap(){
         //pickItemSpinner = (Spinner)findViewById(R.id.pick_item_spinnerr);
         ArrayAdapter<String> pickItemAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,inventoryMap.getNamesOfAllItemsInInventory());
@@ -543,7 +512,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pickItemSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
                 itemSelected = String.valueOf(adapterView.getItemAtPosition(i));
                 if(!(inventoryMap.getNamesOfAllItemsInInventory().isEmpty())) {
                     try {
@@ -570,7 +538,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 mapTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
