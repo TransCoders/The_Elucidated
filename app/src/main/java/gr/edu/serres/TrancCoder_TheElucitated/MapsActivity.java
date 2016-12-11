@@ -143,7 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 if(userInventory.hasItems()){
                     Intent myIntent = new Intent(MapsActivity.this, DialogsActivity.class);
-                    myIntent.putExtra("dialogue",userInventory.getItemsInfo());
+                   // myIntent.putExtra("dialogue",userInventory.getItemsInfo());
                     MapsActivity.this.startActivity(myIntent);
                 }
             }
@@ -164,7 +164,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStart() {
         super.onStart();
         if(musicOn) startService(backgroundMusic);
-        mGoogleApiClient.connect();
+        try {
+            mGoogleApiClient.connect();
+        }catch (NullPointerException e){
+            Toast.makeText(this, "Google Play Services not available", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

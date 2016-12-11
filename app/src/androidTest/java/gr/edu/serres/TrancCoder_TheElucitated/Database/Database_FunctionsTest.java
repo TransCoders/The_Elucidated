@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -33,7 +33,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
     private static final int LAUNCH_TIMEOUT = 5000;
     private UiDevice mDevice;
     private static Database_Functions database_functions;
-    private UsersObject usersObject;
+    private User usersObject;
 
     public  static Context appContext;
 
@@ -86,7 +86,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
 
     @Test
     public void setUserInformation() throws Exception {
-             usersObject = new UsersObject();
+             usersObject = new User();
                 try {
                     database_functions.SetUserInformation(usersObject);
                 }catch (NullPointerException exception){
@@ -123,7 +123,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
 
     @Test
     public void setInventory1() throws Exception {
-        InventoryClass test_inventory = new InventoryClass("example@hotmail.com");
+        Inventory test_inventory = new Inventory(new User("test_name","greece","0","example@hotmail.com"));
         database_functions.SetInventory(test_inventory);
 
     }
@@ -132,7 +132,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
     @Test
     public void setInventory() throws Exception {
         getInstance();
-        InventoryClass test_inventory = new InventoryClass();
+        Inventory test_inventory = new Inventory();
         database_functions.SetInventory(test_inventory);
 
     }

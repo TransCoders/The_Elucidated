@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import gr.edu.serres.TrancCoder_TheElucitated.HomeScreenActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
@@ -112,7 +113,7 @@ public class Database_Functions {
       try{
             if(!value.matches("")|| !UserEmail.matches("")|| !Exp.matches("")|| value!=null || UserEmail!=null || Exp !=null){
              //Query to find the Child with the given by user email
-             final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+             final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("userEmail").equalTo(UserEmail);
               //Triger query Child Listener
                 findProperInventory.addChildEventListener(new ChildEventListener() {
                   @Override
@@ -120,7 +121,7 @@ public class Database_Functions {
                      // Create new map for the new added object in the array
                      Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
                      //Gets Inventory Class object from JSON file
-                     Inventory inventoryClass_Item =  dataSnapshot.getValue(Inventory.class);
+                   //   InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
                      //Put a new object to the Map with flag the next arrayindex of tbe array
                      Inventory_Update_Map.put(String.valueOf(counter),value);
                       //Create a clone reference from JSON OBject find by the proper Key
@@ -273,16 +274,16 @@ public class Database_Functions {
 
     }
 
-    public Inventory getUserInventory(String Useremail){
-        final Inventory[] inventoryClass = new Inventory[1];
+    public InventoryClass getUserInventory(String Useremail){
+        final InventoryClass[] inventoryClass1 = new InventoryClass[1];
 
         if(!Useremail.isEmpty()){
                     Query getUserQuery = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(Useremail);
                         getUserQuery.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                Inventory secondinventoryClass = dataSnapshot.getValue(Inventory.class);
-                                inventoryClass[0] = secondinventoryClass;
+                                InventoryClass secondinventoryClass = dataSnapshot.getValue(InventoryClass.class);
+                                inventoryClass1[0] = secondinventoryClass;
 
                                 for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){
                                     String test = secondinventoryClass.ItemArray.get(i);
@@ -304,7 +305,7 @@ public class Database_Functions {
 
 
 
-        return inventoryClass[0];
+        return inventoryClass1[0];
     }
 
     public String GetUserLoadQuest(String UserEmail){

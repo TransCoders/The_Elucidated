@@ -25,7 +25,9 @@ public class Inventory {
 
     public Inventory(User user){
         userEmail = user.getEmail();
-        items = Collections.synchronizedList(new ArrayList<IMarker>());
+        ItemArray=  Collections.synchronizedList(new ArrayList<String>());
+       items = Collections.synchronizedList(new ArrayList<IMarker>());
+        fillArray();
     }
 
     // CLASS COSTRUCTOR WITH PARAMETERS
@@ -70,7 +72,7 @@ public class Inventory {
     public  void addItem(IMarker item){
         items.add(item);
     }
-
+/*
     public String[] getItemsInfo(){
         String[] info = new String[items.size()*2];
         int i=0;
@@ -80,10 +82,10 @@ public class Inventory {
         }
         return  info;
     }
-
-    public List<String> getItemArray() {
+*/
+   /* public List<String> getItemArray() {
         return ItemArray;
-    }
+    }*/
 
     public String getUserEmail() {
         return userEmail;

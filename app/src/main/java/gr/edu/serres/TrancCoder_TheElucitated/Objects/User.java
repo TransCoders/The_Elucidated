@@ -8,6 +8,12 @@ public class User {
 
     public String name,location,Experience,email;
 
+    public  User(){
+
+
+    }
+
+
     public User(String email){
         this.email = email;
     }
