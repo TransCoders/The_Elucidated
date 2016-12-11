@@ -26,7 +26,7 @@ public class Inventory {
     public Inventory(User user){
         userEmail = user.getEmail();
         ItemArray=  Collections.synchronizedList(new ArrayList<String>());
-       items = Collections.synchronizedList(new ArrayList<IMarker>());
+        items = Collections.synchronizedList(new ArrayList<IMarker>());
         fillArray();
     }
 
@@ -72,7 +72,7 @@ public class Inventory {
     public  void addItem(IMarker item){
         items.add(item);
     }
-/*
+
     public String[] getItemsInfo(){
         String[] info = new String[items.size()*2];
         int i=0;
@@ -82,7 +82,7 @@ public class Inventory {
         }
         return  info;
     }
-*/
+
    /* public List<String> getItemArray() {
         return ItemArray;
     }*/

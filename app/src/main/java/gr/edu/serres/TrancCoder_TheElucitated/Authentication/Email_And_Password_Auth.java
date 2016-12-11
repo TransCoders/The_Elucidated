@@ -60,7 +60,7 @@ public class Email_And_Password_Auth {
                                     database.SetUserInformation(user);
                                     database.SetInventory(new Inventory(user));
                                     database.CreateSaveUserState(Email,"FirstQuest","0");
-                                   database.Set_User_Inventory_Item_and_Update("Mpaklavas",user.email,"100");
+                                    database.Set_User_Inventory_Item_and_Update("Mpaklavas",user.email,"100");
                                     database.SaveUserState(Email,"SecondQuest","100");
                                     Intent myIntent = new Intent(activity, MapsActivity.class);
                                     activity.startActivity(myIntent);

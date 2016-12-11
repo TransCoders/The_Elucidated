@@ -114,8 +114,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (isGooglePlayServicesAvailable(this)) {
             buildGoogleApiClient();
         }
-        user = new User(userEmail);
-        userInventory = new Inventory(user);
+        user = new User(userEmail); // Get user email from database
+        userInventory = new Inventory(user); //get User inventory
         inventoryBtn = (Button)findViewById(R.id.inventory_btn);
         mapReady = false;
 
@@ -143,7 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 if(userInventory.hasItems()){
                     Intent myIntent = new Intent(MapsActivity.this, DialogsActivity.class);
-                   // myIntent.putExtra("dialogue",userInventory.getItemsInfo());
+                    myIntent.putExtra("dialogue",userInventory.getItemsInfo());
                     MapsActivity.this.startActivity(myIntent);
                 }
             }
