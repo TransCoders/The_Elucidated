@@ -11,10 +11,14 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.Until;
 import android.test.InstrumentationTestCase;
+import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
@@ -28,6 +32,10 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
 public class Database_FunctionsTest extends InstrumentationTestCase{
+
+
+
+
     private static final String BASIC_SAMPLE_PACKAGE
             = "gr.edu.serres.TrancCoder_TheElucitated";
     private static final int LAUNCH_TIMEOUT = 5000;
@@ -140,24 +148,85 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
 
     @Test
     public void set_User_Inventory_Item_and_Update() throws Exception {
-                database_functions.Set_User_Inventory_Item_and_Update("","","");
-                database_functions.Set_User_Inventory_Item_and_Update(null,"testing@email",null);
+                 database_functions.Set_User_Inventory_Item_and_Update("","","");
+                 database_functions.Set_User_Inventory_Item_and_Update(null,"testing@email",null);
+                 database_functions.Set_User_Inventory_Item_and_Update(null,null,null);
 
     }
 
     @Test
     public void change_User_Experience() throws Exception {
-
+            database_functions.Change_User_Experience("","");
+            database_functions.Change_User_Experience(null,null);
+            database_functions.Change_User_Experience("",null);
+            database_functions.Change_User_Experience(String.valueOf(1),"");
     }
 
     @Test
     public void change_User_Email() throws Exception {
 
+        database_functions.Change_User_Email("","");
+        database_functions.Change_User_Email(null,null);
+        database_functions.Change_User_Email("",null);
+        database_functions.Change_User_Email(String.valueOf(1),"");
     }
 
     @Test
     public void setItemLocationOnFirebase() throws Exception {
+            database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(),"");
+            database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(),null);
+            database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(),"exampleValue");
+    }
+
+
+
+    @Test
+    public void testGetUserInventory() throws Exception {
+        database_functions.getUserInventory("");
+        database_functions.getUserInventory(null);
+        Inventory inventory = new Inventory();
+        inventory = database_functions.getUserInventory("example@hotmail.com");
+        try{
+        List<String> arrayist= new ArrayList<>();
+        arrayist= inventory.returnItemArray();
+        for(int i=0; i!=arrayist.size(); i++){
+        Log.e("ArrayPrint",arrayist.get(i));
+        }
+        }catch (ArrayIndexOutOfBoundsException exception){
+
+        }
+
 
     }
+    @Test
+    public void testGetUserLoadQuest() throws Exception {
+                    database_functions.GetUserLoadQuest("");
+                    database_functions.GetUserLoadQuest(null);
+                    database_functions.GetUserLoadQuest(" ");
+               String testingQuest=database_functions.GetUserLoadQuest("example@hotmail.com");
+                Log.e("QuestTesting",testingQuest);
+    }
+    @Test
+    public void testCreateSaveUserState() throws Exception {
+        database_functions.CreateSaveUserState("","","");
+        database_functions.CreateSaveUserState(null,"","");
+        database_functions.CreateSaveUserState(null,null,null);
+        database_functions.CreateSaveUserState("",null,"");
+        database_functions.CreateSaveUserState(" "," ","100");
+        database_functions.CreateSaveUserState("dfggd","efsdfds",null);
+        database_functions.CreateSaveUserState("example@hotmail.com","","");
+
+    }
+    @Test
+    public void testSaveUserState() throws Exception {
+        database_functions.SaveUserState("","","");
+        database_functions.SaveUserState(null,null,null);
+        database_functions.SaveUserState(" ",null,null);
+        database_functions.SaveUserState(" "," "," ");
+        database_functions.SaveUserState("example@hotmail.com","testingQuest","4");
+    }
+
+
+
 
 }
