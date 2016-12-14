@@ -1,4 +1,4 @@
-package gr.edu.serres.TrancCoder_TheElucitated;
+package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import gr.edu.serres.TrancCoder_TheElucitated.Adapters.CustomAdapter;
+import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 /**
  * Created by tasos on 12/11/2016.
@@ -24,7 +27,7 @@ public class ChooserListViewActivity extends AppCompatActivity {
 
         setContentView(R.layout.chooser_listview_activity);
 
-        delay = this.getResources().getStringArray(R.array.Crime_Scene_chooser);
+        delay = this.getResources().getStringArray(R.array.crime_scene_chooser);
 
         oneOne = new ArrayList<String>();
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();

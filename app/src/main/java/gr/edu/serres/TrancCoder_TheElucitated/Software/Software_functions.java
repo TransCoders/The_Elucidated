@@ -23,13 +23,8 @@ public class Software_functions {
                 returnarray = activity.getResources().getStringArray(R.array.athena_item);
                 break;
             default :
-                returnarray = activity.getResources().getStringArray(R.array.serres_item);
+                returnarray = activity.getResources().getStringArray(R.array.serres_items_names);
                 break;
-
-
-
-
-
         }
 
         return returnarray;

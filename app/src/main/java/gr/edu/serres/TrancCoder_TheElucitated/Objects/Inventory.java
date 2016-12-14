@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import gr.edu.serres.TrancCoder_TheElucitated.IMarker;
 
 /**
  * Created by Alex on 8/11/2016.
@@ -17,25 +16,16 @@ public class Inventory {
      //******************************************************/
     public List<String> ItemArray ;
     public String userEmail;
-    private List<IMarker> items;
+    private List<Item> items;
 
-
-    //CLASS CONSTRUCTOR
-    public Inventory(){/*An empty Constructor */}
-
-    public Inventory(User user){
-        userEmail = user.getEmail();
-        ItemArray=  Collections.synchronizedList(new ArrayList<String>());
-        items = Collections.synchronizedList(new ArrayList<IMarker>());
-        fillArray();
+    public Inventory(){
+        items = Collections.synchronizedList(new ArrayList<Item>());
     }
-
-    // CLASS COSTRUCTOR WITH PARAMETERS
     public Inventory(String UserMail){
         ItemArray=  Collections.synchronizedList(new ArrayList<String>());
         this.userEmail = UserMail;
         fillArray();
-        items = Collections.synchronizedList(new ArrayList<IMarker>());
+        items = Collections.synchronizedList(new ArrayList<Item>());
     }
 
     // CREATE AND FILL AN ARRAY WITH BY GAME DEFAULT OBJECTS
@@ -69,27 +59,21 @@ public class Inventory {
         return null;
     }
 
-    public  void addItem(IMarker item){
-        items.add(item);
-    }
-
-    public String[] getItemsInfo(){
-        String[] info = new String[items.size()*2];
-        int i=0;
-        for(IMarker item : items){
-            info[i++] = item.getName();
-            info[i++] = item.getDescription();
-        }
-        return  info;
-    }
-
-   /* public List<String> getItemArray() {
+    public List<String> getItemArray() {
         return ItemArray;
-    }*/
+    }
 
     public String getUserEmail() {
         return userEmail;
     }
+    public void addItem(Item item){
+        items.add(item);
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
     public boolean hasItems(){
         return !items.isEmpty();
     }

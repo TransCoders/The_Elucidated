@@ -88,14 +88,14 @@
         <item>Νομός Χανίων</item>
         <item>Νομός Χίου</item>
     </string-array>
-    <string-array name="Crime_Scene">
+    <string-array name="crime_scene">
         <item>Τι στοιχεία έχουμε στα χέρια μας;</item>
         <item>Τα μόνα στοιχεία που βρέθηκαν είναι το κινητό τηλέφωνο του θύματος,
               μία σφαίρα, σημάδι ότι ο φόνος έγινε με πιστόλι και ένα
               τραπουλόχαρτο με μία ανδρική φιγούρα που στην καρδιά είχε μία τρύπα σαν
               κάψιμο από τσιγάρο!</item>
     </string-array>
-    <string-array name="Crime_Scene_chooser">
+    <string-array name="crime_scene_chooser">
         <item>Να πάρω την σφαίρα;</item>
         <item>Να αφήσω την σφαίρα στον αστυνόμο;</item>
         <item>Να πάρω το τραπουλόχαρτο;</item>
@@ -103,7 +103,7 @@
         <item>Να πάρω το κινητό;</item>
         <item>Να αφήσω το κινητό στον αστυνόμο;</item>
     </string-array>
-    <string-array name="Victims_bar">
+    <string-array name="victims_bar">
         <item>Τι ώρα έφυγες από το μαγαζί;</item>
         <item>Την ώρα που έφευγα είδα το ρολόι μου και ήταν 4 τα ξημερώματα!</item>
         <item>Ο Π.Α. ήταν εδώ;</item>
@@ -114,7 +114,7 @@
         <item>Τίποτα άλλο;</item>
         <item>Μετά τους είδα να κάθονται μαζί με τον λογιστή του στο τραπέζι μέχρι την ώρα που έφυγα.</item>
     </string-array>
-    <string-array name="Victims_home">
+    <string-array name="victims_home">
         <item>Ήρθα για να σας κάνω μερικές ερωτήσεις σχετικά με την δολοφονία του άντρα σας.</item>
         <item>Παρακαλώ περάστε, θα σας παρακαλούσα να είστε σύντομος, καταλαβαίνεται!</item>
         <item>Φυσικά, μήπως παρατηρήσατε τίποτα περίεργο τις τελευταίες μέρες;</item>
@@ -125,7 +125,7 @@
         <item>Σας ευχαριστώ κυρία μου για τον χρόνο σας.</item>
         <item>Εγώ σας ευχαριστώ</item>
     </string-array>
-    <string-array name="Victims_home_chooser">
+    <string-array name="victims_home_chooser">
         <item>Να πάρω το φάκελο;</item>
         <item>Να αφήσω τον φάκελο;</item>
         <item>Να ψάξω το γραφείο;</item>
@@ -139,7 +139,7 @@
         <item>Να διαβάσω το σημείωμα και να το αφήσω;</item>
         <item>Να πάρω τα Λογιστικά βιβλία για περαιτέρω διερεύνηση;</item>
     </string-array>
-    <string-array name="Accountant">
+    <string-array name="accountant">
         <item>Είστε ο τελευταίος άνθρωπος που ήρθε σε επαφή με το θύμα. Σας είχε πει
               τίποτα σχετικό με απειλές ή με χρωστούμενα που τυχόν να είχε?</item>
         <item>Όχι τίποτα απολύτως! Το μόνο που ίσως να σημαίνει κάτι είναι μια παλιά ιστορία
@@ -149,7 +149,7 @@
         <item>Ναι φυσικά, μου είχε πει ότι έπαιζε σε μια χαρτοπαιχτική λέσχη τρεις δρόμους πιο κάτω,
               Ντάμα-Βαλές λέγεται!</item>
     </string-array>
-    <string-array name="Queen_jack_club">
+    <string-array name="queen_jack_club">
         <item>Είστε ο ιδιοκτήτης της λέσχης;</item>
         <item>Μάλιστα, εγώ είμαι ο ιδιοκτήτης!</item>
         <item>Δολοφονήθηκε ο Π.Α. εχθές το βράδυ, τι ξέρετε για το θύμα που θα μπορούσε να
@@ -159,51 +159,70 @@
               Εμείς του δανείζαμε αλλά αυτός δεν τα επέστρεφε ποτέ τα χρήματα.
               (ψηλός, μελαχρινός με σκυθρωπό πρόσωπο και φορούσε ένα μαύρο δερμάτινο)</item>
     </string-array>
-
-    <string-array name="serres_item">
-        <item>chocolate</item>
-        <item>41.087022</item>
-        <item>23.547429</item>
-
-        <item>home</item>
-        <item>41.090270</item>
-        <item>23.54963</item>
-
-        <item>Accountant</item>
-        <item>41.085631</item>
-        <item>23.544688</item>
-
-        <item>Queen_jack_club</item>
-        <item>41.092082</item>
-        <item>23.558603</item>
+    <string-array name="my_home">
+        <item>YOU ARE GREAT !!!</item>
+        <item>YOU ARE GREAT !!!</item>
+        <item>YOU ARE GREAT !!!</item>
+        <item>YOU ARE GREAT !!!</item>
     </string-array>
+
+    <array name="serres_quest_names">
+        <item name="victims_bar">Victims bar</item>
+        <item name="victims_home">Victims home</item>
+        <item name="accountant">Accountant</item>
+        <item name="queen_jack_club">Queen Jack club</item>
+        <item name="my_home">My Home</item>
+    </array>
+    <array name="serres_quest_latitude">
+        <item name="victims_bar_latitude">41.087022</item>
+        <item name="victims_home_latitude">41.090270</item>
+        <item name="accountant_latitude">41.085631</item>
+        <item name="queen_jack_club_latitude">41.092082</item>
+        <item name="my_home_latitude">41.062082</item>
+    </array>
+    <array name="serres_quest_longitude">
+        <item name="victims_bar_longitude">23.547429</item>
+        <item name="victims_home_longitude">23.54963</item>
+        <item name="accountant_longitude">23.544688</item>
+        <item name="queen_jack_club_longitude">23.558603</item>
+        <item name="my_home_longitude">23.548603</item>
+    </array>
+    <array name="serres_quest_dialogue">
+        <item name="victims_bar_dialogue">victims_bar</item>
+        <item name="victims_home_dialogue">victims_home</item>
+        <item name="accountant_dialogue">accountant</item>
+        <item name="queen_jack_club_dialogue">queen_jack_club</item>
+        <item name="my_home_dialogue">my_home</item>
+    </array>
 
     <!-- Serres Items TEST -->
 
-    <array name="serres_items">
-        <item name="handcuffs">handcuffs</item>
-        <item name="gun">gun</item>
-        <item name="finder">finder</item>
-        <item name="cards">cards</item>
-    </array>
-    <array name="serres_items_experience">
-        <item name="handcuffs_exp">100</item>
-        <item name="gun_exp">250</item>
-        <item name="finder_exp">150</item>
-        <item name="cards_exp">50</item>
-    </array>
-    <array name="serres_items_latitude">
-        <item name="handcuffs_lat">41.087622</item>
-        <item name="gun_lat">41.095622</item>
-        <item name="finder_lat">41.085632</item>
-        <item name="cards_lat">41.087523</item>
-    </array>
-    <array name="serres_items_longitude">
-        <item name="handcuffs_lon">23.548429</item>
-        <item name="gun_lon">23.549632</item>
-        <item name="finder_lon">23.56463</item>
-        <item name="cards_lon">23.548526</item>
-    </array>
+
+        <array name="serres_items_names">
+            <item name="handcuffs">handcuffs</item>
+            <item name="gun">gun</item>
+            <item name="finder">finder</item>
+            <item name="cards">cards</item>
+        </array>
+        <array name="serres_items_experience">
+            <item name="handcuffs_exp">100</item>
+            <item name="gun_exp">250</item>
+            <item name="finder_exp">150</item>
+            <item name="cards_exp">50</item>
+        </array>
+        <array name="serres_items_latitude">
+            <item name="handcuffs_lat">41.087622</item>
+            <item name="gun_lat">41.095622</item>
+            <item name="finder_lat">41.085632</item>
+            <item name="cards_lat">41.087523</item>
+        </array>
+        <array name="serres_items_longitude">
+            <item name="handcuffs_lon">23.548429</item>
+            <item name="gun_lon">23.549632</item>
+            <item name="finder_lon">23.56463</item>
+            <item name="cards_lon">23.548526</item>
+        </array>
+
 
     <!-- Serres items TEST -->
 

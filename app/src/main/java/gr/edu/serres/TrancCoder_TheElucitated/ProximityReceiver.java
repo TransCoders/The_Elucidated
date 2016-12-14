@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-
-import java.util.ArrayList;
-import java.util.List;
+import gr.edu.serres.TrancCoder_TheElucitated.Controllers.MarkerController;
 
 import static com.google.android.gms.internal.zzs.TAG;
 
@@ -20,17 +17,12 @@ import static com.google.android.gms.internal.zzs.TAG;
  */
 
 class ProximityReceiver extends BroadcastReceiver {
-    GoogleMap mMap;
-    List<IMarker> markersList;
+    MarkerController markerController;
 
 
-    ProximityReceiver(GoogleMap map){
-        mMap = map;
-        markersList = new ArrayList();
-    }
+    ProximityReceiver(MarkerController markerController){
 
-    public void addMarker(IMarker iMarker){
-        markersList.add(iMarker);
+        this.markerController = markerController;
     }
 
     @Override
@@ -40,15 +32,14 @@ class ProximityReceiver extends BroadcastReceiver {
             Log.v(TAG, intent.getData().toString());
             Bundle extras = intent.getExtras();
             if (extras != null) {
-                for(IMarker marker : markersList){
-                    if (extras.get("message").equals(marker.getName()) && extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                        Toast.makeText(arg0, "There is an item or more in your area.Check your map"+" <User's Name> "+ "!!!", Toast.LENGTH_SHORT).show();
-                        marker.show();
-                        //item.showImageAndMakeClickable(mMap);
-                    } else if (extras.get("message").equals(marker.getName()) && !extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
+                String name = extras.getString("message");
+                if(markerController.hasMarker(name)) {
+                    if (extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
+                        Toast.makeText(arg0, "There is an item or more in your area.Check your map" + " <User's Name> " + "!!!", Toast.LENGTH_SHORT).show();
+                        markerController.showMarker(name);
+                    } else if (!extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
                         Toast.makeText(arg0, "<User's Name> , You just exited an item's area", Toast.LENGTH_SHORT).show();
-                        marker.hide();
-                        // item.removeImage();
+                        markerController.hideMarker(name);
                     }
                 }
             }

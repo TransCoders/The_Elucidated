@@ -56,11 +56,10 @@ public class Email_And_Password_Auth {
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (task.isSuccessful()) {
-                                    User user = new User(Password,"serres", "0", Email);
-                                    database.SetUserInformation(user);
-                                    database.SetInventory(new Inventory(user));
+
+                                    database.SetUserInformation(new User(Password,"serres", "0", Email));
+                                    database.SetInventory(new Inventory(Email));
                                     database.CreateSaveUserState(Email,"FirstQuest","0");
-                                    database.Set_User_Inventory_Item_and_Update("Mpaklavas",user.email,"100");
                                     database.SaveUserState(Email,"SecondQuest","100");
                                     Intent myIntent = new Intent(activity, MapsActivity.class);
                                     activity.startActivity(myIntent);

@@ -1,4 +1,4 @@
-package gr.edu.serres.TrancCoder_TheElucitated;
+package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import gr.edu.serres.TrancCoder_TheElucitated.Adapters.CustomAdapter;
+import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 
 /**
@@ -32,7 +35,7 @@ public class DialogsActivity extends AppCompatActivity {
         if (getIntent().hasExtra("dialogue")) {
             dialogue = getIntent().getExtras().getStringArray("dialogue");
         } else {
-            dialogue = this.getResources().getStringArray(R.array.Victims_bar);
+            dialogue = this.getResources().getStringArray(R.array.victims_bar);
         }
 
         //Toast.makeText(getApplicationContext(),String.valueOf(delay.length),Toast.LENGTH_SHORT).show();

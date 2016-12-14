@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import gr.edu.serres.TrancCoder_TheElucitated.DataScreenActivity;
+import gr.edu.serres.TrancCoder_TheElucitated.Activities.DataScreenActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 public class Google_Sign_In_Auth extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {

@@ -1,4 +1,4 @@
-package gr.edu.serres.TrancCoder_TheElucitated;
+package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.google.android.gms.appindexing.Thing;
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Email_And_Password_Auth;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 /**
  * Created by tasos on 8/11/2016.

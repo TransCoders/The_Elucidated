@@ -13,6 +13,8 @@ import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Adapters.CustomAdapter;
+
 /**
  * Created by James Nikolaidis on 12/4/2016.
  */

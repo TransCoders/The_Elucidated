@@ -12,10 +12,8 @@ import gr.edu.serres.TrancCoder_TheElucitated.R;
  */
 
 public class BackgroundSoundService extends Service {
-    private static final String TAG = null;
     MediaPlayer player;
     public IBinder onBind(Intent arg0) {
-
         return null;
     }
     @Override
@@ -31,9 +29,6 @@ public class BackgroundSoundService extends Service {
         return Service.START_STICKY_COMPATIBILITY;
     }
 
-    public void onStart(Intent intent, int startId) {
-        // TO DO
-    }
     public IBinder onUnBind(Intent arg0) {
         // TO DO Auto-generated method
         return null;
@@ -42,10 +37,10 @@ public class BackgroundSoundService extends Service {
     public void onStop() {
 
     }
-    public void onStart(){
+    public void start(){
         player.start();
     }
-    public void onPause() {
+    public void pause() {
         player.pause();
     }
     @Override

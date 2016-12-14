@@ -1,4 +1,4 @@
-package gr.edu.serres.TrancCoder_TheElucitated;
+package gr.edu.serres.TrancCoder_TheElucitated.Adapters;
 
 
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import gr.edu.serres.TrancCoder_TheElucitated.R;
+
 
 /**
  * Created by tasos on 12/11/2016.
@@ -20,7 +22,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
     public CustomAdapter(Context context, ArrayList<String> dialogName)throws  NullPointerException,IndexOutOfBoundsException {
 
 
-             super(context,R.layout.adapter_activity,dialogName);
+             super(context, R.layout.adapter_activity,dialogName);
      }
 
 

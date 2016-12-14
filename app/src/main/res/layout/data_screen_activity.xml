@@ -76,6 +76,18 @@
             android:textStyle="normal|bold" />
 
         <EditText
+            android:id="@+id/Email_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/Name_Edit_Text"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/Email"
+            android:ems="10"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center" />
+
+        <EditText
             android:id="@+id/Name_Edit_Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,18 +98,6 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textAlignment="center" />
-
-        <EditText
-            android:id="@+id/Email_EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/Email"
-            android:ems="10"
-            android:hint="@string/Email"
-            android:inputType="textEmailAddress"
-            android:textAlignment="center"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/Name_Edit_Text" />
 
 
     </RelativeLayout>
