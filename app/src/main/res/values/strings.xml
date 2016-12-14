@@ -134,6 +134,7 @@
         <item>Σημείωμα</item>
         <item>Λογιστικά βιβλία</item>
     </string-array>
+
     <string-array name="desk_items_chooser">
         <item>Να πάρω το σημείωμα;</item>
         <item>Να διαβάσω το σημείωμα και να το αφήσω;</item>

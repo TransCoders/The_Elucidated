@@ -11,13 +11,17 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.Until;
 import android.test.InstrumentationTestCase;
+import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.InventoryClass;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.UsersObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -27,15 +31,17 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(AndroidJUnit4.class)
 @SdkSuppress(minSdkVersion = 18)
-public class Database_FunctionsTest extends InstrumentationTestCase{
+public class Database_FunctionsTest extends InstrumentationTestCase {
+
+
     private static final String BASIC_SAMPLE_PACKAGE
             = "gr.edu.serres.TrancCoder_TheElucitated";
     private static final int LAUNCH_TIMEOUT = 5000;
     private UiDevice mDevice;
     private static Database_Functions database_functions;
-    private UsersObject usersObject;
+    private User usersObject;
 
-    public  static Context appContext;
+    public static Context appContext;
 
 
     @Before
@@ -53,7 +59,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
                 LAUNCH_TIMEOUT);
 
         // Launch the app
-        appContext= InstrumentationRegistry.getContext();
+        appContext = InstrumentationRegistry.getContext();
         final Intent intent = appContext.getPackageManager()
                 .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
         // Clear out any previous instances
@@ -64,66 +70,64 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
                 LAUNCH_TIMEOUT);
 
-          ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
+        ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
                 Activity.class);
 
-        database_functions = Database_Functions.getInstance(appContext,mActivityRule.getActivity());
+        database_functions = Database_Functions.getInstance(appContext, mActivityRule.getActivity());
     }
 
     @Before
-    public void Database_FunctionTest(){
+    public void Database_FunctionTest() {
 
     }
 
 
     @Test
     public void getInstance() throws Exception {
-         ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
+        ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
                 Activity.class);
 
-        database_functions = Database_Functions.getInstance(appContext,mActivityRule.getActivity());
+        database_functions = Database_Functions.getInstance(appContext, mActivityRule.getActivity());
     }
 
     @Test
     public void setUserInformation() throws Exception {
-             usersObject = new UsersObject();
-                try {
-                    database_functions.SetUserInformation(usersObject);
-                }catch (NullPointerException exception){
-                    mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        usersObject = new User();
+        try {
+            database_functions.SetUserInformation(usersObject);
+        } catch (NullPointerException exception) {
+            mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-                    // Start from the home screen
-                    mDevice.pressHome();
+            // Start from the home screen
+            mDevice.pressHome();
 
-                    // Wait for launcher
-                    final String launcherPackage = mDevice.getLauncherPackageName();
-                    assertThat(launcherPackage, notNullValue());
-                    mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
-                            LAUNCH_TIMEOUT);
+            // Wait for launcher
+            final String launcherPackage = mDevice.getLauncherPackageName();
+            assertThat(launcherPackage, notNullValue());
+            mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)),
+                    LAUNCH_TIMEOUT);
 
-                    // Launch the app
-                    appContext= InstrumentationRegistry.getContext();
-                    final Intent intent = appContext.getPackageManager()
-                            .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
-                    // Clear out any previous instances
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    appContext.startActivity(intent);
+            // Launch the app
+            appContext = InstrumentationRegistry.getContext();
+            final Intent intent = appContext.getPackageManager()
+                    .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
+            // Clear out any previous instances
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            appContext.startActivity(intent);
 
-                    // Wait for the app to appear
-                    mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
-                            LAUNCH_TIMEOUT);
+            // Wait for the app to appear
+            mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)),
+                    LAUNCH_TIMEOUT);
 
-                }
-
+        }
 
 
     }
 
 
-
     @Test
     public void setInventory1() throws Exception {
-        InventoryClass test_inventory = new InventoryClass("example@hotmail.com");
+        Inventory test_inventory = new Inventory("testing@hotmaail.com");
         database_functions.SetInventory(test_inventory);
 
     }
@@ -132,7 +136,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
     @Test
     public void setInventory() throws Exception {
         getInstance();
-        InventoryClass test_inventory = new InventoryClass();
+        Inventory test_inventory = new Inventory();
         database_functions.SetInventory(test_inventory);
 
     }
@@ -140,24 +144,36 @@ public class Database_FunctionsTest extends InstrumentationTestCase{
 
     @Test
     public void set_User_Inventory_Item_and_Update() throws Exception {
-                database_functions.Set_User_Inventory_Item_and_Update("","","");
-                database_functions.Set_User_Inventory_Item_and_Update(null,"testing@email",null);
+        database_functions.Set_User_Inventory_Item_and_Update("", "", "");
+        database_functions.Set_User_Inventory_Item_and_Update(null, "testing@email", null);
+        database_functions.Set_User_Inventory_Item_and_Update(null, null, null);
 
     }
 
     @Test
     public void change_User_Experience() throws Exception {
-
+        database_functions.Change_User_Experience("", "");
+        database_functions.Change_User_Experience(null, null);
+        database_functions.Change_User_Experience("", null);
+        database_functions.Change_User_Experience(String.valueOf(1), "");
     }
 
     @Test
     public void change_User_Email() throws Exception {
 
+        database_functions.Change_User_Email("", "");
+        database_functions.Change_User_Email(null, null);
+        database_functions.Change_User_Email("", null);
+        database_functions.Change_User_Email(String.valueOf(1), "");
     }
 
     @Test
     public void setItemLocationOnFirebase() throws Exception {
-
+        database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(), "");
+        database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(), null);
+        database_functions.setItemLocationOnFirebase(InstrumentationRegistry.getContext(), "exampleValue");
     }
 
+
 }
+

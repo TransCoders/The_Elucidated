@@ -69,11 +69,11 @@ public class Database_Functions {
 
 
         try{
-                if(user.Experience!=null || user.email!=null || user.location!=null || user.Experience!=null){
-                    mUsers.push().setValue(user);
-                }else{
-                    throw new NullPointerException();
-                }
+            if(user.Experience!=null || user.email!=null || user.location!=null || user.Experience!=null){
+                mUsers.push().setValue(user);
+            }else{
+                throw new NullPointerException();
+            }
 
 
 
@@ -90,13 +90,13 @@ public class Database_Functions {
     public void SetInventory(Inventory inventory)throws  NullPointerException{
 
         try{
-                if(inventory.ItemArray!=null || !inventory.userEmail.matches("")) {
-                    mInventory.push().setValue(inventory);
-                }else{throw new NullPointerException();}
+            if(inventory.ItemArray!=null || !inventory.userEmail.matches("")) {
+                mInventory.push().setValue(inventory);
+            }else{throw new NullPointerException();}
         }catch(NullPointerException exception){
-                    //if set System.exit(0) system stops and some test cases will not run in final product we
+            //if set System.exit(0) system stops and some test cases will not run in final product we
             //must write System.exit(0);
-            }
+        }
 
 
 
@@ -109,38 +109,38 @@ public class Database_Functions {
     //START OF METHOD TO UPDATE USER INVENTORY
     public void Set_User_Inventory_Item_and_Update(final String value, final String UserEmail, final String Exp) throws  NullPointerException{
 
-      try{
+        try{
             if(!value.matches("")|| !UserEmail.matches("")|| !Exp.matches("")|| value!=null || UserEmail!=null || Exp !=null){
-             //Query to find the Child with the given by user email
-             final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
-              //Triger query Child Listener
+                //Query to find the Child with the given by user email
+                final Query findProperInventory = mInventory.limitToFirst(1).orderByChild("userEmail").equalTo(UserEmail);
+                //Triger query Child Listener
                 findProperInventory.addChildEventListener(new ChildEventListener() {
-                  @Override
-                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                     // Create new map for the new added object in the array
-                     Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
-                     //Gets Inventory Class object from JSON file
-                     Inventory inventoryClass_Item =  dataSnapshot.getValue(Inventory.class);
-                     //Put a new object to the Map with flag the next arrayindex of tbe array
-                     Inventory_Update_Map.put(String.valueOf(counter),value);
-                      //Create a clone reference from JSON OBject find by the proper Key
-                      Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
-                     //Put on the proper child the new Object Item
-                     clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
-                     //Increase arrayindex counter
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        // Create new map for the new added object in the array
+                        Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
+                        //Gets Inventory Class object from JSON file
+                        //   InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
+                        //Put a new object to the Map with flag the next arrayindex of tbe array
+                        Inventory_Update_Map.put(String.valueOf(counter),value);
+                        //Create a clone reference from JSON OBject find by the proper Key
+                        Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
+                        //Put on the proper child the new Object Item
+                        clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
+                        //Increase arrayindex counter
                         counter++;
-                     Change_User_Experience(Exp,UserEmail);
-                 }
-                 @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Change_User_Experience(Exp,UserEmail);
+                    }
+                    @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                         //if Item has complete change purchase the Item experience
 
-                 }
-                  @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                 @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                 @Override public void onCancelled(FirebaseError firebaseError) {}
+                    }
+                    @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override public void onCancelled(FirebaseError firebaseError) {}
                 });
             }else{throw  new NullPointerException();}
-      }catch(NullPointerException exception){/*System.exit(0)) */}
+        }catch(NullPointerException exception){/*System.exit(0)) */}
 
 
 
@@ -151,79 +151,108 @@ public class Database_Functions {
     //-----------------------------------------------------------------------------------------
 
     //START Of METHOD TO UPDATE USER EXPERIENCE
-    public void Change_User_Experience(final String Experience , String UserEmail  ){
+    public void Change_User_Experience(final String Experience , String UserEmail  )throws NullPointerException{
         //Query to find the Child with the given by user email
-        Query changeUserExperience  = mUsers.limitToFirst(1).orderByChild("email").equalTo(UserEmail);
-        //Triger query Child Listener
+
+        try{
+            if(!Experience.matches("") || Experience!=null || !UserEmail.matches("") || UserEmail!=null || !Experience.matches(" ") ){
 
 
-        changeUserExperience.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ExpCounter = ExpCounter;
+                Query changeUserExperience  = mUsers.limitToFirst(1).orderByChild("email").equalTo(UserEmail);
+                //Triger query Child Listener
+
+
+                changeUserExperience.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ExpCounter = ExpCounter;
+                    }
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+                });
+                changeUserExperience.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        //Gets Child Key
+                        String key = dataSnapshot.getKey();
+
+                        // Create new map for the new added object in the array
+                        Map<String,Object> ExpMap = new HashMap<String,Object>();
+                        //Gets UserObject Class object from JSON file
+                     //   User usersObject = dataSnapshot.getValue(User.class);
+                        ExpCounter = ExpCounter + Integer.valueOf(Experience);
+                        //Put a new object to the Map with flag  name Experience and Value  equal to Exp+=experience
+                        ExpMap.put("Experience",ExpCounter);
+                        //Create a clone reference from JSON OBject find by the proper Key
+                        Firebase cloneref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/"+key);
+                        //Updates Child
+                        cloneref.child("Experience").setValue(ExpCounter);
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+
+
+                });
+
+            }else{
+                throw new NullPointerException();
+
             }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {}
-        });
-        changeUserExperience.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //Gets Child Key
-                String key = dataSnapshot.getKey();
-
-                // Create new map for the new added object in the array
-                Map<String,Object> ExpMap = new HashMap<String,Object>();
-                //Gets UserObject Class object from JSON file
-                User usersObject = dataSnapshot.getValue(User.class);
-                ExpCounter = ExpCounter + Integer.valueOf(Experience);
-                //Put a new object to the Map with flag  name Experience and Value  equal to Exp+=experience
-                ExpMap.put("Experience",ExpCounter);
-                //Create a clone reference from JSON OBject find by the proper Key
-                Firebase cloneref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/"+key);
-                //Updates Child
-                cloneref.child("Experience").setValue(ExpCounter);
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {}
+        }catch(NullPointerException exception){
 
 
-        });
+
+        }
+
+
+
 
     }//END OF EXPERIENCE METHOD
     //START OF METHOD TO UPDATE USER EMAIL
-    public void Change_User_Email(String PreviousEmail, final String NewEmail){
+    public void Change_User_Email(String PreviousEmail, final String NewEmail) throws NullPointerException{
         //Query to find the Child with the given by user email
-        Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(PreviousEmail);
-        //Triger query Child Listener
-        findUser_By_Email.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //Gets Child Key
-                String key = dataSnapshot.getKey();
-                // Create new map for the new added object in the array
-                Map<String, Object> Updates_User_Email_map = new HashMap<String, Object>();
-                //Put a new object to the Map with flag the child name which we want to update
-                Updates_User_Email_map.put("email", NewEmail);
-                //Create a clone reference from JSON OBject find by the proper Key
-                Firebase newref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/" + key);
-                //Updates Child
-                newref.updateChildren(Updates_User_Email_map);
+
+        try{
+            if(!PreviousEmail.matches("") || !PreviousEmail.matches(" ") || PreviousEmail!=null || NewEmail!=null || !NewEmail.matches("") || !NewEmail.matches(" ")   ) {
+                Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(PreviousEmail);
+                //Triger query Child Listener
+                findUser_By_Email.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        //Gets Child Key
+                        String key = dataSnapshot.getKey();
+                        // Create new map for the new added object in the array
+                        Map<String, Object> Updates_User_Email_map = new HashMap<String, Object>();
+                        //Put a new object to the Map with flag the child name which we want to update
+                        Updates_User_Email_map.put("email", NewEmail);
+                        //Create a clone reference from JSON OBject find by the proper Key
+                        Firebase newref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/" + key);
+                        //Updates Child
+                        newref.updateChildren(Updates_User_Email_map);
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+                });
+            }else{
+                new NullPointerException();
             }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {}
-        });
+        }catch(NullPointerException exception){
+
+
+        }
+
 
     }//END OF METHOD
 
@@ -231,140 +260,175 @@ public class Database_Functions {
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
 
-    public void setItemLocationOnFirebase(final Context context, String Location){
+    public void setItemLocationOnFirebase(final Context context, String Location)throws NullPointerException{
+
+        try{
+            Firebase newref;
+            Map<String,ItemClass> itemMap = new HashMap<>();
+            int counter =1;
+
+            if(!Location.matches("") || !Location.matches(" ") || Location!=null) {
+                if (Location.matches("σέρρες") || Location.matches("Νομός Σέρρων")) {
+                    newref = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Σερρών");
+                    itemMap.put("Item" + counter, new ItemClass("chocolate", "41.087022", "23.547429"));
+                    counter++;
+                    itemMap.put("Item" + counter, new ItemClass("home", "41.090270", "23.54963"));
+                    counter++;
+                    itemMap.put("Item" + counter, new ItemClass("Accountant", "41.085631", "23.544688"));
+                    counter++;
+                    itemMap.put("Item" + counter, new ItemClass("Queen_jack_club", "41.092082", "23.558603"));
+                    //set new values on the database
+                    newref.setValue(itemMap);
+                    counter = 1;
+                } else if (Location.matches("Νομός Θεσσαλονίκης") || Location.matches("θεσσαλονίκη")) {
+                    newref = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Θεσσαλονίκης");
+                    itemMap.put("Item" + counter, new ItemClass("university", "40.677737", "22.925500"));
+                    counter++;
+                    itemMap.put("Item" + counter, new ItemClass("home", "40.630389", "22.943000"));
+                    counter++;
+                    itemMap.put("Item" + counter, new ItemClass("hospital", "40.640063", "22.944419"));
+                    //set new values on the database
+                    newref.setValue(itemMap);
+                    counter = 1;
+
+                } else {
+                    //about athens items
+
+                }
 
 
-        Firebase newref;
-        Map<String,ItemClass> itemMap = new HashMap<>();
-        int counter =1;
+            }else{
+                throw new NullPointerException();
 
+            }}catch (NullPointerException exception){
 
-       if(Location.matches("σέρρες")||Location.matches("Νομός Σέρρων")){
-           newref  = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Σερρών");
-        itemMap.put("Item"+counter,new ItemClass("chocolate","41.087022","23.547429"));
-        counter++;
-        itemMap.put("Item"+counter,new ItemClass("home","41.090270","23.54963"));
-        counter++;
-        itemMap.put("Item"+counter,new ItemClass("Accountant","41.085631","23.544688"));
-        counter++;
-        itemMap.put("Item"+counter,new ItemClass("Queen_jack_club","41.092082","23.558603"));
-            //set new values on the database
-           newref.setValue(itemMap);
-           counter=1;
-        }else if(Location.matches("Νομός Θεσσαλονίκης")||Location.matches("θεσσαλονίκη")){
-           newref  = new Firebase("https://the-elusidated-android-app.firebaseio.com/Item Location/Νομός Θεσσαλονίκης");
-           itemMap.put("Item"+counter,new ItemClass("university","40.677737","22.925500"));
-           counter++;
-           itemMap.put("Item"+counter,new ItemClass("home","40.630389","22.943000"));
-           counter++;
-           itemMap.put("Item"+counter,new ItemClass("hospital","40.640063","22.944419"));
-           //set new values on the database
-           newref.setValue(itemMap);
-           counter=1;
-
-       }else{
-           //about athens items
-
-       }
-
-
+        }
 
 
 
     }
 
     public Inventory getUserInventory(String Useremail){
-        final Inventory[] inventoryClass = new Inventory[1];
+        final Inventory[] inventoryClass1 = new Inventory[1];
 
-        if(!Useremail.isEmpty()){
-                    Query getUserQuery = mInventory.limitToFirst(1).orderByChild("UserEmail").equalTo(Useremail);
-                        getUserQuery.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                Inventory secondinventoryClass = dataSnapshot.getValue(Inventory.class);
-                                inventoryClass[0] = secondinventoryClass;
-
-                                for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){
-                                    String test = secondinventoryClass.ItemArray.get(i);
-                                    Log.e("PLEPLE",test);
-                                }
-                            }
-
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot){}
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {}
-                        });
-
-                }else{throw new NullPointerException();}
-
-
-
-        return inventoryClass[0];
-    }
-
-    public String GetUserLoadQuest(String UserEmail){
-        final String[] quest2 = new String[1];
-                Query getLoadUserQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
-                    getLoadUserQuest.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            String quest = dataSnapshot.child("Quest").getValue(String.class);
-                            quest2[0]=quest;
-                        }
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                        @Override
-                        public void onCancelled(FirebaseError firebaseError) {}
-                    });
-
-        return quest2[0];
-    }
-
-    public void CreateSaveUserState(String UserEmail, final String CurrentQuest, String Exp){
-
-        Map<String,String> mMap = new HashMap<>();
-        mMap.put("Quest",CurrentQuest);
-        mMap.put("UserEmail",UserEmail);
-
-        mSave.push().setValue(mMap);
-
-
-
-
-
-
-    }
-
-    public void SaveUserState(String UserEmail, final String CurrentQuest, String Exp){
-
-        Query saveQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
-        saveQuest.addChildEventListener(new ChildEventListener() {
+        Log.e("PLEPLE",Useremail);
+        Query getUserQuery = mInventory.limitToFirst(1).orderByChild("userEmail").equalTo(Useremail);
+        getUserQuery.addChildEventListener(new ChildEventListener() {
             @Override
+
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String key = dataSnapshot.getKey();
-                Firebase newRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/Save/"+key).child("Quest");
-                newRoot.setValue(CurrentQuest);
+                Inventory secondinventoryClass = dataSnapshot.getValue(Inventory.class);
+                inventoryClass1[0] = secondinventoryClass;
+
+                for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){
+                    String test = secondinventoryClass.ItemArray.get(i);
+                    Log.e("PLEPLE",test);
+                }
             }
+
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot){}
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onCancelled(FirebaseError firebaseError) {}
-        });
 
-        Change_User_Experience(Exp,UserEmail);
+        });
+        return inventoryClass1[0];
+
+
+
+
+
+    }
+
+
+
+
+    public String GetUserLoadQuest(String UserEmail)throws NullPointerException{
+        try{
+            if(!UserEmail.matches("") || !UserEmail.matches(" ") || UserEmail!=null)  {
+                final String[] quest2 = new String[1];
+                Query getLoadUserQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+                getLoadUserQuest.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        String quest = dataSnapshot.child("Quest").getValue(String.class);
+                        quest2[0]=quest;
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+                });
+
+                if(quest2[0]!=null || !quest2[0].isEmpty()){
+                    return quest2[0];
+                }else{
+                    System.exit(0);
+                    return null;
+                }
+
+            }else{throw new NullPointerException();}
+        }catch (NullPointerException exception){
+            return  null;
+        }
+
+
+    }
+
+    public void CreateSaveUserState(String UserEmail, final String CurrentQuest, String Exp)throws NullPointerException{
+
+        try{
+            if(!UserEmail.matches("") || UserEmail.matches(" ") || UserEmail!=null || !CurrentQuest.matches("") || !CurrentQuest.matches(" ") || CurrentQuest!=null|| !Exp.matches("") || !Exp.matches(" ") || Exp!=null) {
+
+                Map<String, String> mMap = new HashMap<>();
+                mMap.put("Quest", CurrentQuest);
+                mMap.put("UserEmail", UserEmail);
+
+                mSave.push().setValue(mMap);
+            }else{throw new NullPointerException();}
+        }catch (NullPointerException exceptio){}
+
+
+
+
+    }
+
+    public void SaveUserState(String UserEmail, final String CurrentQuest, String Exp)throws  NullPointerException{
+
+        try{
+            if(!UserEmail.matches("") || UserEmail.matches(" ") || UserEmail!=null || !CurrentQuest.matches("") || !CurrentQuest.matches(" ") || CurrentQuest!=null|| !Exp.matches("") || !Exp.matches(" ") || Exp!=null){
+
+                Query saveQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
+                saveQuest.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        String key = dataSnapshot.getKey();
+                        Firebase newRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/Save/"+key).child("Quest");
+                        newRoot.setValue(CurrentQuest);
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+                });
+
+                Change_User_Experience(Exp,UserEmail);
+            }else{throw new NullPointerException();}
+
+        }catch (NullPointerException exception){}
+
 
 
     }
