@@ -175,5 +175,55 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
     }
 
 
+    @Test
+    public void testGetUserInventory() throws Exception {
+        database_functions.getUserInventory("");
+        database_functions.getUserInventory(null);
+        Inventory inventory = new Inventory();
+        inventory = database_functions.getUserInventory("example@hotmail.com");
+        try {
+            List<String> arrayist = new ArrayList<>();
+            arrayist = inventory.returnItemArray();
+            for (int i = 0; i != arrayist.size(); i++) {
+                Log.e("ArrayPrint", arrayist.get(i));
+            }
+        } catch (ArrayIndexOutOfBoundsException exception) {
+
+        }
+
+
+    }
+
+    @Test
+    public void testGetUserLoadQuest() throws Exception {
+        database_functions.GetUserLoadQuest("");
+        database_functions.GetUserLoadQuest(null);
+        database_functions.GetUserLoadQuest(" ");
+        String testingQuest = database_functions.GetUserLoadQuest("example@hotmail.com");
+        Log.e("QuestTesting", testingQuest);
+    }
+
+    @Test
+    public void testCreateSaveUserState() throws Exception {
+        database_functions.CreateSaveUserState("", "", "");
+        database_functions.CreateSaveUserState(null, "", "");
+        database_functions.CreateSaveUserState(null, null, null);
+        database_functions.CreateSaveUserState("", null, "");
+        database_functions.CreateSaveUserState(" ", " ", "100");
+        database_functions.CreateSaveUserState("dfggd", "efsdfds", null);
+        database_functions.CreateSaveUserState("example@hotmail.com", "", "");
+
+    }
+
+    @Test
+    public void testSaveUserState() throws Exception {
+        database_functions.SaveUserState("", "", "");
+        database_functions.SaveUserState(null, null, null);
+        database_functions.SaveUserState(" ", null, null);
+        database_functions.SaveUserState(" ", " ", " ");
+        database_functions.SaveUserState("example@hotmail.com", "testingQuest", "4");
+    }
+
+
 }
 
