@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Activities.DialogsActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.Adapters.ItemBuilder;
@@ -162,17 +163,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         if(checkPermission()) {
            try {
-               Iterator it = pendingIntentController.getPendingIntentHashMap().entrySet().iterator();
-               while(it.hasNext()){
-                   locationManager.removeProximityAlert((PendingIntent)it.next());
+               for (Object o : pendingIntentController.getPendingIntentHashMap().entrySet()) {
+                   locationManager.removeProximityAlert((PendingIntent)((Map.Entry) o).getKey());
                }
            }catch (NullPointerException e){
                e.printStackTrace();
            }
         }
     }
-
-
 
     private void createMarkersForCurrentCounty() {
                 createQuestMarkers();
