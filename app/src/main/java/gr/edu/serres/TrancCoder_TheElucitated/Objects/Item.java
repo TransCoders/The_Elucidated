@@ -5,7 +5,7 @@ package gr.edu.serres.TrancCoder_TheElucitated.Objects;
  */
 
 public class Item {
-    private String name,description,experience,latitude,longitude;
+    private String name,description,experience,latitude,longitude,image;
 
     public Item(){}
 
@@ -34,6 +34,11 @@ public class Item {
         return this;
     }
 
+    public Item setImage(String image){
+        this.image = image;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -53,4 +58,7 @@ public class Item {
     public String getLongitude() {
         return longitude;
     }
+
+    public String getImage() { return image; }
+
 }

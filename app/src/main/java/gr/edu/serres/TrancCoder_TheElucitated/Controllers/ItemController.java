@@ -9,13 +9,15 @@ import gr.edu.serres.TrancCoder_TheElucitated.Objects.Item;
  */
 
 public class ItemController {
-    HashMap<String,Item> itemHashMap;
+    private HashMap<String,Item> itemHashMap;
 
     public ItemController(){
         itemHashMap = new HashMap<>();
     }
 
-    public void addItem(String name,Item item){
+    public HashMap<String, Item> getItemHashMap() { return itemHashMap; }
+
+    public void addItem(String name, Item item){
         itemHashMap.put(name,item);
     }
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 
 public class MarkerController {
-    HashMap<String,Marker> markerHashMap;
+    public HashMap<String,Marker> markerHashMap;
 
     public MarkerController(){
         markerHashMap = new HashMap<>();

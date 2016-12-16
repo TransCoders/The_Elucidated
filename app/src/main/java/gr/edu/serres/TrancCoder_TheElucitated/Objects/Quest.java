@@ -5,7 +5,8 @@ package gr.edu.serres.TrancCoder_TheElucitated.Objects;
  */
 
 public class Quest {
-    private String name,description,latitude,longitude,dialogue;
+    private String name,description,latitude,longitude,dialogue,experience;
+    private boolean unlocked;
 
     private int iconResource,level;
 
@@ -46,6 +47,20 @@ public class Quest {
         return this;
     }
 
+    public Quest setExperience(String experience){
+        this.experience = experience;
+        return this;
+    }
+
+    public Quest setUnlocked(boolean unlocked){
+        this.unlocked = unlocked;
+        return this;
+    }
+
+    public boolean isUnlocked(){
+        return unlocked;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -71,4 +86,7 @@ public class Quest {
     public String getLongitude() {
         return longitude;
     }
+
+    public String getExperience() { return experience; }
+
 }

@@ -38,8 +38,8 @@ public class InventoryScreenActivity extends AppCompatActivity {
         // Mήτσο εδώ θέλουμε ένα getUserEmail
 
 
-        while (counter < inventory.returnItemArray().size()) {
-            oneOne.add(inventory.returnItemArray().get(counter));
+        while (counter < inventory.getItemNames().size()) {
+            oneOne.add(inventory.getItemNames().get(counter));
             counter++;
         }
         counter = 0;

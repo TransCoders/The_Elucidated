@@ -195,14 +195,19 @@
         <item name="queen_jack_club_dialogue">queen_jack_club</item>
         <item name="my_home_dialogue">my_home</item>
     </array>
+    <array name="serres_quest_experience">
+        <item name="victims_bar_experience">50</item>
+        <item name="victims_home_experience">150</item>
+        <item name="accountant_experience">200</item>
+        <item name="queen_jack_club_experience">350</item>
+        <item name="my_home_experience">400</item>
+    </array>
 
     <!-- Serres Items TEST -->
-
-
         <array name="serres_items_names">
-            <item name="handcuffs">handcuffs</item>
+            <item name="handcuffs">Handcuffs</item>
             <item name="gun">gun</item>
-            <item name="finder">finder</item>
+            <item name="finder">Magnifying glass</item>
             <item name="cards">cards</item>
         </array>
         <array name="serres_items_experience">
@@ -223,8 +228,12 @@
             <item name="finder_lon">23.56463</item>
             <item name="cards_lon">23.548526</item>
         </array>
-
-
+    <array name="serres_items_image">
+        <item name="handcuffs_image">handcuffs.png</item>
+        <item name="gun_image">gun.png</item>
+        <item name="finder_image">finder.png</item>
+        <item name="cards_image">cards.png</item>
+    </array>
     <!-- Serres items TEST -->
 
     <string-array name="thessaloniki_item">
@@ -245,11 +254,6 @@
 
     <string-array name="athena_item">
     </string-array>
-
-
-
-
-
 
     <string-array name="Student_home">
         <item>Καλημέρα σας.Θα θέλαμε να σας ενημερώσουμε πως εχθές το βράδυ
@@ -278,10 +282,6 @@
         </item>
     </string-array>
 
-
-
-
-
     <string-array name="Girlfriend_home">
             <item>Συγγνώμη για την ενόχληση, ήρθα να σας κάνω κάποιες ερωτήσεις σχετικά με τον φόνο
                   του Ν.Ι.</item>
@@ -297,21 +297,11 @@
         <item>Στο καλό Αστυνόμε</item>
     </string-array>
 
-
-
-
     <string-array name="Girlfriend_home_chooser">
         <item>Να πάρω τις γόβες?</item>
         <item>Να ψάξω το σπίτι?</item>
 
     </string-array>
-
-
-
-
-
-
-
 
     <string-array name="Hospital">
         <item>Καλησπέρα Σ.(ονομα γιατρου)τι συμπεράσματα έβγαλες από την νεκροψία?</item>
@@ -322,20 +312,13 @@
             <item>Έχει μπροστά στο κεφάλι όπως βλέπεις ένα χτύπημα από κάτι σαν τακούνι.Ήταν δυνατό το
             χτύπημα.Ο δράστης μάλλον το προκάλεσε για να τον ακινητοποιήσει.</item>
         <item>Μάλιστα Σ..Θα μιλήσουμε για οτι νεότερο.Καλή συνέχεια.</item>
-
-
     </string-array>
-
-
 
     <string-array name="Hospital_chooser">
         <item>Να δω τα σημάδια? </item>
         <item> Nα πάρω τον φάκελο με τις τοξικολογικές?</item>
         <item>Nα αφήσω τον φάκελο με τις τοξικολογικές?</item>
     </string-array>
-
-
-
 
     <string-array name="University">
         <item>Γεια σας.Θα θέλαμε να σας κάνουμε κάποιες ερωτήσεις.Έγινε ένας φόνος ενός φοιτητή.</item>
@@ -349,22 +332,13 @@
             <item>Πάτησε το στοπ τώρα.Κάνε τώρα λίγο ζουμάρισμα.Αυτή είναι.Σας παρακαλώ μπόρω να έχω
             το αντίγραφο του DVD?</item>
         <item>Ορίστε..Ελπίζω να βρεθεί η λύση του εγκλήματος.Καλό σας βράδυ.</item>
-
     </string-array>
-
-
 
     <string-array name="University_chooser">
         <item>Να δω το DVD;</item>
         <item> Να πάρω το DVD;</item>
         <item>Να αφήσω το DVD;</item>
-
-
     </string-array>
-
-
-
-
 
     <string-array name="Girlfriend_home_1">
         <item>Αστυνόμε,τι θέλετε εδώ;</item>
@@ -383,11 +357,7 @@
             ήταν δύσκολο να βγει είναι στην ένωση πάνω</item>
         <item>Το μόνο που έμεινε είναι η ταυτοποίση.</item>
         <item>Μάλιστα Αστυνόμε.</item>
-
-
     </string-array>
-
-
 
     <string-array name="Girlfriend_home_1_chooser">
         <item>Nα ψάξω στο σπίτι;</item>
@@ -398,31 +368,18 @@
         <item>Να βγάλω το σακουλάκι;</item>
         <item>Να αφήσω τις γόβες;</item>
         <item>Να αφήσω το μαχαίρι;</item>
-
     </string-array>
-
-
-
-
-
 
     <string-array name="Hospital1">
         <item>Σ.  πάρε αυτά τα αντικείμενα και ταυτοποίησε τα με το αίμα που έχει το θύμα.</item>
         <item>Το αίμα όντως είναι ίδιο.</item>
         <item>Ο δολοφόνος βρέθηκε.</item>
-
     </string-array>
 
     <string-array name="Hospital1_chooser">
         <item>Nα πάρω τα αντικείμενα;</item>
         <item>Να αφήσω τα αντικείμενα;</item>
-
     </string-array>
-
-
-
-
-
 
     <string-array name="Crime_scene">
         <item>Καλημέρα,αστυνομία εκει?</item>
@@ -430,20 +387,12 @@
         <item>Με λένε Κ.Ε. και έχω μπροστά μου ένα αυτοκίνητο και μέσα είναι μια κοπέλα νεκρή,
         είναι μπρούμυτα πάνω στο τιμόνι.Υπάρχει και ένα μαντήλι σκαλωμένο στο παράθυρο.
             Ελάτε γρήγορα είμαι σε αυτόν τον δρόμο.</item>
-
     </string-array>
-
-
 
     <string-array name="Crime_scene_chooser">
         <item>Να κοιτάξω μέσα στο αμάξι;</item>
         <item>Να πάρω το μαντήλι;</item>
-
     </string-array>
-
-
-
-
 
     <string-array name="Hospital_Athina">
         <item>Αστυνόμε,αιτία θανάτου είναι η ασφυξία.Πιθανόν ο δράστης λογικά της έπνι3ε με κάποιο
@@ -453,10 +402,8 @@
         <item>Ευχαριστώ, γιατρέ.</item>
     </string-array>
 
-
     <string-array name="Hospital_Athina_chooser">
         <item>Nα δω τα σημάδια;</item>
-
     </string-array>
 
     <string-array name="police">
@@ -466,7 +413,6 @@
         <item>Βρέθηκε κάτι χρήσιμο.</item>
         <item>Μέσα στο σημειωματάριο έγραφε οτι είχε ραντεβού με έναν δικηγόρο
             Όσο για το tablet είχε συνομιλίες με μια φίλη της.</item>
-
     </string-array>
 
     <string-array name="police_chooser">
@@ -485,17 +431,13 @@
         <item>Να δω μηνύματα;</item>
         <item>Να δω κλήσεις;</item>
         <item>Nα αφήσω το κινητό;</item>
-
     </string-array>
 
     <string-array name="dikigoriko_grafeio">
         <item>Καλησπέρα σας.Ηρθαμε να σας κανουμε κάποιες ερωτήσεις για την υπόθεση της ΚΜ.</item>
         <item>Η κοπέλα αυτή ήρθε εχθές στο γραφέιο μου και υπέγραψε ένα συμβόλαιο για ένα σπίτι και
         της έδωσα και ένα κλειδί του σπιτιού.</item>
-
-
     </string-array>
-
 
     <string-array name="dikigoriko_grafeio_chooser">
         <item>Να πάρω το κλειδί;</item>
@@ -503,7 +445,6 @@
         <item>Να πάρω το συμβόλαιο;</item>
         <item>Να διαβάσω το συμβόλαιο;</item>
         <item>Να αφήσω το συμβόλαιο;</item>
-
     </string-array>
 
     <string-array name="Friend_Home">
@@ -511,14 +452,11 @@
         <item>Η ΚΜ τον τελευταίο καιρό ήταν πολύ χάλια.Είχε προβλήματα με τόν άντρα της.Ήθελε να χωρίσει
         .Μου άφησε εχθές και ένα βιβλιάριο τραπέζης γιατί της το έπαιρνε κρυφά και το άδειαζε.</item>
         <item>Σας ευχαριστούμε πολύ</item>
-
     </string-array>
-
 
     <string-array name="Friend_Home_chooser">
         <item>Nα πάρω το βιβλιάριο;</item>
         <item>Να αφήσω το βιβλιάριο;</item>
-
     </string-array>
 
     <string-array name="Victims2_home">
@@ -535,12 +473,6 @@
         παραδέχεστε?</item>
         <item>Αλήθεια είναι εγώ την σκότωσα.</item>
         <item>Συλλαμβάνεστε για τον φόνο της συζύγους σας.</item>
-
     </string-array>
-
-
-
-
-
 
 </resources>

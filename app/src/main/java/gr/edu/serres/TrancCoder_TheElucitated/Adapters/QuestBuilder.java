@@ -24,7 +24,9 @@ public class QuestBuilder {
 
         Class<R.array> res = R.array.class;
         HashMap<String,TypedArray> typedArrayHashMap = new HashMap<>();
-        String[] fields = {"names","latitude","longitude","dialogue"};
+        String name = "names"; String latitude = "latitude"; String longitude = "longitude"; String dialogue = "dialogue";
+        String experience = "experience"; String description = "quest"; boolean unlocked = false;
+        String[] fields = { name , latitude , latitude , dialogue, experience };
 
         try {
             for(String field : fields){
@@ -32,15 +34,17 @@ public class QuestBuilder {
                 TypedArray typedArray = context.getResources().obtainTypedArray(fieldType.getInt(null));
                 typedArrayHashMap.put(field,typedArray);
             }
-            for(int i=0;i<typedArrayHashMap.get("names").length();i++){
+            for(int i=0;i<typedArrayHashMap.get(name).length();i++){
                 Quest quest = new Quest()
+                        .setUnlocked(unlocked)
+                        .setExperience(typedArrayHashMap.get(experience).getString(i))
                         .setLevel(i)
-                        .setDialogue(typedArrayHashMap.get("dialogue").getString(i))
+                        .setDialogue(typedArrayHashMap.get(dialogue).getString(i))
                         .setIconResource(R.mipmap.quest)
-                        .setName(typedArrayHashMap.get("names").getString(i))
-                        .setDescription("quest")
-                        .setLatitude(typedArrayHashMap.get("latitude").getString(i))
-                        .setLongitude(typedArrayHashMap.get("longitude").getString(i));
+                        .setName(typedArrayHashMap.get(name).getString(i))
+                        .setDescription(description)
+                        .setLatitude(typedArrayHashMap.get(latitude).getString(i))
+                        .setLongitude(typedArrayHashMap.get(latitude).getString(i));
                 quests.add(quest);
             }
         } catch (Exception e) {

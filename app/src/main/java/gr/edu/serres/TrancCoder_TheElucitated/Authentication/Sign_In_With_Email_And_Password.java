@@ -31,10 +31,7 @@ public class Sign_In_With_Email_And_Password {
     public Sign_In_With_Email_And_Password(){
         mAuth = FirebaseAuth.getInstance();
     }
-
-
     public void SignInWithEmailAndPassword(final String Email, String Password, final Activity activity, final Context context) {
-
         final boolean[] complete = {true};
         editor = preferences.edit();
         editor.putString("UserEmail",Email);
@@ -42,14 +39,11 @@ public class Sign_In_With_Email_And_Password {
         database = Database_Functions.getInstance(context,activity);
 
         try {
-
             if(Email!=null && Password!=null && !Email.matches("") && !Password.matches(""))
               mAuth.signInWithEmailAndPassword(Email, Password)
-
                     .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
 
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
@@ -61,27 +55,17 @@ public class Sign_In_With_Email_And_Password {
                                 database.getUserInventory(Email);
                                 database.getUserProfileAdapter(Email);
                                 activity.startActivity(myIntent);
-
                             }
-
                             // ...
                         }
                     });
-            else
-            {
-                throw new NullPointerException();
-            }
-        }catch (NullPointerException ex){
-        }
+            else { throw new NullPointerException(); }
+        }catch (NullPointerException ex){}
     }
 
-
-        public void LogOut(){
+    public void LogOut(){
             mAuth.signOut();
         }
-
-
-
 
 }
 

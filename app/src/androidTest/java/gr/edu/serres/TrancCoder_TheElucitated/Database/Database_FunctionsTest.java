@@ -183,7 +183,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
       //  inventory = database_functions.getUserInventory("example@hotmail.com");
         try {
             List<String> arrayist = new ArrayList<>();
-            arrayist = inventory.returnItemArray();
+            arrayist = inventory.getItemNames();
             for (int i = 0; i != arrayist.size(); i++) {
                 Log.e("ArrayPrint", arrayist.get(i));
             }

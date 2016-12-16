@@ -14,8 +14,8 @@ public class Inventory {
       /*****************************************************\\
      Class varaible decleration
      //******************************************************/
-    public List<String> ItemArray ;
-    public String userEmail;
+    private List<String> itemNames;
+    private String userEmail;
     private List<Item> items;
 
     public Inventory(){
@@ -23,11 +23,11 @@ public class Inventory {
     }
 
     public Inventory(List<String> testingList , String Usermail){
-       this.ItemArray = testingList;
+       this.itemNames = testingList;
         this.userEmail = Usermail;
     }
     public Inventory(String UserMail){
-        ItemArray=  Collections.synchronizedList(new ArrayList<String>());
+        itemNames =  Collections.synchronizedList(new ArrayList<String>());
         this.userEmail = UserMail;
         fillArray();
         items = Collections.synchronizedList(new ArrayList<Item>());
@@ -35,40 +35,29 @@ public class Inventory {
 
     // CREATE AND FILL AN ARRAY WITH BY GAME DEFAULT OBJECTS
     private void fillArray(){
-        ItemArray.add("Magnifying glass");
-        ItemArray.add("Quest Map");
-        ItemArray.add("Lens");
-        ItemArray.add("Handcuffs");
-        ItemArray.add("Binoculars");
-        ItemArray.add("Glasses");
-        ItemArray.add("Mobile phone");
-        ItemArray.add("Hat");
-        ItemArray.add("Camera");
+        itemNames.add("Magnifying glass");
+        itemNames.add("Quest Map");
+        itemNames.add("Lens");
+        itemNames.add("Handcuffs");
+        itemNames.add("Binoculars");
+        itemNames.add("Glasses");
+        itemNames.add("Mobile phone");
+        itemNames.add("Hat");
+        itemNames.add("Camera");
 
 
     }
     // INSERT A NEW OBJECT INTO THE ARRAY
     public void setItemToInventory(String value){}
 
-    //RETURNS THE ARRAYLIST VAR
-    public List<String> returnItemArray() throws  NullPointerException{
-        try{
-            if(!ItemArray.isEmpty()){
-                return ItemArray;
-            }else
-            {throw new NullPointerException();}
-        }catch (NullPointerException ex){
-            System.exit(0);}
-
-
-        return null;
+    public List<String> getItemNames() {
+        return itemNames;
     }
-
-
 
     public String getUserEmail() {
         return userEmail;
     }
+
     public void addItem(Item item){
         items.add(item);
     }
@@ -80,4 +69,5 @@ public class Inventory {
     public boolean hasItems(){
         return !items.isEmpty();
     }
+
 }

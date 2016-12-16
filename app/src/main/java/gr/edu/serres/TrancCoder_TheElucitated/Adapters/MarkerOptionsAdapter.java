@@ -17,7 +17,7 @@ public class MarkerOptionsAdapter {
     private MarkerOptionsAdapter(){}
 
     public static MarkerOptions fromItem(Item item){
-        BitmapDescriptor icon =  BitmapDescriptorFactory.fromAsset(item.getName()+".png");
+        BitmapDescriptor icon =  BitmapDescriptorFactory.fromAsset(item.getImage());
         LatLng location = new LatLng(Double.parseDouble(item.getLatitude()),Double.parseDouble(item.getLongitude()));
         MarkerOptions markerOptions = new MarkerOptions()
                 .icon(icon)

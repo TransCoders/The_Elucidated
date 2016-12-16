@@ -47,7 +47,6 @@ public class Database_Functions {
     private static User userObject;
     private static  SharedPreferences preference;
 
-
     private Database_Functions(Context context,Activity activity) {
         context=context;
         appActivity=activity;
@@ -64,56 +63,38 @@ public class Database_Functions {
         emailPattern = Pattern.compile("^[(*^[0-9])\\w]+@(hotmail)|(gmail)+.(com)|(gr)");
     }
 
-
     public static Database_Functions getInstance(Context context, Activity activity){
         if(InstanceObject==null){
             Log.e("HELL","Confffffffffffstructor11111111111");
             InstanceObject = new Database_Functions(context,activity);
             return InstanceObject;
         }
-
         return InstanceObject;
     }
 
-
     public void SetUserInformation(User user){
-
-
         try{
-            if(user.Experience!=null || user.email!=null || user.location!=null || user.Experience!=null){
+            if(user.getExperience()!=null || user.email!=null || user.location!=null || user.getExperience()!=null){
                 mUsers.push().setValue(user);
             }else{
                 throw new NullPointerException();
             }
-
-
-
         }catch(NullPointerException exception){
-
             Intent intent = new Intent(appActivity, HomeScreenActivity.class);
             appActivity.startActivity(intent);
         }
-
-
-
     }
 
     public void SetInventory(Inventory inventory)throws  NullPointerException{
-
         try{
-            if(inventory.ItemArray!=null || !inventory.userEmail.matches("")) {
+            if(inventory.getItemNames()!=null || !inventory.getUserEmail().matches("")) {
                 mInventory.push().setValue(inventory);
             }else{throw new NullPointerException();}
         }catch(NullPointerException exception){
             //if set System.exit(0) system stops and some test cases will not run in final product we
             //must write System.exit(0);
         }
-
-
-
     }
-
-
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
@@ -144,7 +125,6 @@ public class Database_Functions {
                     }
                     @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                         //if Item has complete change purchase the Item experience
-
                     }
                     @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
                     @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
@@ -152,26 +132,17 @@ public class Database_Functions {
                 });
             }else{throw  new NullPointerException();}
         }catch(NullPointerException exception){/*System.exit(0)) */}
-
-
-
     }//END OF METHOD
-
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
-
     //START Of METHOD TO UPDATE USER EXPERIENCE
     public void Change_User_Experience(final String Experience , String UserEmail  )throws NullPointerException{
         //Query to find the Child with the given by user email
-
         try{
             if(!Experience.matches("") || Experience!=null || !UserEmail.matches("") || UserEmail!=null || !Experience.matches(" ") ){
-
-
                 Query changeUserExperience  = mUsers.limitToFirst(1).orderByChild("email").equalTo(UserEmail);
                 //Triger query Child Listener
-
 
                 changeUserExperience.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -207,28 +178,13 @@ public class Database_Functions {
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {}
-
-
                 });
-
-            }else{
-                throw new NullPointerException();
-
-            }
-        }catch(NullPointerException exception){
-
-
-
-        }
-
-
-
-
+            }else{ throw new NullPointerException(); }
+        }catch(NullPointerException exception){}
     }//END OF EXPERIENCE METHOD
     //START OF METHOD TO UPDATE USER EMAIL
     public void Change_User_Email(String PreviousEmail, final String NewEmail) throws NullPointerException{
         //Query to find the Child with the given by user email
-
         try{
             if(!PreviousEmail.matches("") || !PreviousEmail.matches(" ") || PreviousEmail!=null || NewEmail!=null || !NewEmail.matches("") || !NewEmail.matches(" ")   ) {
                 Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(PreviousEmail);
@@ -256,23 +212,14 @@ public class Database_Functions {
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {}
                 });
-            }else{
-                new NullPointerException();
-            }
-        }catch(NullPointerException exception){
-
-
-        }
-
-
+            }else{ new NullPointerException(); }
+        }catch(NullPointerException exception){}
     }//END OF METHOD
 
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
-
     public void setItemLocationOnFirebase(final Context context, String Location)throws NullPointerException{
-
         try{
             Firebase newref;
             Map<String,ItemClass> itemMap = new HashMap<>();
@@ -301,34 +248,19 @@ public class Database_Functions {
                     //set new values on the database
                     newref.setValue(itemMap);
                     counter = 1;
-
                 } else {
                     //about athens items
-
                 }
-
-
-            }else{
-                throw new NullPointerException();
-
-            }}catch (NullPointerException exception){
-
-        }
-
-
-
+            }else{ throw new NullPointerException(); }
+        }catch (NullPointerException exception){}
     }
 
     public void getUserInventory(String Useremail){
         Query getUserQuery = mInventory.limitToFirst(1).orderByChild("userEmail").equalTo(Useremail);
         getUserQuery.addChildEventListener(new ChildEventListener() {
             @Override
-
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 testing = dataSnapshot.getValue(Inventory.class);
-
-
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s){}
@@ -338,16 +270,8 @@ public class Database_Functions {
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onCancelled(FirebaseError firebaseError) {}
-
         });
-
-
-
-
     }
-
-
-
 
     public String GetUserLoadQuest(String UserEmail)throws NullPointerException{
         try{
@@ -369,45 +293,32 @@ public class Database_Functions {
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {}
                 });
-
                 if(quest2[0]!=null || !quest2[0].isEmpty()){
                     return quest2[0];
                 }else{
                     System.exit(0);
                     return null;
                 }
-
             }else{throw new NullPointerException();}
         }catch (NullPointerException exception){
             return  null;
         }
-
-
     }
 
     public void CreateSaveUserState(String UserEmail, final String CurrentQuest, String Exp)throws NullPointerException{
-
         try{
             if(!UserEmail.matches("") || UserEmail.matches(" ") || UserEmail!=null || !CurrentQuest.matches("") || !CurrentQuest.matches(" ") || CurrentQuest!=null|| !Exp.matches("") || !Exp.matches(" ") || Exp!=null) {
-
                 Map<String, String> mMap = new HashMap<>();
                 mMap.put("Quest", CurrentQuest);
                 mMap.put("UserEmail", UserEmail);
-
                 mSave.push().setValue(mMap);
             }else{throw new NullPointerException();}
         }catch (NullPointerException exceptio){}
-
-
-
-
     }
 
     public void SaveUserState(String UserEmail, final String CurrentQuest, String Exp)throws  NullPointerException{
-
         try{
             if(!UserEmail.matches("") || UserEmail.matches(" ") || UserEmail!=null || !CurrentQuest.matches("") || !CurrentQuest.matches(" ") || CurrentQuest!=null|| !Exp.matches("") || !Exp.matches(" ") || Exp!=null){
-
                 Query saveQuest = mSave.limitToFirst(1).orderByChild("UserEmail").equalTo(UserEmail);
                 saveQuest.addChildEventListener(new ChildEventListener() {
                     @Override
@@ -427,27 +338,19 @@ public class Database_Functions {
                 });
 
                 Change_User_Experience_Update(Exp,UserEmail);
-            }else{throw new NullPointerException();}
-
-        }catch (NullPointerException exception){}
-
-
-
+            }else{ throw new NullPointerException(); }
+        }catch ( NullPointerException exception ){}
     }
-
     //USE THIS FUNCTION TO GET USER INVENTORY OBJECT
-public Inventory getInv(){
+    public Inventory getInv(){
     return testing;
 }
-
 
     //START Of METHOD TO UPDATE USER EXPERIENCE
     public void Change_User_Experience_Update(final String Experience , String UserEmail  )throws NullPointerException {
         //Query to find the Child with the given by user email
         try {
             if (!Experience.matches("") || Experience != null || !UserEmail.matches("") || UserEmail != null || !Experience.matches(" ")) {
-
-
                 Query changeUserExperience = mUsers.limitToFirst(1).orderByChild("email").equalTo(UserEmail);
                 //Triger query Child Listener
                 changeUserExperience.addValueEventListener(new ValueEventListener() {
@@ -455,7 +358,6 @@ public Inventory getInv(){
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ExpCounter = ExpCounter;
                     }
-
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
                     }
@@ -470,41 +372,27 @@ public Inventory getInv(){
                         //Updates Child
                         cloneref.child("Experience").setValue(Experience);
                     }
-
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     }
-
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
                     }
-
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                     }
-
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
                     }
-
-
                 });
-
             } else {
                 throw new NullPointerException();
-
             }
-        } catch (NullPointerException exception) {
-
-
-        }
+        } catch (NullPointerException exception) {}
     }
-
-
 
     public void getUserProfileAdapter(String Useremail){
         Query getUserData  = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
-
         try{
             if(!Useremail.matches("") || !Useremail.matches(" ") || Useremail!=null) {
                 Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
@@ -513,7 +401,6 @@ public Inventory getInv(){
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         userObject = dataSnapshot.getValue(User.class);
-
                     }
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -527,19 +414,12 @@ public Inventory getInv(){
             }else{
                 new NullPointerException();
             }
-        }catch(NullPointerException exception){
-
-
-        }
-
-
-
+        }catch(NullPointerException exception){}
     }
 
     //USE THIS FUNCTION TO GET USER DATA OBJECT
     public User getUserData(){
         return  userObject;
-
     }
 
 }

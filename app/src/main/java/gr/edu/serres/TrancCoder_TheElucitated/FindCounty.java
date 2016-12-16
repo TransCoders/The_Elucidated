@@ -26,8 +26,8 @@ public class FindCounty extends AsyncTask<LocationManager,String,String> impleme
 
 
     private final Context mContext;
-    LocationManager locationManager;
-    Location mLastLocation ;
+    private LocationManager locationManager;
+    private Location mLastLocation ;
 
     public FindCounty(Context context,LocationManager locationManager){
         this.mContext = context;

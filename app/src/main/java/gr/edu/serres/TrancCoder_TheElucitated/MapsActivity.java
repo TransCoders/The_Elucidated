@@ -50,6 +50,8 @@ import gr.edu.serres.TrancCoder_TheElucitated.Controllers.ItemController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.MarkerController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.PendingIntentController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.QuestController;
+import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Item;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Quest;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
@@ -79,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /*
      * Proximity variables
      */
-    private final String PROX_ALERT = "app.test.PROXIMITY_ALERT";
+    final String PROX_ALERT = "app.test.PROXIMITY_ALERT";
     private ProximityReceiver proximityReceiver = null;
     private LocationManager locationManager = null;
     private PendingIntentController pendingIntentController;
@@ -91,6 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
+    Database_Functions database_functions;
     //
 
     @Override
@@ -107,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pendingIntentController = new PendingIntentController();
         itemController = new ItemController();
         questController = new QuestController();
-        user = new User(userEmail);
+        database_functions = Database_Functions.getInstance(getApplicationContext(),this);
         inventoryBtn = (Button) findViewById(R.id.inventory_btn);
         mapReady = false;
 
@@ -130,9 +133,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         inventoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.getInventory().hasItems()) {
-                    //Toast.makeText(getApplicationContext(),"first item "+items.get(0).getName(),Toast.LENGTH_LONG).show();
-                }
+                //if (user.getInventory().hasItems()) {
+                int number = user.getInventory().getItemNames().size();
+                int realItems = user.getInventory().getItems().size();
+                    Toast.makeText(getApplicationContext(),"User has "+number+" items in his inventory.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"He actually has "+realItems+" items in his inventory.",Toast.LENGTH_LONG).show();
+                //}
             }
         });
         Toast.makeText(getApplicationContext(),"STATE NAME IS "+stateName,Toast.LENGTH_LONG).show();
@@ -188,6 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String dialogue = questController.getQuestDialogue(0);
         if(dialogue!=null){
             markerController.showMarker(dialogue);
+            questController.unlockQuest(dialogue);
         }
     }
 
@@ -234,7 +241,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         createMarkersForCurrentCounty();
-
+        //Must be called after create items
+        setUpUser();
         mMap.setOnInfoWindowClickListener(this);
         mapReady = true;
     }
@@ -242,15 +250,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(final Marker marker) {
         String type = marker.getSnippet();
-        int quest_id=0;
+        int quest_id;
         if(type.equals("quest")){
-            Toast.makeText(getApplicationContext(), (String) marker.getTag(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), (String) marker.getTag(),Toast.LENGTH_SHORT).show();
             String dialogue = (String) marker.getTag();
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.quest_done));
-            String nextQuest = questController.questChooser(dialogue);
+            /*String nextQuest = questController.questChooser(dialogue);
             if(nextQuest!=null) {
                 markerController.showMarker(nextQuest);
-            }
+            }*/
             quest_id = questController.getQuestId(dialogue);
             Intent myIntent = new Intent(MapsActivity.this, DialogsActivity.class);
             myIntent.putExtra("dialogue",getResources().getStringArray(quest_id));
@@ -262,11 +270,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(getApplicationContext(),"OK button clicked.You got " + marker.getTag()+" Experience",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"OK button clicked.You got " + marker.getTag()+" Experience",Toast.LENGTH_SHORT).show();
                     PermissionCheck.checkPermission(getApplicationContext());
                     locationManager.removeProximityAlert(pendingIntentController.removeIntent(marker.getTitle()));
                     markerController.remove(marker.getTitle());
-                    user.getInventory().addItem(itemController.removeItem(marker.getTitle()));
+                    String exp = user.addItemWithExperience(itemController.removeItem(marker.getTitle()));
+                    for (Object o : questController.getQuestHashMap().entrySet()) {
+                        Quest quest = ((Quest) ((Map.Entry) o).getValue());
+                        if(Integer.parseInt(quest.getExperience())<=Integer.parseInt(user.getExperience())){
+                            if(!quest.isUnlocked()) {
+                                markerController.showMarker(quest.getDialogue());
+                                questController.unlockQuest(quest.getDialogue());
+                                database_functions.SaveUserState(user.getEmail(),quest.getName(),exp);
+                                Toast.makeText(getApplicationContext(), "User unlocked " + quest.getName() + " Quest", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(),"User gained " + exp+" Experience",Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("Leave item",new DialogInterface.OnClickListener(){
@@ -363,7 +383,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getSupportFragmentManager(),"dialog");
     }
 
-
+    //Must be called after create items
+    void setUpUser(){
+        //test mail
+        userEmail = "santa@hotmail.com";
+        user = new User(userEmail);
+        user.setInventory(database_functions.getInv());
+        for(String name : user.getInventory().getItemNames()){
+            if(itemController.getItemHashMap().containsKey(name)){
+                user.addItem(itemController.getItemHashMap().get(name));
+            }
+        }
+        //test
+        if(!user.getInventory().hasItems()){
+            Inventory inv = new Inventory(user.getEmail());
+            user.setInventory(inv);
+            for(String name : user.getInventory().getItemNames()){
+                if(itemController.getItemHashMap().containsKey(name)){
+                    user.addItem(itemController.getItemHashMap().get(name));
+                }
+            }
+        }
+    }
     void createBackgroundMusic(){
         toggleMusic = (ToggleButton)findViewById(R.id.toggle_music) ;
 

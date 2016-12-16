@@ -22,7 +22,9 @@ public class ItemBuilder {
 
         Class<R.array> res = R.array.class;
         HashMap<String,TypedArray> typedArrayHashMap = new HashMap<>();
-        String[] fields = {"names","experience","latitude","longitude"};
+        String name = "names"; String experience = "experience"; String latitude = "latitude";
+        String longitude = "longitude"; String image = "image";String description = "item";
+        String[] fields = { name , experience , latitude , longitude , image };
 
         try {
             for(String field : fields){
@@ -30,13 +32,14 @@ public class ItemBuilder {
                 TypedArray typedArray = context.getResources().obtainTypedArray(fieldType.getInt(null));
                 typedArrayHashMap.put(field,typedArray);
             }
-            for(int i=0;i<typedArrayHashMap.get("names").length();i++){
+            for(int i=0;i<typedArrayHashMap.get(name).length();i++){
                 Item item = new Item()
-                        .setName(typedArrayHashMap.get("names").getString(i))
-                        .setDescription("item")
-                        .setExperience(typedArrayHashMap.get("experience").getString(i))
-                        .setLatitude(typedArrayHashMap.get("latitude").getString(i))
-                        .setLongitude(typedArrayHashMap.get("longitude").getString(i));
+                        .setName(typedArrayHashMap.get(name).getString(i))
+                        .setDescription(description)
+                        .setExperience(typedArrayHashMap.get(experience).getString(i))
+                        .setLatitude(typedArrayHashMap.get(latitude).getString(i))
+                        .setLongitude(typedArrayHashMap.get(longitude).getString(i))
+                        .setImage(typedArrayHashMap.get(image).getString(i));
                 items.add(item);
             }
         } catch (Exception e) {

@@ -33,6 +33,10 @@ public class QuestController {
         return null;
     }
 
+    public HashMap<String, Quest> getQuestHashMap() {
+        return questHashMap;
+    }
+
     public String getQuestDialogue(int level){
         for (Object o : questHashMap.entrySet()) {
             Quest quest = (Quest) ((Map.Entry) o).getValue();
@@ -54,5 +58,13 @@ public class QuestController {
            e.printStackTrace();
         }
         return questId;
+    }
+
+    public boolean isUnlocked(String name){
+        return getQuestHashMap().get(name).isUnlocked();
+    }
+
+    public void unlockQuest(String name){
+        getQuestHashMap().get(name).setUnlocked(true);
     }
 }

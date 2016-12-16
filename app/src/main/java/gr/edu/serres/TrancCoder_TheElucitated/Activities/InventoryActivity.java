@@ -38,7 +38,7 @@ public class InventoryActivity extends AppCompatActivity {
         userinventory = new Inventory();
         //userinventory = mixalis.getUserInventory(preferences.getString("UserEmail","NothingFOund"));
         //items= getResources().getStringArray(R.array.thessaloniki_item);
-        items = (ArrayList<String>) userinventory.returnItemArray();
+        items = (ArrayList<String>) userinventory.getItemNames();
         imageId = getResources().getStringArray(R.array.serres_items_names);
         ListAdapter Adapter = new CustomAdapterIinventory(getApplicationContext(),items,imageId);
         Inventory.setAdapter(Adapter);
