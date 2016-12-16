@@ -180,7 +180,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
         database_functions.getUserInventory("");
         database_functions.getUserInventory(null);
         Inventory inventory = new Inventory();
-        inventory = database_functions.getUserInventory("example@hotmail.com");
+      //  inventory = database_functions.getUserInventory("example@hotmail.com");
         try {
             List<String> arrayist = new ArrayList<>();
             arrayist = inventory.returnItemArray();

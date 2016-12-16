@@ -21,6 +21,11 @@ public class Inventory {
     public Inventory(){
         items = Collections.synchronizedList(new ArrayList<Item>());
     }
+
+    public Inventory(List<String> testingList , String Usermail){
+       this.ItemArray = testingList;
+        this.userEmail = Usermail;
+    }
     public Inventory(String UserMail){
         ItemArray=  Collections.synchronizedList(new ArrayList<String>());
         this.userEmail = UserMail;
@@ -59,9 +64,7 @@ public class Inventory {
         return null;
     }
 
-    public List<String> getItemArray() {
-        return ItemArray;
-    }
+
 
     public String getUserEmail() {
         return userEmail;

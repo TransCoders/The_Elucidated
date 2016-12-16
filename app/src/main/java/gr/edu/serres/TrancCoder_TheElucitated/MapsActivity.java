@@ -37,16 +37,16 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Activities.DialogsActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.Adapters.ItemBuilder;
-import gr.edu.serres.TrancCoder_TheElucitated.Adapters.QuestBuilder;
-import gr.edu.serres.TrancCoder_TheElucitated.Controllers.ItemController;
 import gr.edu.serres.TrancCoder_TheElucitated.Adapters.MarkerOptionsAdapter;
 import gr.edu.serres.TrancCoder_TheElucitated.Adapters.ProximityAdapter;
+import gr.edu.serres.TrancCoder_TheElucitated.Adapters.QuestBuilder;
+import gr.edu.serres.TrancCoder_TheElucitated.Controllers.ItemController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.MarkerController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.PendingIntentController;
 import gr.edu.serres.TrancCoder_TheElucitated.Controllers.QuestController;
@@ -100,7 +100,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
         locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         stateName = getIntent().getStringExtra("StateName");
         mLastLocation = new LatLng(getIntent().getDoubleExtra("LastLocationLatitude",0),getIntent().getDoubleExtra("LastLocationLongitude",0));

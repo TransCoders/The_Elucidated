@@ -3,6 +3,7 @@ package gr.edu.serres.TrancCoder_TheElucitated.Database;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
@@ -33,20 +34,28 @@ public class Database_Functions {
      //******************************************************/
 
     private static  int counter=9;
+    private static Database_Functions InstanceObject;
     private Firebase mRoot,mUsers,mInventory,mItemLocation,mSave;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
-    private static Database_Functions InstanceObject;
+
     private  Context context;
     private static Activity appActivity;
     public static int ExpCounter =0;
     private static Pattern emailPattern;
+    private static Inventory testing;
+    private static User userObject;
+    private static  SharedPreferences preference;
 
 
     private Database_Functions(Context context,Activity activity) {
         context=context;
         appActivity=activity;
+        preference = activity.getSharedPreferences("GetUserEmail",context.MODE_PRIVATE);
         Firebase.setAndroidContext(context);
+        testing = new Inventory();
+        userObject = new User();
+        Log.e("HELL","Constructor");
         mRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/");
         mUsers= new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
         mInventory = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory");
@@ -58,9 +67,11 @@ public class Database_Functions {
 
     public static Database_Functions getInstance(Context context, Activity activity){
         if(InstanceObject==null){
+            Log.e("HELL","Confffffffffffstructor11111111111");
             InstanceObject = new Database_Functions(context,activity);
             return InstanceObject;
         }
+
         return InstanceObject;
     }
 
@@ -308,24 +319,17 @@ public class Database_Functions {
 
     }
 
-    public Inventory getUserInventory(String Useremail){
-        final Inventory[] inventoryClass1 = new Inventory[1];
-
-        Log.e("PLEPLE",Useremail);
+    public void getUserInventory(String Useremail){
         Query getUserQuery = mInventory.limitToFirst(1).orderByChild("userEmail").equalTo(Useremail);
         getUserQuery.addChildEventListener(new ChildEventListener() {
             @Override
 
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Inventory secondinventoryClass = dataSnapshot.getValue(Inventory.class);
-                inventoryClass1[0] = secondinventoryClass;
 
-                for(int i=0; i<secondinventoryClass.ItemArray.size(); i++){
-                    String test = secondinventoryClass.ItemArray.get(i);
-                    Log.e("PLEPLE",test);
-                }
+                testing = dataSnapshot.getValue(Inventory.class);
+
+
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s){}
             @Override
@@ -336,8 +340,6 @@ public class Database_Functions {
             public void onCancelled(FirebaseError firebaseError) {}
 
         });
-        return inventoryClass1[0];
-
 
 
 
@@ -424,7 +426,7 @@ public class Database_Functions {
                     public void onCancelled(FirebaseError firebaseError) {}
                 });
 
-                Change_User_Experience(Exp,UserEmail);
+                Change_User_Experience_Update(Exp,UserEmail);
             }else{throw new NullPointerException();}
 
         }catch (NullPointerException exception){}
@@ -433,12 +435,111 @@ public class Database_Functions {
 
     }
 
+    //USE THIS FUNCTION TO GET USER INVENTORY OBJECT
+public Inventory getInv(){
+    return testing;
+}
+
+
+    //START Of METHOD TO UPDATE USER EXPERIENCE
+    public void Change_User_Experience_Update(final String Experience , String UserEmail  )throws NullPointerException {
+        //Query to find the Child with the given by user email
+        try {
+            if (!Experience.matches("") || Experience != null || !UserEmail.matches("") || UserEmail != null || !Experience.matches(" ")) {
+
+
+                Query changeUserExperience = mUsers.limitToFirst(1).orderByChild("email").equalTo(UserEmail);
+                //Triger query Child Listener
+                changeUserExperience.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ExpCounter = ExpCounter;
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                    }
+                });
+                changeUserExperience.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        //Gets Child Key
+                        String key = dataSnapshot.getKey();
+                        //Create a clone reference from JSON OBject find by the proper Key
+                        Firebase cloneref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/" + key);
+                        //Updates Child
+                        cloneref.child("Experience").setValue(Experience);
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                    }
+
+
+                });
+
+            } else {
+                throw new NullPointerException();
+
+            }
+        } catch (NullPointerException exception) {
+
+
+        }
+    }
 
 
 
+    public void getUserProfileAdapter(String Useremail){
+        Query getUserData  = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
+
+        try{
+            if(!Useremail.matches("") || !Useremail.matches(" ") || Useremail!=null) {
+                Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
+                //Triger query Child Listener
+                findUser_By_Email.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        userObject = dataSnapshot.getValue(User.class);
+
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {}
+                });
+            }else{
+                new NullPointerException();
+            }
+        }catch(NullPointerException exception){
+
+
+        }
 
 
 
+    }
 
+    //USE THIS FUNCTION TO GET USER DATA OBJECT
+    public User getUserData(){
+        return  userObject;
+
+    }
 
 }

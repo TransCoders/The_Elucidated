@@ -38,7 +38,6 @@ public class DataScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         email_and_password_auth = new Email_And_Password_Auth(getApplicationContext());
         setContentView(R.layout.data_screen_activity);
-        database = Database_Functions.getInstance(getApplicationContext(),this);
         mpassword = (EditText) findViewById(R.id.Name_Edit_Text);
         mEmail = (EditText) findViewById(R.id.Email_EditText);
 
@@ -93,6 +92,6 @@ public class DataScreenActivity extends AppCompatActivity {
 
 
     public void  LogIn(){
-        email_and_password_auth.Create_New_Account_With_Email_Password(mEmail.getText().toString(),mpassword.getText().toString(),getApplicationContext(),this);
+        email_and_password_auth.Create_New_Account_With_Email_Password(mEmail.getText().toString(),mpassword.getText().toString(),getApplicationContext(),DataScreenActivity.this);
     }
 }

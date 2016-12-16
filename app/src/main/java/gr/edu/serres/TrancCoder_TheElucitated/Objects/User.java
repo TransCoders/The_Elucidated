@@ -8,6 +8,9 @@ public class User {
 
     public String name,location,Experience,email;
     public Inventory inventory;
+
+    public User(){}
+
     public User(String email){
         this.email = email;
         inventory = new Inventory();

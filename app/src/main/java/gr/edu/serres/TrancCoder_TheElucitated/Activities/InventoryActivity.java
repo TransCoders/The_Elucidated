@@ -36,7 +36,7 @@ public class InventoryActivity extends AppCompatActivity {
         mixalis = Database_Functions.getInstance(getApplicationContext(),this);
         items = new ArrayList<>();
         userinventory = new Inventory();
-        userinventory = mixalis.getUserInventory(preferences.getString("UserEmail","NothingFOund"));
+        //userinventory = mixalis.getUserInventory(preferences.getString("UserEmail","NothingFOund"));
         //items= getResources().getStringArray(R.array.thessaloniki_item);
         items = (ArrayList<String>) userinventory.returnItemArray();
         imageId = getResources().getStringArray(R.array.serres_items_names);

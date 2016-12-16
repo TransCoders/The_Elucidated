@@ -12,9 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
@@ -23,7 +21,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.FindCounty;
-import gr.edu.serres.TrancCoder_TheElucitated.MapsActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 /**
@@ -40,14 +37,14 @@ public class HomeScreenActivity extends AppCompatActivity {
     LocationManager locationManager= null;
     FindCounty findCounty;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-
-
+      
         setContentView(R.layout.home_screen_activity);
 
 
