@@ -4,60 +4,86 @@ package gr.edu.serres.TrancCoder_TheElucitated.Objects;
  * Created by James Nikolaidis on 11/6/2016.
  */
 
-public class User {
+public class User{
 
     public String name,location,email;
-    private String experience;
+    private int experience,level;
     private Inventory inventory;
 
     public User(){}
 
+    public User(User user){
+        this.name = user.getName();
+        this.location = user.getLocation();
+        this.email = user.getEmail();
+        this. experience = user.getExperience();
+        this.level = user.getLevel();
+        this.inventory = new Inventory(user.getInventory());
+    }
+
     public User(String email){
         this.email = email;
-        experience = "0";
+        location = "unknown";
+        experience = 0;
+        level = 0;
         inventory = new Inventory();
-    }
-
-    public User(String ...values){
-        this.name = values[0];
-        this.location = values[1];
-        this.experience = values[2];
-        this.email = values[3];
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void SetUserEmail(String email){
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public void setInventory(Inventory inv){
         inventory = inv;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public String getName(){return this.name;}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
     public void addItem(Item item){
         inventory.addItem(item);
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
     private String addExperience(String experience) {
         int exp = Integer.parseInt(experience);
-        int currentExp = Integer.parseInt(this.experience);
-        this.experience = String.valueOf(exp+currentExp);
-        return experience;
+        this.experience = this.experience+exp;
+        return String.valueOf(experience);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String addItemWithExperience(Item item){
         inventory.addItem(item);
+        inventory.getItemNames().add(item.getName());
         return addExperience(item.getExperience());
     }
+
+
 }
+
+

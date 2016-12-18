@@ -40,15 +40,6 @@ public class DataScreenActivity extends AppCompatActivity {
         setContentView(R.layout.data_screen_activity);
         mpassword = (EditText) findViewById(R.id.Name_Edit_Text);
         mEmail = (EditText) findViewById(R.id.Email_EditText);
-
-        // Get a reference to the AutoCompleteTextView in the layout
-
-        // Get the string array
-        String[] territories = getResources().getStringArray(R.array.Territories);
-        // Create the adapter and set it to the AutoCompleteTextView
-
-
-
         continueButton = (Button) findViewById(R.id.button4);
 
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -63,31 +54,14 @@ public class DataScreenActivity extends AppCompatActivity {
 
 
     }
-
-
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("DataScreen Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
 

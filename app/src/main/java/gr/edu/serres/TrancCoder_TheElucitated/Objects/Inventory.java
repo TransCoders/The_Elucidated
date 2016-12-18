@@ -11,28 +11,35 @@ import java.util.List;
 
 public class Inventory {
 
-      /*****************************************************\\
-     Class varaible decleration
-     //******************************************************/
     private List<String> itemNames;
-    private String userEmail;
     private List<Item> items;
 
     public Inventory(){
         items = Collections.synchronizedList(new ArrayList<Item>());
+        itemNames = Collections.synchronizedList(new ArrayList<String>());
+        starterItem();
     }
 
+    public Inventory(Inventory inventory){
+        this.itemNames = inventory.getItemNames();
+    }
+
+    /*
     public Inventory(List<String> testingList , String Usermail){
-       this.itemNames = testingList;
-        this.userEmail = Usermail;
+        this.itemNames = testingList;
+        //this.userEmail = Usermail;
     }
     public Inventory(String UserMail){
         itemNames =  Collections.synchronizedList(new ArrayList<String>());
-        this.userEmail = UserMail;
+        //this.userEmail = UserMail;
         fillArray();
         items = Collections.synchronizedList(new ArrayList<Item>());
-    }
+    }*/
 
+    private void starterItem(){
+        itemNames.add("Magnifying glass");
+        itemNames.add("Handcuffs");
+    }
     // CREATE AND FILL AN ARRAY WITH BY GAME DEFAULT OBJECTS
     private void fillArray(){
         itemNames.add("Magnifying glass");
@@ -44,18 +51,10 @@ public class Inventory {
         itemNames.add("Mobile phone");
         itemNames.add("Hat");
         itemNames.add("Camera");
-
-
     }
-    // INSERT A NEW OBJECT INTO THE ARRAY
-    public void setItemToInventory(String value){}
 
-    public List<String> getItemNames() {
+     public List<String> getItemNames() {
         return itemNames;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
     }
 
     public void addItem(Item item){
@@ -66,8 +65,13 @@ public class Inventory {
         return items;
     }
 
-    public boolean hasItems(){
-        return !items.isEmpty();
+    public boolean hasItem(String name){
+        for(Item item : items){
+            if(item.getName().equals(name)){
+                return  true;
+            }
+        }
+        return false;
     }
 
 }

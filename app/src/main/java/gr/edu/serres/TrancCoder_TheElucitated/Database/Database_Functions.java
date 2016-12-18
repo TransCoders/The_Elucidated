@@ -2,9 +2,7 @@ package gr.edu.serres.TrancCoder_TheElucitated.Database;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -19,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Activities.HomeScreenActivity;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.ItemClass;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
@@ -30,31 +27,23 @@ import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 
 public class Database_Functions {
     /*****************************************************\\
-     Class varaible decleration
+     Class variable declaration
      //******************************************************/
 
-    private static  int counter=9;
     private static Database_Functions InstanceObject;
     private Firebase mRoot,mUsers,mInventory,mItemLocation,mSave;
     private FirebaseDatabase database;
     private FirebaseStorage mStorage;
 
-    private  Context context;
-    private static Activity appActivity;
     public static int ExpCounter =0;
     private static Pattern emailPattern;
-    private static Inventory testing;
-    private static User userObject;
+    private static Inventory inventory;
+    private static User user;
     private static  SharedPreferences preference;
 
-    private Database_Functions(Context context,Activity activity) {
-        context=context;
-        appActivity=activity;
-        preference = activity.getSharedPreferences("GetUserEmail",context.MODE_PRIVATE);
-        Firebase.setAndroidContext(context);
-        testing = new Inventory();
-        userObject = new User();
-        Log.e("HELL","Constructor");
+    private Database_Functions() {
+        user = null;
+        inventory = null;
         mRoot = new Firebase("https://the-elusidated-android-app.firebaseio.com/");
         mUsers= new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers");
         mInventory = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory");
@@ -65,14 +54,14 @@ public class Database_Functions {
 
     public static Database_Functions getInstance(Context context, Activity activity){
         if(InstanceObject==null){
-            Log.e("HELL","Confffffffffffstructor11111111111");
-            InstanceObject = new Database_Functions(context,activity);
+            //Log.e("HELL","Confffffffffffstructor11111111111");
+            InstanceObject = new Database_Functions();
             return InstanceObject;
         }
         return InstanceObject;
     }
 
-    public void SetUserInformation(User user){
+    /*public void SetUserInformation(User user){
         try{
             if(user.getExperience()!=null || user.email!=null || user.location!=null || user.getExperience()!=null){
                 mUsers.push().setValue(user);
@@ -80,12 +69,12 @@ public class Database_Functions {
                 throw new NullPointerException();
             }
         }catch(NullPointerException exception){
-            Intent intent = new Intent(appActivity, HomeScreenActivity.class);
-            appActivity.startActivity(intent);
+            //Intent intent = new Intent(appActivity, HomeScreenActivity.class);
+            //appActivity.startActivity(intent);
         }
-    }
+    }*/
 
-    public void SetInventory(Inventory inventory)throws  NullPointerException{
+    /*public void SetInventory(Inventory inventory)throws  NullPointerException{
         try{
             if(inventory.getItemNames()!=null || !inventory.getUserEmail().matches("")) {
                 mInventory.push().setValue(inventory);
@@ -94,7 +83,7 @@ public class Database_Functions {
             //if set System.exit(0) system stops and some test cases will not run in final product we
             //must write System.exit(0);
         }
-    }
+    }*/
     //-----------------------------------------------------------------------------------------
     ///////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
@@ -109,19 +98,8 @@ public class Database_Functions {
                 findProperInventory.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        // Create new map for the new added object in the array
-                        Map<String,Object> Inventory_Update_Map = new HashMap<String,Object>();
-                        //Gets Inventory Class object from JSON file
-                        //   InventoryClass inventoryClass_Item =  dataSnapshot.getValue(InventoryClass.class);
-                        //Put a new object to the Map with flag the next arrayindex of tbe array
-                        Inventory_Update_Map.put(String.valueOf(counter),value);
-                        //Create a clone reference from JSON OBject find by the proper Key
                         Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/Inventory/"+String .valueOf(dataSnapshot.getKey()));
-                        //Put on the proper child the new Object Item
-                        clone.child("ItemArray").child(String.valueOf(counter)).setValue(value);
-                        //Increase arrayindex counter
-                        counter++;
-                        Change_User_Experience(Exp,UserEmail);
+                        clone.child("itemNames").setValue(inventory.getItemNames());
                     }
                     @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                         //if Item has complete change purchase the Item experience
@@ -164,11 +142,11 @@ public class Database_Functions {
                      //   User usersObject = dataSnapshot.getValue(User.class);
                         ExpCounter = ExpCounter + Integer.valueOf(Experience);
                         //Put a new object to the Map with flag  name Experience and Value  equal to Exp+=experience
-                        ExpMap.put("Experience",ExpCounter);
+                        ExpMap.put("experience",ExpCounter);
                         //Create a clone reference from JSON OBject find by the proper Key
                         Firebase cloneref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/"+key);
                         //Updates Child
-                        cloneref.child("Experience").setValue(ExpCounter);
+                        cloneref.child("experience").setValue(ExpCounter);
                     }
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -260,7 +238,7 @@ public class Database_Functions {
         getUserQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                testing = dataSnapshot.getValue(Inventory.class);
+                inventory = dataSnapshot.getValue(Inventory.class);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s){}
@@ -343,11 +321,12 @@ public class Database_Functions {
     }
     //USE THIS FUNCTION TO GET USER INVENTORY OBJECT
     public Inventory getInv(){
-    return testing;
+    return inventory;
 }
 
     //START Of METHOD TO UPDATE USER EXPERIENCE
     public void Change_User_Experience_Update(final String Experience , String UserEmail  )throws NullPointerException {
+
         //Query to find the Child with the given by user email
         try {
             if (!Experience.matches("") || Experience != null || !UserEmail.matches("") || UserEmail != null || !Experience.matches(" ")) {
@@ -370,7 +349,7 @@ public class Database_Functions {
                         //Create a clone reference from JSON OBject find by the proper Key
                         Firebase cloneref = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/" + key);
                         //Updates Child
-                        cloneref.child("Experience").setValue(Experience);
+                        cloneref.child("experience").setValue(Experience);
                     }
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -391,35 +370,62 @@ public class Database_Functions {
         } catch (NullPointerException exception) {}
     }
 
-    public void getUserProfileAdapter(String Useremail){
-        Query getUserData  = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
-        try{
-            if(!Useremail.matches("") || !Useremail.matches(" ") || Useremail!=null) {
-                Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
-                //Triger query Child Listener
-                findUser_By_Email.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        userObject = dataSnapshot.getValue(User.class);
-                    }
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {}
-                });
-            }else{
-                new NullPointerException();
+
+     /*
+        Οι παρακάτω σειρές χρειάζονται για να δουλέψει το παιχνίδι
+        ΜΗΝ ΤΗΣ ΣΒΗΣΕΙ ΚΑΝΕΙΣ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+
+    public void getUserProfileAdapter(final String Useremail){
+        Query findUser_By_Email = mUsers.limitToFirst(1).orderByChild("email").equalTo(Useremail);
+        //Triger query Child Listener
+        findUser_By_Email.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                user = dataSnapshot.getValue(User.class);
             }
-        }catch(NullPointerException exception){}
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
     }
 
     //USE THIS FUNCTION TO GET USER DATA OBJECT
     public User getUserData(){
-        return  userObject;
+        return user;
     }
 
+
+    public void logout(){
+        user = null;
+        inventory =null;
+    }
+    public void createUserFacebook(User user){
+
+    }
+    public void updateUser(){
+        final Query findProperInventory = mUsers.limitToFirst(1).orderByChild("email").equalTo(user.getEmail());
+        findProperInventory.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Firebase clone = new Firebase("https://the-elusidated-android-app.firebaseio.com/AppUsers/"+String .valueOf(dataSnapshot.getKey()));
+                User tempUser = new User(user);
+                clone.setValue(tempUser);
+            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(FirebaseError firebaseError) {}
+        });
+    }
+    public void createUser(User user){
+        mUsers.push().setValue(user);
+    }
 }

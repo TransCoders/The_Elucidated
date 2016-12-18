@@ -17,13 +17,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import gr.edu.serres.TrancCoder_TheElucitated.Activities.NavActivity;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
+
 
 /**
  * Created by Damian on 12/13/2016.
  */
 
 public class FindCounty extends AsyncTask<LocationManager,String,String> implements LocationListener {
-
 
     private final Context mContext;
     private LocationManager locationManager;
@@ -36,13 +38,10 @@ public class FindCounty extends AsyncTask<LocationManager,String,String> impleme
     
     @Override
     protected void onPreExecute(){
-
         if(checkPermission()){
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
             mLastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
-
-
     }
 
     @Override
@@ -53,7 +52,7 @@ public class FindCounty extends AsyncTask<LocationManager,String,String> impleme
         if(checkPermission()){
         while(mLastLocation==null){
                 mLastLocation = locationManager[0].getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
+            }
         }
         publishProgress("GPS location found");
         Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
@@ -75,10 +74,11 @@ public class FindCounty extends AsyncTask<LocationManager,String,String> impleme
 
     @Override
     protected void onPostExecute(String stateName){
-        Intent myIntent = new Intent(mContext, MapsActivity.class);
+        Intent myIntent = new Intent(mContext, NavActivity.class);
         myIntent.putExtra("StateName",stateName);
         myIntent.putExtra("LastLocationLatitude",mLastLocation.getLatitude());
         myIntent.putExtra("LastLocationLongitude",mLastLocation.getLongitude());
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(myIntent);
     }
 

@@ -26,7 +26,7 @@ public class QuestBuilder {
         HashMap<String,TypedArray> typedArrayHashMap = new HashMap<>();
         String name = "names"; String latitude = "latitude"; String longitude = "longitude"; String dialogue = "dialogue";
         String experience = "experience"; String description = "quest"; boolean unlocked = false;
-        String[] fields = { name , latitude , latitude , dialogue, experience };
+        String[] fields = { name , longitude , latitude , dialogue, experience };
 
         try {
             for(String field : fields){
@@ -44,7 +44,7 @@ public class QuestBuilder {
                         .setName(typedArrayHashMap.get(name).getString(i))
                         .setDescription(description)
                         .setLatitude(typedArrayHashMap.get(latitude).getString(i))
-                        .setLongitude(typedArrayHashMap.get(latitude).getString(i));
+                        .setLongitude(typedArrayHashMap.get(longitude).getString(i));
                 quests.add(quest);
             }
         } catch (Exception e) {

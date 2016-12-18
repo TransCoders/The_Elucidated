@@ -16,13 +16,15 @@ import static com.google.android.gms.internal.zzs.TAG;
  * Created by Damian on 11/21/2016.
  */
 
-class ProximityReceiver extends BroadcastReceiver {
+public class ProximityReceiver extends BroadcastReceiver {
     MarkerController markerController;
+    String userName;
 
 
-    ProximityReceiver(MarkerController markerController){
+    public ProximityReceiver(MarkerController markerController,String username){
 
         this.markerController = markerController;
+        this.userName = username;
     }
 
     @Override
@@ -35,10 +37,10 @@ class ProximityReceiver extends BroadcastReceiver {
                 String name = extras.getString("message");
                 if(markerController.hasMarker(name)) {
                     if (extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                        Toast.makeText(arg0, "There is an item or more in your area.Check your map" + " <User's Name> " + "!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(arg0, "There is an item or more in your area.Check your map " + userName + "!!!", Toast.LENGTH_SHORT).show();
                         markerController.showMarker(name);
                     } else if (!extras.getBoolean(LocationManager.KEY_PROXIMITY_ENTERING)) {
-                        Toast.makeText(arg0, "<User's Name> , You just exited an item's area", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(arg0, userName +" , You just exited an item's area", Toast.LENGTH_SHORT).show();
                         markerController.hideMarker(name);
                     }
                 }

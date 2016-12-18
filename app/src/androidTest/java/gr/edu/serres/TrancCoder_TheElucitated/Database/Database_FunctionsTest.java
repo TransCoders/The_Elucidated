@@ -94,7 +94,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
     public void setUserInformation() throws Exception {
         usersObject = new User();
         try {
-            database_functions.SetUserInformation(usersObject);
+            //database_functions.SetUserInformation(usersObject);
         } catch (NullPointerException exception) {
             mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
@@ -127,8 +127,8 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
 
     @Test
     public void setInventory1() throws Exception {
-        Inventory test_inventory = new Inventory("testing@hotmaail.com");
-        database_functions.SetInventory(test_inventory);
+        //Inventory test_inventory = new Inventory("testing@hotmaail.com");
+        //database_functions.SetInventory(test_inventory);
 
     }
 
@@ -137,7 +137,7 @@ public class Database_FunctionsTest extends InstrumentationTestCase {
     public void setInventory() throws Exception {
         getInstance();
         Inventory test_inventory = new Inventory();
-        database_functions.SetInventory(test_inventory);
+        //database_functions.SetInventory(test_inventory);
 
     }
 

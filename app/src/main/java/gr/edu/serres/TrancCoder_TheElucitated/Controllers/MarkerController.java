@@ -1,5 +1,6 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Controllers;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.HashMap;
@@ -34,5 +35,9 @@ public class MarkerController {
 
     public boolean hasMarker(String name){
         return markerHashMap.containsKey(name);
+    }
+
+    public void setIcon(String name,BitmapDescriptor icon){
+        markerHashMap.get(name).setIcon(icon);
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activities.NavActivity">
+
+
+    <item
+        android:id="@+id/tilt_btn"
+        android:orderInCategory="100"
+        android:title="Apply 3D effect on Map"
+        app:showAsAction="always|withText"
+        android:icon="@mipmap/effect3d"/>
+
+    <item
+        android:id="@+id/map_type"
+        android:orderInCategory="100"
+        android:title="Change Map Type"/>
+
+</menu>

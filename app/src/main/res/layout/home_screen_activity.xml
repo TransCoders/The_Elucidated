@@ -44,7 +44,7 @@
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
-            android:text="@string/New_Game"
+            android:text="@string/sign_up"
             tools:text="New Game" />
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_alignStart="@+id/button1"
             android:layout_below="@+id/button1"
             android:layout_marginTop="31dp"
-            android:text="@string/Load_Game"
+            android:text="@string/sign_in"
             tools:text="@string/Load_Game" />
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/button3"
-            android:text="Button" />
+            android:text="@string/play" />
 
     </RelativeLayout>
 </ScrollView>

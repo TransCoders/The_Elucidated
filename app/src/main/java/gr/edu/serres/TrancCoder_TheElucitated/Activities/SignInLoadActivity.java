@@ -1,6 +1,7 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,9 @@ import java.util.Arrays;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_And_Password;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
+import gr.edu.serres.TrancCoder_TheElucitated.FindCounty;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
+import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 /**
@@ -39,25 +42,21 @@ import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 public class SignInLoadActivity extends AppCompatActivity {
 
-    private static final String TAG = "SignInLoadActivity";
     private Button continueButton, googleButton;
     private EditText mPassword, mEmail;
     private Inventory inventoryClass;
     private String Location;
     private Database_Functions database;
     private Sign_In_With_Email_And_Password sign_in_with_email_and_password;
+
     private CallbackManager callbackManager;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-
-
-
-
-
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static final String TAG = "SignInLoadActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -65,10 +64,17 @@ public class SignInLoadActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.e(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    /*database = Database_Functions.getInstance(getApplicationContext(),SignInLoadActivity.this);
+                    database.getUserProfileAdapter(user.getEmail());
+                    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    FindCounty findCounty;
+                    findCounty = new FindCounty(getApplicationContext(), locationManager);
+                    findCounty.execute(locationManager);
+                    finish();*/
                 } else {
                     // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    Log.e(TAG, "onAuthStateChanged:signed_out");
                 }
                 // ...
 
@@ -77,21 +83,12 @@ public class SignInLoadActivity extends AppCompatActivity {
         };
 
 
-
-
-
-
-
-
-
-        super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                Log.e(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -109,52 +106,25 @@ public class SignInLoadActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         setContentView(R.layout.sign_in_load_activity);
         database = Database_Functions.getInstance(getApplicationContext(), this);
         mPassword = (EditText) findViewById(R.id.Password_EditText);
         mEmail = (EditText) findViewById(R.id.Name_Edit_Text);
-
         continueButton = (Button) findViewById(R.id.button4);
-
         continueButton.setOnClickListener(new View.OnClickListener()  {
-
             @Override
             public void onClick(View v) throws NullPointerException {
-                // TODO Auto-generated method stub
-
                 try{
-
-
-                        if(!mPassword.getText().toString().isEmpty()|| !mPassword.getText().toString().matches("") ||  !mEmail.getText().toString().isEmpty()|| !mEmail.getText().toString().matches("")) {
-                            SignIn();
-                        }else{throw  new NullPointerException();}
+                    if(!mPassword.getText().toString().isEmpty()|| !mPassword.getText().toString().matches("") ||  !mEmail.getText().toString().isEmpty()|| !mEmail.getText().toString().matches("")) {
+                        SignIn();
+                    }else{throw  new NullPointerException();}
 
                 }catch (NullPointerException exception){
-                    System.exit(0);}
-
-
+                    //System.exit(0);
+                }
             }
         });
-
-
     }
-
-
-
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -185,15 +155,12 @@ public class SignInLoadActivity extends AppCompatActivity {
                             Toast.makeText(SignInLoadActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                         // ...
                     }
                 });
-
-
     }
 
-
+    @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -207,21 +174,14 @@ public class SignInLoadActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
     public void SignIn(){
         sign_in_with_email_and_password = new Sign_In_With_Email_And_Password();
         sign_in_with_email_and_password.SignInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
-
     }
 
     public void facebooklogin(View view) {
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.facebook_login_button);
+        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         // If using in a fragment
-
     }
 }

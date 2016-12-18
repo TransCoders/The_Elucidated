@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.firebase.client.Firebase;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.ConnectionResult;
@@ -31,37 +32,25 @@ import gr.edu.serres.TrancCoder_TheElucitated.R;
 public class HomeScreenActivity extends AppCompatActivity {
 
 
-
     private ImageView imageView;
     private TextView homeTextView;
-    private Button newGameButton, loadGameButton, firstStepsButton, testApp;
-    private Database_Functions database_functions;
-    LocationManager locationManager = null;
-    FindCounty findCounty;
+    private Button newGameButton, loadGameButton, firstStepsButton;
+    LocationManager locationManager= null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen_activity);
+
         AppEventsLogger.activateApp(this);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
+        Firebase.setAndroidContext(getApplicationContext());
 
+        setContentView(R.layout.home_screen_activity);
 
-
-
-
-
-      /*  FirebaseAuth auth = FirebaseAuth.getInstance();
-        startActivityForResult(AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setProviders(AuthUI.FACEBOOK_PROVIDER)
-                .build(),1);
-*/
-
-        //database_functions = Database_Functions.getInstance(getApplicationContext(),HomeScreenActivity.this);
         imageView = (ImageView) findViewById(R.id.imageView);
 
         homeTextView = (TextView) findViewById(R.id.textView);
@@ -72,39 +61,22 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         firstStepsButton = (Button) findViewById(R.id.button3);
 
-        testApp = (Button) findViewById(R.id.test_app);
-
-
-        testApp.setText("Test App");
-        testApp.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    if (!isGooglePlayServicesAvailable(HomeScreenActivity.this)) {
-                        buildAlertMessageNoPlayServices();
-                    } else {
-                        findCounty = new FindCounty(HomeScreenActivity.this, locationManager);
-                        findCounty.execute(locationManager);
-                    }
-                } else {
-                    buildAlertMessageNoGps();
-                }
-            }
-
-        });
-
         newGameButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    if(!isGooglePlayServicesAvailable(HomeScreenActivity.this)){
+                        buildAlertMessageNoPlayServices();
+                    }else {
+                        Intent myIntent = new Intent(HomeScreenActivity.this, DataScreenActivity.class);
+                        HomeScreenActivity.this.startActivity(myIntent);
+                    }
+                } else {
+                    buildAlertMessageNoGps();
+                }
 
-                Intent myIntent = new Intent(HomeScreenActivity.this, DataScreenActivity.class);
-                HomeScreenActivity.this.startActivity(myIntent);
             }
         });
 
@@ -113,8 +85,17 @@ public class HomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent myIntent = new Intent(HomeScreenActivity.this, SignInLoadActivity.class);
-                HomeScreenActivity.this.startActivity(myIntent);
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    if(!isGooglePlayServicesAvailable(HomeScreenActivity.this)){
+                        buildAlertMessageNoPlayServices();
+                    }else {
+                        Intent myIntent = new Intent(HomeScreenActivity.this, SignInLoadActivity.class);
+                        HomeScreenActivity.this.startActivity(myIntent);
+                    }
+                } else {
+                    buildAlertMessageNoGps();
+                }
+
             }
         });
 
@@ -127,24 +108,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                 HomeScreenActivity.this.startActivity(myIntent);
             }
         });
-    }
-
-
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("HomeScreen Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 
     @Override
