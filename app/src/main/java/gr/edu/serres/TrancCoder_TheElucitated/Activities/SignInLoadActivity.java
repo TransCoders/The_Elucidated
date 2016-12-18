@@ -68,7 +68,7 @@ public class SignInLoadActivity extends AppCompatActivity {
     }
 
     public void facebooklogin(View view) {
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton) view.findViewById(R.id.facebook_login_button);
         loginButton.setReadPermissions("email");
         // If using in a fragment
 
