@@ -48,6 +48,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.google.android.gms:play-services-auth:9.8.0'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    compile 'com.android.support:design:25.+'
 
 //test
 
