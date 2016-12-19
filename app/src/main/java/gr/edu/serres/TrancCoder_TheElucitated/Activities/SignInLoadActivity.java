@@ -29,7 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password;
+import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password_Check;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
@@ -40,17 +40,16 @@ import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 public class SignInLoadActivity extends AppCompatActivity {
 
+    private static final String TAG = "SignInLoadActivity";
     private Button continueButton, googleButton;
     private EditText mPassword, mEmail;
     private Inventory inventoryClass;
     private String Location;
     private Database_Functions database;
-    private Sign_In_With_Email_and_Password sign_in_with_email_and_password;
-
+    private Sign_In_With_Email_and_Password_Check sign_in_with_email_and_password;
     private CallbackManager callbackManager;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private static final String TAG = "SignInLoadActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,8 +182,8 @@ public class SignInLoadActivity extends AppCompatActivity {
     }
 
     public void SignIn(){
-        sign_in_with_email_and_password = new Sign_In_With_Email_and_Password();
-        sign_in_with_email_and_password.Sign_In_With_Email_And_Password(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
+        sign_in_with_email_and_password = new Sign_In_With_Email_and_Password_Check();
+        sign_in_with_email_and_password.Sign_In_With_Email_and_Password_Check(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
     }
 
     public void facebooklogin(View view) {

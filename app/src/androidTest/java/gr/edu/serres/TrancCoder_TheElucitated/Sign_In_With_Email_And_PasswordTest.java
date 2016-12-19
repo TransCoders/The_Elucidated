@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password;
+import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password_Check;
 
 /**
  * Created by James Nikolaidis on 12/5/2016.
@@ -24,18 +24,18 @@ public class Sign_In_With_Email_And_PasswordTest {
     @Test
     public void signInWithEmailAndPassword() throws Exception {
 
-        Sign_In_With_Email_and_Password details;
+        Sign_In_With_Email_and_Password_Check details;
 
         ActivityTestRule<Activity> mActivityRule = new ActivityTestRule<>(
                 Activity.class);
-        details= new Sign_In_With_Email_and_Password();
-        details.Sign_In_With_Email_And_Password(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
+        details = new Sign_In_With_Email_and_Password_Check();
+        details.Sign_In_With_Email_and_Password_Check(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
 
 
         Email="cat";
 
-        details= new Sign_In_With_Email_and_Password();
-        details.Sign_In_With_Email_And_Password(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
+        details = new Sign_In_With_Email_and_Password_Check();
+        details.Sign_In_With_Email_and_Password_Check(Email, Password, mActivityRule.getActivity(), InstrumentationRegistry.getContext());
 
     }
 

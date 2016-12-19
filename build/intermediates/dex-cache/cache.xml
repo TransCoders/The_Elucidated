@@ -3,6 +3,24 @@
 
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="74ac7cbcf0de4a88e59612dc3a9e3f9e71acb4ca">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-9.8.0_d8cc96617d4802b6da5cb74dd228bc9f97418ec5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_4b286f114ee511c533c88ec40b5d17f7b56a657f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/9.8.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -27,6 +45,15 @@
         revision="25.0.0"
         sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.0_793a4388aad9aa822b6d8a0283e9720d8201c168/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="679251204de40ace98776a6f4e3a649c27e3d89f">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-places-9.8.0_bd5ff94991e33f91d3c29bf032dddd7a09fc4b53/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -66,6 +93,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_9906f70e6de0fe9cacd2c6a289567a458cab5138/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
         jumboMode="true"
         optimize="true"
@@ -90,6 +126,15 @@
         revision="25.0.0"
         sha1="3daa7a9c9009fd386872a84c177a76979bdcafd6">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-9.8.0_7239e35f6d24417a69656bcefa7e2b93f20c924c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7fd91ec2730fdaa82906aad32a3f3d3e574bae56">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-9.8.0_50ed3ea96e9e84c0a41770b5347fca2eec2df49b/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -138,6 +183,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-9.8.0_b925e3ddaabc904f955dd832cbe6bedb85c88a18/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/palette-v7/24.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -162,249 +216,6 @@
         revision="25.0.0"
         sha1="190a642ba16d1421296a4d794606279b80039c59">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.8.0_3d6a824b219ecb16dab43663544b975969c19cc9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="910c013c511f752c4bbe24c5f492f669f4a3ccc0">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-9.8.0_fd14189eea9808109a957cd2efbcc1795a4ccc3d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.8.0_aa37155203ca8c3fd22d9f1f556eb713e1209cfd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.1.0_98b6520450d942f4df048ba617547937d742ba69/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e9b2cfdfd59b03643f1e240668275378b96615a8">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-9.8.0_26dafe5fa27ae20e065abb2ed0db3cafc5fa3535/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-module/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-module-9.8.0_7481133007b02449d8853bdb53f539a6807e3edd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_b3ec174bb909932f8b64112f20286bc147f01ea5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="85299bf1924dde0200109a58033c5ef84ecb6991">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.8.0_e917ca313d34300f8fa00855aba8cab3a8dcb313/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_ba9a877a3658f79d19ba6c0793332c3c7ab781c6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_7ecbc32a4975505cd9049d238311f2c5ddf2192a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.8.0_41f533d4ba6c210190aa8fc8ebec6916dcb562a5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ec9104b53aee77dfcfd2fe1c4add23ff7c4df55f">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-9.8.0_fe98f7845fb6f5f2592b3f4acfbf8f91a217c22b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-client-jvm/2.4.0/558e074f136fee609b8758480ecd00e286595137/firebase-client-jvm-2.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="558e074f136fee609b8758480ecd00e286595137">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/firebase-client-jvm-2.4.0_8f9ba541f35704d20ab93a9c62cf3a4aef9b9ef1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="9ff04cc3470178a44512624036751a803418c2ca">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.8.0_fe5910cfdd0f2977a50e6f60c2e6d4660de90dee/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="a972970c8beddb69c198f61f3fc55f0606a7dfe3">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-9.8.0_6444706023560de2d44c0c1f7e3820a564c6cce7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="f2d240dd085626f03f759c41d628a0c8b63e491f">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-9.8.0_bd058eb37f413443aa13dac018758f9f096bb93b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="cef85cfc7df40e29fbea58844dd4c1e7d0b15542">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-9.8.0_07ebb1285179cf33a56595fc97605dc93bc1d0a3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b4671be3d1288bf4e5f527cd33e42909fbe4ecc6">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-9.8.0_8071735886691280fed5b98e0e94fe2e9e057852/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="16afe57c1d7f8165d107c7806ce7b0c71de87159">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-9.8.0_759a4d3a3e688e2f6ef5c10a5d7af48581c5271b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/customtabs/25.0.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="94ba691efc31bf53264db0716d9c9ec03843ea31">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-customtabs-25.0.0_d886afe5f492c358ca861aa1e4a6f20c5daff248/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.2.2/285cb9c666f0f0f3dd8a1be04e1f457eb7b15113/jackson-annotations-2.2.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="285cb9c666f0f0f3dd8a1be04e1f457eb7b15113">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-annotations-2.2.2_2561bc17cad5dc85f5b9dbc299a81a8572b2d9bc/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.firebase/tubesock/0.0.12/6ec0bbd3e161a73ed672284b587fd32309a86d7a/tubesock-0.0.12.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6ec0bbd3e161a73ed672284b587fd32309a86d7a">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/tubesock-0.0.12_d6efce62eba86c8e5040c8603a399021da070fa5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="74ac7cbcf0de4a88e59612dc3a9e3f9e71acb4ca">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-9.8.0_d8cc96617d4802b6da5cb74dd228bc9f97418ec5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_4b286f114ee511c533c88ec40b5d17f7b56a657f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="679251204de40ace98776a6f4e3a649c27e3d89f">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-places-9.8.0_bd5ff94991e33f91d3c29bf032dddd7a09fc4b53/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_9906f70e6de0fe9cacd2c6a289567a458cab5138/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7fd91ec2730fdaa82906aad32a3f3d3e574bae56">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-9.8.0_50ed3ea96e9e84c0a41770b5347fca2eec2df49b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
-        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-9.8.0_b925e3ddaabc904f955dd832cbe6bedb85c88a18/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -471,6 +282,42 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="910c013c511f752c4bbe24c5f492f669f4a3ccc0">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-9.8.0_fd14189eea9808109a957cd2efbcc1795a4ccc3d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.8.0_aa37155203ca8c3fd22d9f1f556eb713e1209cfd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.1.0_98b6520450d942f4df048ba617547937d742ba69/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e9b2cfdfd59b03643f1e240668275378b96615a8">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-9.8.0_26dafe5fa27ae20e065abb2ed0db3cafc5fa3535/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/jars/libs/internal_impl-24.0.0.jar"
         jumboMode="true"
         optimize="true"
@@ -480,12 +327,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-module/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-module-9.8.0_7481133007b02449d8853bdb53f539a6807e3edd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/9.8.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="a7a04d6b7c01e569a285fa627cf64f5b05295906">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-9.8.0_f8ffbbddd44a5c04d8ec02afb7039adfedd4c5e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_b3ec174bb909932f8b64112f20286bc147f01ea5/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -507,12 +372,48 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="85299bf1924dde0200109a58033c5ef84ecb6991">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.8.0_e917ca313d34300f8fa00855aba8cab3a8dcb313/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="e1db2fd0c186a7d11c63e8917cbc943baa770670">
+        sha1="22b9075418d0fef48e62a1341b828664265c81b6">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_732d256c1b7b31651b3e66088b43f10f13eb7595/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_ba9a877a3658f79d19ba6c0793332c3c7ab781c6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_7ecbc32a4975505cd9049d238311f2c5ddf2192a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.8.0_41f533d4ba6c210190aa8fc8ebec6916dcb562a5/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -540,6 +441,24 @@
         revision="25.0.0"
         sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.0_a15811ff1d78b0963ffb9ebc7065200aed168f16/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec9104b53aee77dfcfd2fe1c4add23ff7c4df55f">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-9.8.0_fe98f7845fb6f5f2592b3f4acfbf8f91a217c22b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-client-jvm/2.4.0/558e074f136fee609b8758480ecd00e286595137/firebase-client-jvm-2.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="558e074f136fee609b8758480ecd00e286595137">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/firebase-client-jvm-2.4.0_8f9ba541f35704d20ab93a9c62cf3a4aef9b9ef1/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -579,6 +498,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9ff04cc3470178a44512624036751a803418c2ca">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.8.0_fe5910cfdd0f2977a50e6f60c2e6d4660de90dee/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/9.8.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -612,6 +540,15 @@
         revision="25.0.0"
         sha1="d38084015027549951cbaea5d5f6fb795cc81151">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.0_d865d163701684ea16e02d708b4784676935d981/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a972970c8beddb69c198f61f3fc55f0606a7dfe3">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-9.8.0_6444706023560de2d44c0c1f7e3820a564c6cce7/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -651,12 +588,39 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2d240dd085626f03f759c41d628a0c8b63e491f">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-9.8.0_bd058eb37f413443aa13dac018758f9f096bb93b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/9.8.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="0b53c4b90654b67ee3892a8e2e7b819c083ab7a6">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-9.8.0_18ef03914614f95073d795640b1d39bf40dede50/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cef85cfc7df40e29fbea58844dd4c1e7d0b15542">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-9.8.0_07ebb1285179cf33a56595fc97605dc93bc1d0a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b4671be3d1288bf4e5f527cd33e42909fbe4ecc6">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-9.8.0_8071735886691280fed5b98e0e94fe2e9e057852/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -682,8 +646,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="7819868cd73782f4c83868db8102384e9e61bcc9">
+        sha1="74d237e0061b9deccd619151ffc710f92e746e20">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_df7291833129670955939d69c357832a0805def3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="16afe57c1d7f8165d107c7806ce7b0c71de87159">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-9.8.0_759a4d3a3e688e2f6ef5c10a5d7af48581c5271b/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -693,6 +666,15 @@
         revision="25.0.0"
         sha1="a30aea7df545072ad3c06f56b2efc13e67222140">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-vision-9.8.0_eed6f8f7053ff3455091ee90f0a227a070670da3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/exploded-aar/com.android.support/customtabs/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="94ba691efc31bf53264db0716d9c9ec03843ea31">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-customtabs-25.0.0_d886afe5f492c358ca861aa1e4a6f20c5daff248/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -711,6 +693,24 @@
         revision="25.0.0"
         sha1="266570862e5792ef3c51143a8b8593cf54fac68d">
         <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-9.8.0_bb54ee551e92773fca509c0abe29d5a123be7e52/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.2.2/285cb9c666f0f0f3dd8a1be04e1f457eb7b15113/jackson-annotations-2.2.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="285cb9c666f0f0f3dd8a1be04e1f457eb7b15113">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-annotations-2.2.2_2561bc17cad5dc85f5b9dbc299a81a8572b2d9bc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tasos/.gradle/caches/modules-2/files-2.1/com.firebase/tubesock/0.0.12/6ec0bbd3e161a73ed672284b587fd32309a86d7a/tubesock-0.0.12.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ec0bbd3e161a73ed672284b587fd32309a86d7a">
+        <dex dex="/home/tasos/Projects/Android_Studio_Projects/The_Elucidated/app/build/intermediates/transforms/dex/debug/folders/1000/10/tubesock-0.0.12_d6efce62eba86c8e5040c8603a399021da070fa5/classes.dex" />
     </item>
 
 </items>
