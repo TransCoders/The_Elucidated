@@ -1,5 +1,6 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,8 +37,16 @@ public class DataScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        email_and_password_auth = new Email_And_Password_Auth(getApplicationContext());
         setContentView(R.layout.data_screen_activity);
+
+        Configuration config = getResources().getConfiguration();
+        if (config.screenWidthDp <= 400) {
+            setContentView(R.layout.data_screen_activity_small);
+        } else {
+            setContentView(R.layout.data_screen_activity);
+        }
+
+        email_and_password_auth = new Email_And_Password_Auth(getApplicationContext());
         mpassword = (EditText) findViewById(R.id.Name_Edit_Text);
         mEmail = (EditText) findViewById(R.id.Email_EditText);
         continueButton = (Button) findViewById(R.id.button4);

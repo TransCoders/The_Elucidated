@@ -1,7 +1,7 @@
 package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 
 import android.content.Intent;
-import android.location.LocationManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,11 +29,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_And_Password;
+import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
-import gr.edu.serres.TrancCoder_TheElucitated.FindCounty;
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Inventory;
-import gr.edu.serres.TrancCoder_TheElucitated.Objects.User;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
 
 /**
@@ -47,7 +45,7 @@ public class SignInLoadActivity extends AppCompatActivity {
     private Inventory inventoryClass;
     private String Location;
     private Database_Functions database;
-    private Sign_In_With_Email_And_Password sign_in_with_email_and_password;
+    private Sign_In_With_Email_and_Password sign_in_with_email_and_password;
 
     private CallbackManager callbackManager;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -56,7 +54,17 @@ public class SignInLoadActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.sign_in_load_activity);
+
+        Configuration config = getResources().getConfiguration();
+        if (config.screenWidthDp <= 400) {
+            setContentView(R.layout.sign_in_load_activity_small);
+        } else {
+            setContentView(R.layout.sign_in_load_activity);
+        }
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -106,7 +114,7 @@ public class SignInLoadActivity extends AppCompatActivity {
 
 
 
-        setContentView(R.layout.sign_in_load_activity);
+
         database = Database_Functions.getInstance(getApplicationContext(), this);
         mPassword = (EditText) findViewById(R.id.Password_EditText);
         mEmail = (EditText) findViewById(R.id.Name_Edit_Text);
@@ -175,8 +183,8 @@ public class SignInLoadActivity extends AppCompatActivity {
     }
 
     public void SignIn(){
-        sign_in_with_email_and_password = new Sign_In_With_Email_And_Password();
-        sign_in_with_email_and_password.SignInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
+        sign_in_with_email_and_password = new Sign_In_With_Email_and_Password();
+        sign_in_with_email_and_password.Sign_In_With_Email_And_Password(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
     }
 
     public void facebooklogin(View view) {

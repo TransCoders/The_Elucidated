@@ -3,6 +3,7 @@ package gr.edu.serres.TrancCoder_TheElucitated.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,13 +44,20 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.home_screen_activity);
+
+        Configuration config = getResources().getConfiguration();
+        if (config.screenWidthDp <= 400) {
+            setContentView(R.layout.home_screen_activity_small);
+        } else {
+            setContentView(R.layout.home_screen_activity);
+        }
+
         AppEventsLogger.activateApp(this);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         Firebase.setAndroidContext(getApplicationContext());
-
-        setContentView(R.layout.home_screen_activity);
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
