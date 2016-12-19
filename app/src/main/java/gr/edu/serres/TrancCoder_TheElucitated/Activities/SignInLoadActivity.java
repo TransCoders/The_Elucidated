@@ -16,7 +16,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,8 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Arrays;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Authentication.Sign_In_With_Email_and_Password_Check;
 import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
@@ -55,8 +52,12 @@ public class SignInLoadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.sign_in_load_activity);
+
+
+
+
 
         Configuration config = getResources().getConfiguration();
         if (config.screenWidthDp <= 400) {
@@ -90,26 +91,6 @@ public class SignInLoadActivity extends AppCompatActivity {
         };
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.e(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                FirebaseAuth.getInstance().signOut();
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
 
 
 
@@ -137,12 +118,13 @@ public class SignInLoadActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        Intent myIntent = new Intent(SignInLoadActivity.this, DataScreenActivity.class);
+        startActivity(myIntent);
     }
 
 
-    public void sendLoginFacebookData(View view) {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "emali"));
-    }
+
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
@@ -187,8 +169,34 @@ public class SignInLoadActivity extends AppCompatActivity {
     }
 
     public void facebooklogin(View view) {
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
+        LoginButton loginButton = (LoginButton) view.findViewById(R.id.facebook_login_button);
+        loginButton.setReadPermissions("public_profile", "email");
+        callbackManager = CallbackManager.Factory.create();
+
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                FirebaseAuth.getInstance().signOut();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+
+            }
+        });
+
+
         // If using in a fragment
+
     }
 }

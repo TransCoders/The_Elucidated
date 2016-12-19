@@ -98,5 +98,16 @@
             android:layout_alignEnd="@+id/textView2" />
 
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="facebooklogin"
+            android:layout_below="@+id/Name_Edit_Text"
+            android:layout_toEndOf="@+id/imageView"
+            android:layout_marginTop="94dp" />
+
+
     </RelativeLayout>
 </ScrollView>
