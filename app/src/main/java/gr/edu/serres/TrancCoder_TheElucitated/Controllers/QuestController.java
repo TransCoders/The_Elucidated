@@ -2,7 +2,6 @@ package gr.edu.serres.TrancCoder_TheElucitated.Controllers;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Map;
 
 import gr.edu.serres.TrancCoder_TheElucitated.Objects.Quest;
 import gr.edu.serres.TrancCoder_TheElucitated.R;
@@ -22,29 +21,8 @@ public class QuestController {
         questHashMap.put(name,quest);
     }
 
-    public String questChooser(String dialogue){
-        int level = questHashMap.get(dialogue).getLevel();
-        for (Object o : questHashMap.entrySet()) {
-            Quest quest = (Quest) ((Map.Entry) o).getValue();
-            if (quest.getLevel() == level + 1) {
-                return quest.getDialogue();
-            }
-        }
-        return null;
-    }
-
     public HashMap<String, Quest> getQuestHashMap() {
         return questHashMap;
-    }
-
-    public String getQuestDialogue(int level){
-        for (Object o : questHashMap.entrySet()) {
-            Quest quest = (Quest) ((Map.Entry) o).getValue();
-            if (quest.getLevel() == level) {
-                return quest.getDialogue();
-            }
-        }
-        return null;
     }
 
     public int getQuestId(String dialogue){
