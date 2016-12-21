@@ -19,7 +19,7 @@ import static com.google.android.gms.wearable.DataMap.TAG;
  * Created by James Nikolaidis on 12/4/2016.
  */
 
-public class Sign_In_With_Email_And_Password {
+class Sign_In_With_Email_And_Password {
 
     private FirebaseAuth mAuth;
     LocationManager locationManager;
