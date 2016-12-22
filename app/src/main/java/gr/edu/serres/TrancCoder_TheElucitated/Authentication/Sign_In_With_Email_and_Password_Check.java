@@ -12,7 +12,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import gr.edu.serres.TrancCoder_TheElucitated.Activities.NavActivity;
+import gr.edu.serres.TrancCoder_TheElucitated.Database.Database_Functions;
+import gr.edu.serres.TrancCoder_TheElucitated.FindCounty;
 
 import static com.google.android.gms.wearable.DataMap.TAG;
 
