@@ -165,7 +165,7 @@ public class SignInLoadActivity extends AppCompatActivity {
 
     public void SignIn(){
         sign_in_with_email_and_password = new Sign_In_With_Email_and_Password_Check();
-        sign_in_with_email_and_password.Sign_In_With_Email_and_Password_Check(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
+        sign_in_with_email_and_password.Sign_In_With_Email_and_Password(mEmail.getText().toString(), mPassword.getText().toString(), this, getApplicationContext());
     }
 
     public void facebooklogin(View view) {
