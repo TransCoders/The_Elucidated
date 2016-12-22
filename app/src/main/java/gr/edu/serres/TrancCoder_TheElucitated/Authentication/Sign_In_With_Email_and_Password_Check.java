@@ -23,13 +23,15 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 public class Sign_In_With_Email_and_Password_Check {
 
     private FirebaseAuth mAuth;
+    private Database_Functions databaseFunctions;
+    private LocationManager locationManager;
 
     public Sign_In_With_Email_and_Password_Check() {
         mAuth = FirebaseAuth.getInstance();
     }
 
 
-    public void Sign_In_With_Email_and_Password_Check(String Email, String Password, final Activity activity, final Context context) {
+    public void Sign_In_With_Email_and_Password(String Email, String Password, final Activity activity, final Context context) {
 
         final boolean[] complete = {true};
 
@@ -49,9 +51,14 @@ public class Sign_In_With_Email_and_Password_Check {
                                 if (task.isSuccessful()) {
                                     Log.w(TAG, "signInWithEmail:Success", task.getException());
                                     Toast.makeText(context, "Sign in Success", Toast.LENGTH_SHORT).show();
-                                    Intent myIntent = new Intent(activity, NavActivity.class);
-                                    activity.startActivity(myIntent);
+                                    databaseFunctions = Database_Functions.getInstance(context,activity);
+                                    databaseFunctions.getUserProfileAdapter(Email);
 
+                                    locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+                                    FindCounty findCounty;
+                                    findCounty = new FindCounty(context, locationManager);
+                                    findCounty.execute(locationManager);
+                                    activity.finish();
                                 }
 
                                 // ...
