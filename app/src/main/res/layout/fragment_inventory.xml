@@ -5,9 +5,12 @@
     tools:context="gr.edu.serres.TrancCoder_TheElucitated.Fragments.InventoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the inventory Fragment" />
+        android:layout_height="wrap_content"
+        android:id="@+id/inventory_fragment">
 
+
+
+    </ListView>
 </FrameLayout>
