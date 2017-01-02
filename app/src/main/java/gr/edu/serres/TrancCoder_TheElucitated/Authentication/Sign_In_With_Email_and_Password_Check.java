@@ -33,7 +33,7 @@ public class Sign_In_With_Email_and_Password_Check {
     }
 
 
-    public void Sign_In_With_Email_and_Password(String Email, String Password, final Activity activity, final Context context) {
+    public void Sign_In_With_Email_and_Password(final String Email, String Password, final Activity activity, final Context context) {
 
         final boolean[] complete = {true};
 
