@@ -33,7 +33,7 @@ public class InventoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          newUserObject = new User();
-        database_functions = Database_Functions.getInstance(getContext(),getActivity());
+        database_functions = Database_Functions.getInstance(getActivity().getApplicationContext(),getActivity());
         newUserObject=database_functions.getUserData();
 
 
@@ -55,7 +55,7 @@ public class InventoryFragment extends Fragment {
             newList.add(list.get(i).getName());
         }
 
-        ListAdapter adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,newList);
+        ListAdapter adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),android.R.layout.simple_list_item_1,newList);
         inventoryListView.setAdapter(adapter);
 
 
