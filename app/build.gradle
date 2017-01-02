@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "gr.edu.serres.TrancCoder_TheElucitated"
-        minSdkVersion 23
+        minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
